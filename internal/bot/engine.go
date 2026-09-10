@@ -81,7 +81,60 @@ type State struct {
 	LastCycle                         time.Time
 	LastSource                        string
 	Cooldown                          map[string]time.Time
+	Equity                            []EquityPoint `json:",omitempty"`
 }
+type EquityPoint struct {
+	At    time.Time
+	Value decimal.Decimal
+}
+
+// Report summarises a ledger from its hourly marked equity series.
+type Report struct {
+	Mode, Halted, LastSource  string
+	Budget, Equity, HighWater decimal.Decimal
+	ReturnPct, MaxDrawdownPct float64
+	Points, Fills, Holdings   int
+	First, Last               time.Time
+}
+
+func Summarize(s State) Report {
+	r := Report{Mode: s.Mode, Halted: s.Halted, LastSource: s.LastSource, Budget: s.Budget, HighWater: s.HighWater, Points: len(s.Equity), Fills: len(s.Fills), Holdings: len(s.Holdings)}
+	if len(s.Equity) == 0 {
+		r.Equity = s.Cash
+		return r
+	}
+	r.First, r.Last, r.Equity = s.Equity[0].At, s.Equity[len(s.Equity)-1].At, s.Equity[len(s.Equity)-1].Value
+	peak := s.Equity[0].Value
+	for _, p := range s.Equity {
+		if p.Value.GreaterThan(peak) {
+			peak = p.Value
+		}
+		if peak.IsPositive() {
+			if dd, _ := peak.Sub(p.Value).Div(peak).Mul(decimal.NewFromInt(100)).Float64(); dd > r.MaxDrawdownPct {
+				r.MaxDrawdownPct = dd
+			}
+		}
+	}
+	if s.Budget.IsPositive() {
+		r.ReturnPct, _ = r.Equity.Sub(s.Budget).Div(s.Budget).Mul(decimal.NewFromInt(100)).Float64()
+	}
+	return r
+}
+
+const maxEquityPoints = 24 * 400
+
+func (s *State) markEquity(now time.Time, equity decimal.Decimal) {
+	hour := now.UTC().Truncate(time.Hour)
+	if n := len(s.Equity); n > 0 && !s.Equity[n-1].At.Before(hour) {
+		s.Equity[n-1].Value = equity
+		return
+	}
+	s.Equity = append(s.Equity, EquityPoint{At: hour, Value: equity})
+	if len(s.Equity) > maxEquityPoints {
+		s.Equity = append([]EquityPoint(nil), s.Equity[len(s.Equity)-maxEquityPoints:]...)
+	}
+}
+
 type Engine struct {
 	Client *Client
 	Config Config
@@ -376,6 +429,7 @@ func (e *Engine) Cycle(ctx context.Context) error {
 	if equity.GreaterThan(s.HighWater) {
 		s.HighWater = equity
 	}
+	s.markEquity(now, equity)
 	day := now.UTC().Format("2006-01-02")
 	if day != s.Day {
 		s.Day = day

@@ -25,7 +25,7 @@ func main() {
 }
 func run() error {
 	cfg := bot.DefaultConfig()
-	command := flag.String("command", "status", "status, doctor, coverage, init, init-account, once, run, train, archive, account-plan, margin-paper, margin-paper-close, research-signals")
+	command := flag.String("command", "status", "status, report, doctor, coverage, init, init-account, once, run, train, archive, account-plan, margin-paper, margin-paper-close, research-signals")
 	experimental := flag.Bool("experimental-fallback", false, "paper-only exploratory trend20/BTC fallback; not live validated")
 	mode := flag.String("mode", "paper", "paper or live")
 	state := flag.String("state", "data/paper", "state directory; separate paper and live")
@@ -159,6 +159,12 @@ func run() error {
 			return err
 		}
 		return output(s)
+	case "report":
+		s, err := engine.Status()
+		if err != nil {
+			return err
+		}
+		return output(bot.Summarize(s))
 	}
 	lockDir := cfg.StateDir
 	if *command == "train" {

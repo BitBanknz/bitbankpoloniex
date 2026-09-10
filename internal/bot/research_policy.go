@@ -65,11 +65,11 @@ func DailyTrend(b []Candle) (float64, bool) {
 		return 0, false
 	}
 	last := len(b) - 1
-	vol := make([]float64, 20)
+	var vol [20]float64
 	for i := range vol {
 		vol[i] = b[last-i].Volume
 	}
-	sort.Float64s(vol)
+	sort.Float64s(vol[:])
 	median := (vol[9] + vol[10]) / 2
 	r20 := b[last].Close/b[last-20].Close - 1
 	r120 := b[last].Close/b[last-120].Close - 1

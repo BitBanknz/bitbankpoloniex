@@ -12,11 +12,13 @@ for lo,hi in zip(bounds[:-1],bounds[1:]):
  q=np.zeros(len(symbols));peaks=np.zeros(len(symbols));cash=10000.;curve=[];stops=0;clipped=0;fees=0.;failure=None
  for t in range(1,len(clock)):
   price=arrays['open'][t];held=q>1e-12
-  if ((~np.isfinite(price))&held).any():failure='missing held hourly price at '+str(clock[t]);break
+  if ((~np.isfinite(price))&held).any():failure='missing held hourly price at '+str(clock[t])+': '+','.join(np.asarray(symbols)[(~np.isfinite(price))&held]);break
   equity=cash+np.where(held,q*price,0).sum()
   i=lo+(t-1)//24
   if (t-1)%24==0 and (i-lo)%7==0 and i<hi-1:
-   target=w[i]*equity;desired=np.divide(target,price,out=np.zeros_like(q),where=target>0);delta=desired-q
+   target=w[i]*equity
+   if ((~np.isfinite(price))&(target>0)).any():failure='missing target entry open';break
+   desired=np.divide(target,price,out=np.zeros_like(q),where=target>0);delta=desired-q
    active=np.abs(delta)>1e-12
    if ((~np.isfinite(price)|~np.isfinite(arrays['quote_volume'][t-1]))&active).any():failure='missing entry price/preceding volume';break
    cap=np.nan_to_num(arrays['quote_volume'][t-1])*.001
@@ -32,7 +34,7 @@ for lo,hi in zip(bounds[:-1],bounds[1:]):
   sell=np.minimum(sell,np.divide(volumeCap,fill,out=np.zeros_like(q),where=fill>0));proceeds=sell*np.nan_to_num(fill);cost=proceeds.sum()*.004;cash+=proceeds.sum()-cost;fees+=cost;q-=sell;stops+=int((sell>0).sum());peaks=np.where(q>1e-12,np.maximum(peaks,np.nan_to_num(high)),0)
   curve.append(cash+np.where(q>1e-12,q*close,0).sum())
  if failure:records.append({'start':str(grid[lo]),'error':failure});continue
- terminal=np.sum(np.where(q>1e-12,q*arrays['open'][-1],0))*.004;curve[-1]-=terminal;fees+=terminal;daily=np.array([10000.]+[curve[j] for j in range(23,len(curve)-1,24)]+[curve[-1]])
+ terminal=np.sum(np.where(q>1e-12,q*arrays['open'][-1],0))*.004;curve[-1]-=terminal;fees+=terminal;marks=[curve[j] for j in range(23,len(curve)-1,24)];marks[-1]=curve[-1];daily=np.array([10000.]+marks)
  r=daily[1:]/daily[:-1]-1;m=metrics(r);m.update(stops=stops,clipped_order_changes=clipped,execution_costs_initial_equity=fees/10000);records.append({'start':str(grid[lo]),'end':str(grid[hi]),'metrics':m});all_daily.extend(r);print(records[-1],flush=True)
 result={'candidate':c,'folds':records,'aggregate':metrics(all_daily),'all_folds_completed':all('metrics'in r for r in records),'positive_folds':sum(r.get('metrics',{}).get('return',-1)>0 for r in records),'assumptions':'$10k initial per fold; weekly weights; hourly 10% trailing high stop; min(open,stop) gap fill; 40bps per side; 0.1% prior-hour volume cap; original model selected after comparison; not live validated'}
 a.out.write_text(json.dumps(result,indent=2));print(result['aggregate'],result['positive_folds'],flush=True)

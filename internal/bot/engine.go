@@ -421,6 +421,15 @@ func (e *Engine) Cycle(ctx context.Context) error {
 			}
 		}
 	}
+	if predErr != nil && !ready && e.Config.ExperimentalFallback {
+		candidate, err := e.Client.ResearchSignals(ctx, e.Config.StateDir, markets)
+		if err == nil {
+			scores = candidate.Scores
+			observed = candidate.Observed
+			source = candidate.Source
+			ready = true
+		}
+	}
 	ranked := Targets(scores, markets, e.Config.Slots)
 	desired := make(map[string]bool, len(ranked))
 	for _, symbol := range ranked {
@@ -431,20 +440,24 @@ func (e *Engine) Cycle(ctx context.Context) error {
 		symbols = append(symbols, symbol)
 	}
 	sort.Strings(symbols)
+	// Exits never remove desired holdings, so needsCash and the funding floor
+	// are fixed for the whole exit scan instead of rebuilt per position.
+	needsCash := false
+	for target := range desired {
+		if _, held := s.Holdings[target]; !held {
+			needsCash = true
+			break
+		}
+	}
+	fundingFloor := s.Budget.Mul(decimal.NewFromFloat(.4)).Add(e.Config.MaxOrder.Mul(decimal.NewFromFloat(1.003)))
 	// Exit only tracked bot holdings. Untracked account ETH is never sold implicitly.
 	for _, symbol := range symbols {
 		p := s.Holdings[symbol]
 		b := books[symbol]
 		bid, _ := decimal.NewFromString(b.Bids[0])
 		stop := bid.LessThanOrEqual(p.Peak.Mul(decimal.NewFromFloat(.9)))
-		needsCash := false
-		for target := range desired {
-			if _, held := s.Holdings[target]; !held {
-				needsCash = true
-			}
-		}
 		riskOff := e.Config.ExperimentalFallback && len(desired) == 0
-		fundingExit := (needsCash || riskOff) && s.AccountBacked && p.Imported && ready && !desired[symbol] && (riskOff || s.Cash.LessThan(s.Budget.Mul(decimal.NewFromFloat(.4)).Add(e.Config.MaxOrder.Mul(decimal.NewFromFloat(1.003)))))
+		fundingExit := (needsCash || riskOff) && s.AccountBacked && p.Imported && ready && !desired[symbol] && (riskOff || s.Cash.LessThan(fundingFloor))
 		exit := ready && observed[symbol] && !desired[symbol] && now.Sub(p.Entered) >= 72*time.Hour
 		if !stop && !exit && !fundingExit {
 			continue
@@ -505,7 +518,8 @@ func (e *Engine) trade(ctx context.Context, s *State, m Market, b Book, side str
 	hash := sha256.Sum256([]byte(e.Config.Mode + "|" + key))
 	id := "bbp-" + hex.EncodeToString(hash[:20])
 	limit := decimal.Min(e.Config.MaxOrder, s.Budget.Mul(decimal.NewFromFloat(.1)))
-	spend := decimal.Min(limit, s.Cash.Sub(s.Budget.Mul(decimal.NewFromFloat(.4))).Div(decimal.NewFromInt(1).Add(e.Config.FeeRate)))
+	onePlusFee := decimal.NewFromInt(1).Add(e.Config.FeeRate)
+	spend := decimal.Min(limit, s.Cash.Sub(s.Budget.Mul(decimal.NewFromFloat(.4))).Div(onePlusFee))
 	if side == "BUY" && !spend.IsPositive() {
 		return nil
 	}
@@ -532,7 +546,7 @@ func (e *Engine) trade(ctx context.Context, s *State, m Market, b Book, side str
 		}
 		qty, _ := decimal.NewFromString(o.Quantity)
 		price, _ := decimal.NewFromString(o.Price)
-		if side == "BUY" && balances["USDT"].LessThan(qty.Mul(price).Mul(decimal.NewFromInt(1).Add(e.Config.FeeRate))) {
+		if side == "BUY" && balances["USDT"].LessThan(qty.Mul(price).Mul(onePlusFee)) {
 			return errors.New("insufficient free USDT; existing ETH is not cash")
 		}
 		if side == "SELL" && balances[m.Base].LessThan(qty) {

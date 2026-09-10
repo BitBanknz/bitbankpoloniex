@@ -137,6 +137,8 @@ func BuildOrder(m Market, b Book, side, id string, quote, owned decimal.Decimal,
 		return o, errors.New("invalid side")
 	}
 	depth := decimal.Zero
+	buyBound := anchor.Mul(decimal.NewFromFloat(1.001))
+	sellBound := anchor.Mul(decimal.NewFromFloat(.999))
 	for i := 0; i+1 < len(levels); i += 2 {
 		levelPrice, e := decimal.NewFromString(levels[i])
 		levelQty, qe := decimal.NewFromString(levels[i+1])
@@ -144,12 +146,12 @@ func BuildOrder(m Market, b Book, side, id string, quote, owned decimal.Decimal,
 			return o, errors.New("invalid book level")
 		}
 		if side == "BUY" {
-			if levelPrice.GreaterThan(anchor.Mul(decimal.NewFromFloat(1.001))) {
+			if levelPrice.GreaterThan(buyBound) {
 				break
 			}
 			worst = decimal.Max(worst, levelPrice)
 		} else {
-			if levelPrice.LessThan(anchor.Mul(decimal.NewFromFloat(.999))) {
+			if levelPrice.LessThan(sellBound) {
 				break
 			}
 			worst = decimal.Min(worst, levelPrice)

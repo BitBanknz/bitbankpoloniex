@@ -25,7 +25,7 @@ func main() {
 }
 func run() error {
 	cfg := bot.DefaultConfig()
-	command := flag.String("command", "status", "status, doctor, coverage, init, once, run, train")
+	command := flag.String("command", "status", "status, doctor, coverage, init, init-account, once, run, train, archive, account-plan, margin-paper, margin-paper-close, research-signals")
 	experimental := flag.Bool("experimental-fallback", false, "paper-only exploratory trend20/BTC fallback; not live validated")
 	mode := flag.String("mode", "paper", "paper or live")
 	state := flag.String("state", "data/paper", "state directory; separate paper and live")

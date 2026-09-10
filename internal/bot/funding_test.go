@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"path/filepath"
 	"strings"
 	"testing"
 	"time"
@@ -183,5 +184,54 @@ func TestDailyMomentumAndBTCRegime(t *testing.T) {
 	bars[len(bars)-1].Close = 1
 	if BTCRegime(bars) {
 		t.Fatal("bearish BTC regime accepted")
+	}
+}
+func TestExperimentalCycleConvertsImportedETH(t *testing.T) {
+	e := engine(t)
+	e.Config.ExperimentalFallback = true
+	s, _ := e.read()
+	s.AccountBacked = true
+	s.Cash = d("0")
+	s.Budget = d("400")
+	s.HighWater = d("400")
+	s.DayStart = d("400")
+	s.Holdings = map[string]Position{"ETH_USDT": {Imported: true, Quantity: d(".2"), Peak: d("2000"), Entered: time.Now().UTC()}}
+	if err := Save(e.path(), s); err != nil {
+		t.Fatal(err)
+	}
+	signal := ResearchSignal{Schema: "trend20-btc-paper-v1", Day: time.Now().UTC().Truncate(24 * time.Hour), Source: "experimental_test", Scores: map[string]float64{"BTC_USDT": 1}, Observed: map[string]bool{"BTC_USDT": true, "ETH_USDT": true}}
+	if err := Save(filepath.Join(e.Config.StateDir, "experimental-signals.json"), signal); err != nil {
+		t.Fatal(err)
+	}
+	btc := market()
+	btc.Symbol = "BTC_USDT"
+	btc.Base = "BTC"
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != "GET" {
+			t.Error("paper sent exchange write")
+		}
+		switch r.URL.Path {
+		case "/markets":
+			json.NewEncoder(w).Encode([]Market{market(), btc})
+		case "/markets/ticker24h":
+			json.NewEncoder(w).Encode([]Ticker{{Symbol: "ETH_USDT", Amount: "1000000", TS: time.Now().UnixMilli()}, {Symbol: "BTC_USDT", Amount: "1000000", TS: time.Now().UnixMilli()}})
+		case "/markets/ETH_USDT/orderBook", "/markets/BTC_USDT/orderBook":
+			json.NewEncoder(w).Encode(book())
+		default:
+			w.WriteHeader(503)
+		}
+	}))
+	defer srv.Close()
+	e.Client.BaseURL = srv.URL
+	e.Config.PredictionURL = srv.URL + "/prediction"
+	if err := e.Cycle(context.Background()); err != nil {
+		t.Fatal(err)
+	}
+	s, err := e.read()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(s.Fills) != 1 || s.Fills[0].Order.Side != "SELL" || !s.Cash.IsPositive() || !s.Holdings["ETH_USDT"].Quantity.LessThan(d(".2")) || s.LastSource != "experimental_test" {
+		t.Fatal("account funding failover not applied")
 	}
 }

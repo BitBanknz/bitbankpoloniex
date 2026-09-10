@@ -1,12 +1,13 @@
 package bot
 
 import (
+	"cmp"
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"math"
-	"sort"
+	"slices"
 	"time"
 )
 
@@ -37,9 +38,13 @@ func (m Ensemble) Predict(x Features) float64 {
 	}
 	return p
 }
+
+// lags is package-level so per-sample feature extraction allocates nothing.
+var lags = [4]int{1, 6, 24, 168}
+
 func features(b []Candle, i int) Features {
 	x := Features{}
-	for k, h := range []int{1, 6, 24, 168} {
+	for k, h := range lags {
 		x[k] = b[i].Close/b[i-h].Close - 1
 	}
 	sum, sum2, span := 0., 0., 0.
@@ -49,7 +54,8 @@ func features(b []Candle, i int) Features {
 		sum2 += r * r
 		span += (b[j].High - b[j].Low) / b[j].Close
 	}
-	x[4] = math.Sqrt(math.Max(0, sum2/24-math.Pow(sum/24, 2)))
+	mean := sum / 24
+	x[4] = math.Sqrt(math.Max(0, sum2/24-mean*mean))
 	x[5] = span / 24
 	return x
 }
@@ -76,48 +82,61 @@ func fit(s []sample) Ensemble {
 		m.Bias += r.Y
 	}
 	m.Bias /= float64(len(s))
-	pred := make([]float64, len(s))
+	n := len(s)
+	pred := make([]float64, n)
+	res := make([]float64, n)
+	idx := make([]int, n)
+	prefix := make([]float64, n+1)
+	prefixSq := make([]float64, n+1)
 	for i := range pred {
 		pred[i] = m.Bias
+		idx[i] = i
 	}
-	vals := make([]float64, len(s))
-	for round := 0; round < 32; round++ {
+	// Quantile cuts match the previous grid exactly (k*n/16 of the sorted
+	// column); only the error accounting changed from repeated full passes
+	// with Pow to one sorted scan with prefix sums per feature per round.
+	var cuts [15]float64
+	for range 32 {
+		for i, r := range s {
+			res[i] = r.Y - pred[i]
+		}
 		best := Stump{}
 		loss := math.Inf(1)
-		for f := 0; f < 6; f++ {
-			for i, r := range s {
-				vals[i] = r.X[f]
+		for f := range 6 {
+			for i := range idx {
+				idx[i] = i
 			}
-			sort.Float64s(vals)
+			slices.SortFunc(idx, func(a, b int) int { return cmp.Compare(s[a].X[f], s[b].X[f]) })
+			nc := 0
 			for k := 1; k < 16; k++ {
-				cut := vals[k*len(vals)/16]
-				l, r, nl, nr := 0., 0., 0, 0
-				for i, row := range s {
-					v := row.Y - pred[i]
-					if row.X[f] <= cut {
-						l += v
-						nl++
-					} else {
-						r += v
-						nr++
+				c := s[idx[k*n/16]].X[f]
+				if nc == 0 || c != cuts[nc-1] {
+					cuts[nc] = c
+					nc++
+				}
+			}
+			sum, sumsq := 0., 0.
+			for i, j := range idx {
+				sum += res[j]
+				sumsq += res[j] * res[j]
+				prefix[i+1] = sum
+				prefixSq[i+1] = sumsq
+			}
+			ci := 0
+			for i, j := range idx {
+				for ci < nc && cuts[ci] < s[j].X[f] {
+					nl := i
+					nr := n - i
+					if nl >= 24 && nr >= 24 {
+						sumL, sqL := prefix[i], prefixSq[i]
+						sumR, sqR := sum-sumL, sumsq-sqL
+						err := sqL - sumL*sumL/float64(nl) + sqR - sumR*sumR/float64(nr)
+						if err < loss {
+							loss = err
+							best = Stump{f, cuts[ci], .05 * sumL / float64(nl), .05 * sumR / float64(nr)}
+						}
 					}
-				}
-				if nl < 24 || nr < 24 {
-					continue
-				}
-				l /= float64(nl)
-				r /= float64(nr)
-				err := 0.
-				for i, row := range s {
-					v := l
-					if row.X[f] > cut {
-						v = r
-					}
-					err += math.Pow(row.Y-pred[i]-v, 2)
-				}
-				if err < loss {
-					loss = err
-					best = Stump{f, cut, .05 * l, .05 * r}
+					ci++
 				}
 			}
 		}

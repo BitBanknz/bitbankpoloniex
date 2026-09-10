@@ -1,0 +1,22 @@
+[Unit]
+Description=BitBank Poloniex live trader (real orders; operator-launched)
+Wants=network-online.target
+After=network-online.target
+StartLimitIntervalSec=3600
+StartLimitBurst=3
+
+[Service]
+Type=simple
+WorkingDirectory=/vfast/data/code/bitbankpoloniex
+EnvironmentFile=/vfast/data/code/bitbankpoloniex/deploy/live.env
+ExecStart=/vfast/data/code/bitbankpoloniex/bin/bitbankpoloniex --command run --mode live --state data/live --budget ${LIVE_BUDGET} --max-order ${LIVE_MAX_ORDER} --enable-live-orders
+Restart=on-failure
+RestartSec=300
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/vfast/data/code/bitbankpoloniex/data
+
+[Install]
+WantedBy=default.target

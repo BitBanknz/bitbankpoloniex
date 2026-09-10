@@ -40,7 +40,7 @@ separate locks so the daily refresh can run alongside the trader.
 ## How it picks trades
 
 Each hour the bot fetches BitBank rotation ranks, waits for the declared
-execution hour, and holds up to **4** of the top-ranked liquid USDT markets
+execution hour, and holds up to **3** (walk-forward validated, see bitbankgo docs/poloniex-deployed-walkforward-20260911.md) of the top-ranked liquid USDT markets
 (min 100,000 USDT 24h volume, max 30bps spread, depth-capped orders).
 Positions rotate on a 72-hour minimum hold with a 10% trailing stop; when
 neither BitBank nor a validated fallback model is usable, entries pause but

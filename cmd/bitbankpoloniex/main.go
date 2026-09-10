@@ -35,6 +35,7 @@ func run() error {
 	endpoint := flag.String("predictions", cfg.PredictionURL, "BitBank rank endpoint")
 	ack := flag.Bool("enable-live-orders", false, "explicitly enable real order submission")
 	interval := flag.Duration("interval", time.Minute, "cycle interval")
+	slots := flag.Int("slots", cfg.Slots, "maximum simultaneous rotation holdings (1-4)")
 	symbol := flag.String("symbol", "ETH_USDT", "market for funding plan")
 	funding := flag.String("funding", "convert", "convert or margin for read-only plan")
 	archiveDir := flag.String("archive", "data/archive-daily", "historical archive directory")
@@ -53,6 +54,7 @@ func run() error {
 	cfg.ExperimentalFallback = *experimental
 	cfg.StateDir = *state
 	cfg.PredictionURL = *endpoint
+	cfg.Slots = *slots
 	cfg.Budget, err = decimal.NewFromString(*budget)
 	if err != nil {
 		return errors.New("invalid budget")

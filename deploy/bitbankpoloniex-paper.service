@@ -8,7 +8,7 @@ StartLimitBurst=3
 [Service]
 Type=simple
 WorkingDirectory=%h/bitbankpoloniex
-ExecStart=%h/bitbankpoloniex/bin/bitbankpoloniex --command run --mode paper --state data/paper
+ExecStart=%h/bitbankpoloniex/bin/bitbankpoloniex --command run --mode paper --state data/paper --slots 3
 Restart=on-failure
 RestartSec=300
 UMask=0077

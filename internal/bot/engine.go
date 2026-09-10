@@ -298,6 +298,11 @@ func (e *Engine) apply(s *State, o Order, qty, amount, fee decimal.Decimal) {
 	}
 	s.Fills = append(s.Fills, Fill{Source: source, Order: o, Quantity: qty, Amount: amount, Fee: fee, At: time.Now().UTC(), Mode: e.Config.Mode})
 }
+
+// ErrEntriesPaused reports a completed cycle whose entries were skipped because no
+// signal source was usable; stop checks still ran and state was saved.
+var ErrEntriesPaused = errors.New("BitBank unavailable and no accepted fallback; entries paused")
+
 func (e *Engine) Cycle(ctx context.Context) error {
 	if err := e.Config.Validate(); err != nil {
 		return err
@@ -498,7 +503,7 @@ func (e *Engine) Cycle(ctx context.Context) error {
 		return err
 	}
 	if predErr != nil && !ready {
-		return errors.New("BitBank unavailable and no accepted fallback; entries paused")
+		return ErrEntriesPaused
 	}
 	return nil
 }

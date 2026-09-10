@@ -186,25 +186,40 @@ func run() error {
 	case "run":
 		ticker := time.NewTicker(*interval)
 		defer ticker.Stop()
-		failures := 0
-		for {
-			if err = engine.Cycle(ctx); err != nil {
-				failures++
-				log.Printf("cycle blocked (%d): %v", failures, err)
-			} else {
-				failures = 0
-				log.Print("cycle complete")
-			}
-			if failures >= 5 {
-				return errors.New("five consecutive failures; circuit open")
-			}
-			select {
-			case <-ctx.Done():
-				return nil
-			case <-ticker.C:
-			}
-		}
+		return runLoop(ctx, engine.Cycle, ticker.C)
 	default:
 		return fmt.Errorf("unknown command %q", *command)
+	}
+}
+
+// runLoop repeats cycle on every tick. Paused entries (no usable signal) are a
+// normal state most of the day and never open the circuit; only five
+// consecutive real failures do.
+func runLoop(ctx context.Context, cycle func(context.Context) error, tick <-chan time.Time) error {
+	failures, paused := 0, 0
+	for {
+		switch err := cycle(ctx); {
+		case err == nil:
+			failures, paused = 0, 0
+			log.Print("cycle complete")
+		case errors.Is(err, bot.ErrEntriesPaused):
+			failures = 0
+			if paused%60 == 0 {
+				log.Printf("cycle paused: %v", err)
+			}
+			paused++
+		default:
+			failures++
+			paused = 0
+			log.Printf("cycle blocked (%d): %v", failures, err)
+		}
+		if failures >= 5 {
+			return errors.New("five consecutive failures; circuit open")
+		}
+		select {
+		case <-ctx.Done():
+			return nil
+		case <-tick:
+		}
 	}
 }

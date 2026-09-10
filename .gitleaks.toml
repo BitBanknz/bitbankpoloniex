@@ -1,0 +1,8 @@
+title = "bitbankpoloniex"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "low-entropy placeholder tokens used in tests and docs"
+regexes = ["(?i)(fake|example|placeholder|test-key|secret-key|secret-value)"]

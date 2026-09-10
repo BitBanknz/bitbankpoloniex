@@ -1,0 +1,14 @@
+[Unit]
+Description=Validate fresh Poloniex fallback models (public market data only)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/bitbankpoloniex
+ExecStart=%h/bitbankpoloniex/bin/bitbankpoloniex --command train --state data/paper --markets 0
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=%h/bitbankpoloniex/data

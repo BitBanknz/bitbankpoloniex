@@ -1,0 +1,26 @@
+name: ci
+on:
+  push:
+  pull_request:
+
+jobs:
+  go:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - run: test -z "$(gofmt -l cmd internal)"
+      - run: go vet ./...
+      - run: go test -race -coverprofile=coverage.out ./...
+      - run: |
+          total=$(go tool cover -func=coverage.out | awk '/^total:/{gsub(/%/, "", $3); print $3}')
+          echo "total coverage: $total%"
+          awk -v t="$total" 'BEGIN{exit !(t + 0 >= 70)}'
+      - uses: dominikh/staticcheck-action@v1
+        with:
+          version: latest
+      - uses: gitleaks/gitleaks-action@v3

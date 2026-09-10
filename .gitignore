@@ -1,0 +1,10 @@
+.env
+.env.*
+!.env.example
+/bin/
+/data/
+*.test
+coverage.out
+coverage.html
+__pycache__/
+*.pyc

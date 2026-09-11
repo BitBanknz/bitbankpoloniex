@@ -34,7 +34,7 @@ func TestCanonicalSigning(t *testing.T) {
 		t.Fatal("mutated caller query")
 	}
 	got := canonical("POST", "/orders", nil, []byte(`{"symbol":"ETH_USDT"}`), "123")
-	if got != "POST\n/orders\nrequestBody=%7B%22symbol%22%3A%22ETH_USDT%22%7D&signTimestamp=123" {
+	if got != "POST\n/orders\nrequestBody={\"symbol\":\"ETH_USDT\"}&signTimestamp=123" {
 		t.Fatal(got)
 	}
 	if signature("key", "The quick brown fox jumps over the lazy dog") != "97yD9DBThCSxMpjmqm+xQ+9NWaFJRhdZl0edvC0aPNg=" {

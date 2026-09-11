@@ -37,10 +37,21 @@ func canonical(method, path string, q url.Values, body []byte, stamp string) str
 	}
 	v.Set("signTimestamp", stamp)
 	if len(body) > 0 {
-		v.Set("requestBody", string(body))
+		// Poloniex signs write bodies as the raw JSON string, never URL-encoded
+		// (official SDK: requestBody={body}&signTimestamp={ts}).
+		return method + "\n" + path + "\nrequestBody=" + string(body) + "&signTimestamp=" + stamp
 	}
 	return method + "\n" + path + "\n" + strings.ReplaceAll(v.Encode(), "+", "%20")
 }
+
+// HTTPError reports a non-2xx exchange response so callers can distinguish a
+// definite "unknown order" (404) from transport ambiguity.
+type HTTPError struct {
+	Method, Path string
+	Status       int
+}
+
+func (e *HTTPError) Error() string { return fmt.Sprintf("%s %s HTTP %d", e.Method, e.Path, e.Status) }
 func signature(secret, message string) string {
 	m := hmac.New(sha256.New, []byte(secret))
 	m.Write([]byte(message))
@@ -114,7 +125,7 @@ func (c *Client) request(ctx context.Context, method, path string, q url.Values,
 		return errors.New("response too large")
 	}
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		return fmt.Errorf("%s %s HTTP %d", method, path, resp.StatusCode)
+		return &HTTPError{Method: method, Path: path, Status: resp.StatusCode}
 	}
 	var apiErr struct {
 		Code json.RawMessage `json:"code"`

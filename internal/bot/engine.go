@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"github.com/shopspring/decimal"
 	"log"
+	"net/http"
 	"os"
 	"path/filepath"
 	"sort"
@@ -220,6 +221,11 @@ func (e *Engine) accountReady(ctx context.Context) (map[string]decimal.Decimal, 
 	return balances, nil
 }
 func (e *Engine) Ready(ctx context.Context) error { _, err := e.accountReady(ctx); return err }
+
+// intentGrace is how long an unknown client order ID must stay unknown before
+// a pending intent is treated as never accepted.
+const intentGrace = 2 * time.Minute
+
 func (e *Engine) resolve(ctx context.Context, s *State) error {
 	if s.Pending == nil {
 		return nil
@@ -227,6 +233,19 @@ func (e *Engine) resolve(ctx context.Context, s *State) error {
 	p := s.Pending
 	r, err := e.Client.Lookup(ctx, p.Order.ClientID)
 	if err != nil {
+		var he *HTTPError
+		// The exchange indexes accepted orders by client ID immediately. An
+		// unknown ID well after submission means the order was never accepted
+		// (e.g. a rejected request), so the intent is released and the decision
+		// may be retried; ambiguous transport errors still block.
+		if errors.As(err, &he) && he.Status == http.StatusNotFound && !p.Created.IsZero() && time.Since(p.Created) >= intentGrace {
+			delete(s.Processed, p.Decision)
+			if s.OrdersToday > 0 {
+				s.OrdersToday--
+			}
+			s.Pending = nil
+			return Save(e.path(), s)
+		}
 		return fmt.Errorf("pending order unresolved; no resubmission: %w", err)
 	}
 	if r.ClientID != p.Order.ClientID || r.Symbol != p.Order.Symbol || r.Side != p.Order.Side {

@@ -275,6 +275,7 @@ func (e *Engine) resolve(ctx context.Context, s *State) error {
 			return err
 		}
 		totalQ, totalA, quoteFee, baseFee := decimal.Zero, decimal.Zero, decimal.Zero, decimal.Zero
+		otherFees := map[string]decimal.Decimal{}
 		seen := map[string]bool{}
 		base := strings.TrimSuffix(p.Order.Symbol, "_USDT")
 		for _, t := range trades {
@@ -296,8 +297,10 @@ func (e *Engine) resolve(ctx context.Context, s *State) error {
 			case base:
 				baseFee = baseFee.Add(f)
 			default:
+				// Poloniex fee-asset discounts charge in a held third asset (e.g. TRX).
+				// It must come out of a tracked holding of that asset, or accounting stops.
 				if !f.IsZero() {
-					return errors.New("third-currency fee requires operator accounting")
+					otherFees[t.FeeCurrency] = otherFees[t.FeeCurrency].Add(f)
 				}
 			}
 		}
@@ -316,7 +319,18 @@ func (e *Engine) resolve(ctx context.Context, s *State) error {
 				return errors.New("fill exceeds tracked holdings")
 			}
 		}
+		for cur, f := range otherFees {
+			pos, held := s.Holdings[cur+"_USDT"]
+			if !held || pos.Quantity.LessThan(f) {
+				return errors.New("third-currency fee requires operator accounting")
+			}
+		}
 		e.apply(s, p.Order, netQty, amount, quoteFee)
+		for cur, f := range otherFees {
+			pos := s.Holdings[cur+"_USDT"]
+			pos.Quantity = pos.Quantity.Sub(f)
+			s.Holdings[cur+"_USDT"] = pos
+		}
 		s.Fills[len(s.Fills)-1].ExchangeTrades = trades
 	}
 	s.Pending = nil

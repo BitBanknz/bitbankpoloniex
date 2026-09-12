@@ -1,9 +1,10 @@
 # BitBank Poloniex Bot
 
-Paper-trading Go bot that follows [BitBank](https://bitbank.nz) rotation ranks on
+Go trading bot that follows [BitBank](https://bitbank.nz) rotation ranks on
 Poloniex Spot, with a read-only account check, an opt-in live executor, and a
-native Go boosted-tree fallback. **Paper mode is the default; nothing here has
-submitted a live order during development.**
+native Go boosted-tree fallback. **Paper mode is the default.** The existing
+operator-enabled live service and two paper services run on the production
+host; see [remote deployment](docs/2026-09-13-remote-production.md).
 
 ## Quick start
 
@@ -39,8 +40,10 @@ separate locks so the daily refresh can run alongside the trader.
 
 ## How it picks trades
 
-Each hour the bot fetches BitBank rotation ranks, waits for the declared
-execution hour, and holds up to **3** (walk-forward validated, see bitbankgo docs/poloniex-deployed-walkforward-20260911.md) of the top-ranked liquid USDT markets
+The bot checks every minute. BitBank issues daily rotation ranks at 00:00 UTC,
+with a declared execution window of 01:00–02:00 UTC. Outside that window,
+the published ranks expire and normal entries pause unless an accepted fallback
+is available; stop checks continue. It holds up to **3** (walk-forward validated, see bitbankgo docs/poloniex-deployed-walkforward-20260911.md) of the top-ranked liquid USDT markets
 (min 100,000 USDT 24h volume, max 30bps spread, depth-capped orders).
 Positions rotate on a 72-hour minimum hold with a 10% trailing stop; when
 neither BitBank nor a validated fallback model is usable, entries pause but
@@ -60,7 +63,7 @@ the exploratory trend20/BTC-regime study: [`research/REPORT.md`](research/REPORT
 
 ## Live orders (operator launch only)
 
-Tested against a mock exchange, not the real account. Live needs a separate
+Live execution has mock tests and an existing real account ledger. Live needs a separate
 directory, explicit budget flags, **and `--enable-live-orders` on every
 invocation** — no env var can silently enable it:
 
@@ -74,22 +77,27 @@ invocation** — no env var can silently enable it:
 Safety properties: LIMIT IOC SPOT orders with `allowBorrow=false`, borrowing
 and existing margin debt refused, per-order idempotency keys with persisted
 pending intents (ambiguous writes are never retried; the next cycle reconciles
-by client ID). The drawdown halt also blocks exits — it is an operator-review
-gate, not a guaranteed stop. Never delete state or clear pending intents to
+by client ID). Automatic drawdown halts block entries while protective exits
+continue; manual halts and `STOP` remain hard stops. Never delete state or clear pending intents to
 get past an error; compare the exchange order/trade history with the ledger
-first. There is no live systemd unit.
+first. Existing ledgers must be migrated intact, never reinitialized.
 
 ## Running it
 
 ```sh
-systemctl --user status bitbankpoloniex-paper.service
-journalctl --user -u bitbankpoloniex-paper.service -n 30
+ssh administrator@93.127.141.100
+cd /nvme0n1-disk/code/bitbank-poloniex
+sudo systemctl status bitbankpoloniex-live.service
+sudo journalctl -u bitbankpoloniex-live.service -n 30
 touch data/paper/STOP   # stop processing (does not cancel exchange orders)
 ```
 
 Five failed cycles in a row open the circuit and exit; the unit restarts after
 5 minutes. `STOP` and halts survive restarts — review before removing. Back up
-`data/` (private, git-ignored) securely. See [`deploy/`](deploy/).
+`data/` (private, git-ignored) securely. Production uses the system units in
+[`deploy/remote/`](deploy/remote/); the original user-unit templates are retained
+in `deploy/`. Local user services and their training timer are disabled after
+the migration.
 
 ## Research (offline Python)
 

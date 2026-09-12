@@ -1,0 +1,16 @@
+[Unit]
+Description=Validate fresh Poloniex fallback models (public data)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=administrator
+Group=administrator
+WorkingDirectory=/nvme0n1-disk/code/bitbank-poloniex
+ExecStart=/nvme0n1-disk/code/bitbank-poloniex/bin/bitbankpoloniex --command train --state data/paper --markets 0 --env /nvme0n1-disk/code/bitbank-poloniex/.env
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/nvme0n1-disk/code/bitbank-poloniex/data

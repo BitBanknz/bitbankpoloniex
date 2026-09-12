@@ -1,0 +1,11 @@
+[Unit]
+Description=Refresh Poloniex fallback validation daily
+
+[Timer]
+OnCalendar=*-*-* 03:15:00 UTC
+RandomizedDelaySec=300
+Persistent=true
+Unit=bitbankpoloniex-train.service
+
+[Install]
+WantedBy=timers.target

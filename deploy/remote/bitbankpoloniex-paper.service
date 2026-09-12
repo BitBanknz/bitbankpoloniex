@@ -1,0 +1,24 @@
+[Unit]
+Description=BitBank Poloniex paper trader
+Wants=network-online.target
+After=network-online.target bitbankgo.service
+StartLimitIntervalSec=3600
+StartLimitBurst=3
+
+[Service]
+Type=simple
+User=administrator
+Group=administrator
+WorkingDirectory=/nvme0n1-disk/code/bitbank-poloniex
+ExecStartPre=/usr/bin/test -s /nvme0n1-disk/code/bitbank-poloniex/data/paper/state.json
+ExecStart=/nvme0n1-disk/code/bitbank-poloniex/bin/bitbankpoloniex --command run --mode paper --state data/paper --slots 3 --predictions http://127.0.0.1:8745/api/trading-bot/rotation-signals --env /nvme0n1-disk/code/bitbank-poloniex/.env
+Restart=on-failure
+RestartSec=300
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/nvme0n1-disk/code/bitbank-poloniex/data
+
+[Install]
+WantedBy=multi-user.target

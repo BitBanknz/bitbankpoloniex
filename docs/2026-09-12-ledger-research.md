@@ -78,3 +78,11 @@ Fixture SHA256:
 Each comparison checks all required cells and records input/result hashes.
 These are already-examined-history screens with proxy execution, not fresh
 holdouts or estimates of live performance.
+
+After the final stop-priority/partial-book/day-recovery repairs, all112 fixed
+candidate cells were rerun using three-way source merges into the frozen
+research overlays. Every original row matches exactly, including the failed
+56-day worst-fold and28-day dust means. Rebased artifacts are in
+`ledger_rebased`, `ledger_extended_rebased` and `ledger_dust_rebased`, each with
+source/input provenance and an `original-parity.json` receipt. No rejection
+was silently carried across a changed execution engine.

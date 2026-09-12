@@ -49,9 +49,10 @@ Evidence and the complete20-cell comparison are in
 `data/frontier_20260912/protective-validated/`; deployment/source/state backups
 and the prior859cdbede... binary are in its `release/` subdirectory. Earlier
 source variants, failed tests and superseded replay attempts remain retained.
-The exact-source final replay is the promotion basis. Fixed previously
-rejected strategy overlays are being rebased separately on this final engine;
-they do not change the running strategies unless their original gates pass.
+The exact-source final replay is the promotion basis. All112 fixed
+strategy-candidate rows also match exactly after rebasing their frozen overlays
+on this final engine. Their original rejections stand; running strategies
+remain unchanged. The source/research release is pushed as`b6cc853`.
 
 For rollback, restore the prior binary while preserving the latest ledger.
 If a current account has `DayStartPending=true`, retain an entry halt until a

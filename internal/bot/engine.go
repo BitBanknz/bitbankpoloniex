@@ -32,7 +32,7 @@ type Config struct {
 }
 
 func DefaultConfig() Config {
-	return Config{Mode: "paper", StateDir: "data/paper", PredictionURL: "https://bitbank.nz/api/trading-bot/rotation-signals", Budget: decimal.NewFromInt(1000), MaxOrder: decimal.NewFromInt(25), MinVolume: 100000, MaxSpread: .003, FeeRate: decimal.NewFromFloat(.003), MaxOrdersDay: 12, Slots: 4}
+	return Config{Mode: "paper", StateDir: "data/paper", PredictionURL: "https://bitbank.nz/api/trading-bot/rotation-signals", Budget: decimal.NewFromInt(1000), MaxOrder: decimal.NewFromInt(25), MinVolume: 100000, MaxSpread: .003, FeeRate: decimal.NewFromFloat(.003), MaxOrdersDay: 12, Slots: 3}
 }
 func (c Config) Validate() error {
 	if c.ExperimentalFallback && c.Mode != "paper" {
@@ -73,6 +73,7 @@ type State struct {
 	Mode                              string
 	Budget, Cash, HighWater, DayStart decimal.Decimal
 	Day                               string
+	DayStartPending                   bool `json:",omitempty"` // first complete valuation for this UTC day is still unavailable
 	OrdersToday                       int
 	Holdings                          map[string]Position
 	Processed                         map[string]bool
@@ -389,6 +390,8 @@ func (e *Engine) apply(s *State, o Order, qty, amount, fee decimal.Decimal) {
 // signal source was usable; stop checks still ran and state was saved.
 var ErrEntriesPaused = errors.New("BitBank unavailable and no accepted fallback; entries paused")
 
+const riskHaltReason = "drawdown or daily loss limit; operator review required"
+
 func (e *Engine) Cycle(ctx context.Context) error {
 	if err := e.Config.Validate(); err != nil {
 		return err
@@ -419,14 +422,15 @@ func (e *Engine) Cycle(ctx context.Context) error {
 			}
 		}
 	}
-	if s.Halted != "" {
+	riskHalted := s.Halted == riskHaltReason
+	if s.Halted != "" && !riskHalted {
 		return fmt.Errorf("ledger halted: %s", s.Halted)
 	}
 	markets, err := e.Client.Universe(ctx, e.Config.MinVolume)
 	if err != nil {
 		return err
 	}
-	if len(markets) == 0 {
+	if len(markets) == 0 && len(s.Holdings) == 0 {
 		return errors.New("no liquid markets")
 	}
 	bySymbol := make(map[string]Market, len(markets))
@@ -444,12 +448,14 @@ func (e *Engine) Cycle(ctx context.Context) error {
 		}
 	}
 	books := make(map[string]Book, len(s.Holdings))
+	var unavailableBooks []string
 	now := time.Now()
 	equity := s.Cash
 	for symbol, p := range s.Holdings {
 		b, err := e.Client.Book(ctx, symbol)
 		if err != nil {
-			return err
+			unavailableBooks = append(unavailableBooks, symbol)
+			continue
 		}
 		books[symbol] = b
 		bid, _ := decimal.NewFromString(b.Bids[0])
@@ -459,79 +465,118 @@ func (e *Engine) Cycle(ctx context.Context) error {
 			s.Holdings[symbol] = p
 		}
 	}
-	if equity.GreaterThan(s.HighWater) {
-		s.HighWater = equity
-	}
-	s.markEquity(now, equity)
+	fullyPriced := len(unavailableBooks) == 0
 	day := now.UTC().Format("2006-01-02")
 	if day != s.Day {
 		s.Day = day
 		s.OrdersToday = 0
-		s.DayStart = equity
+		s.DayStartPending = true
 	}
-	peakBand := s.HighWater.Mul(decimal.NewFromFloat(.9))
-	dayBand := s.DayStart.Mul(decimal.NewFromFloat(.97))
-	if equity.LessThan(peakBand) || equity.LessThan(dayBand) {
-		s.Halted = "drawdown or daily loss limit; operator review required"
-		_ = Save(e.path(), s)
-		return errors.New(s.Halted)
+	if fullyPriced {
+		if equity.GreaterThan(s.HighWater) {
+			s.HighWater = equity
+		}
+		s.markEquity(now, equity)
+		if s.DayStartPending {
+			s.DayStart = equity
+			s.DayStartPending = false
+		}
+		peakBand := s.HighWater.Mul(decimal.NewFromFloat(.9))
+		dayBand := s.DayStart.Mul(decimal.NewFromFloat(.97))
+		if equity.LessThan(peakBand) || equity.LessThan(dayBand) {
+			s.Halted = riskHaltReason
+			riskHalted = true
+			if err := Save(e.path(), s); err != nil {
+				return err
+			}
+		}
 	}
-	prediction, predErr := FetchPrediction(ctx, e.Config.PredictionURL)
+	var prediction Prediction
+	var predErr error
+	if !riskHalted && fullyPriced {
+		prediction, predErr = FetchPrediction(ctx, e.Config.PredictionURL)
+	}
 	scores := map[string]float64{}
 	observed := map[string]bool{}
 	source := "bitbank_rotation"
+	if !fullyPriced {
+		source = "incomplete_quotes_protective_exits"
+	} else if riskHalted {
+		source = "risk_halt_protective_exits"
+	}
 	ready := false
 	decisionHour := now.UTC().Truncate(time.Hour)
-	if predErr == nil {
-		scores = prediction.Scores()
-		for symbol := range scores {
-			observed[symbol] = true
-		}
-		ready = !now.Before(prediction.Execution)
-		decisionHour = prediction.Execution
-	} else {
-		source = "go_boosted_fallback"
-		models := map[string]Model{}
-		if Load(filepath.Join(e.Config.StateDir, "models.json"), &models) == nil {
-			for _, m := range markets {
-				model, ok := models[m.Symbol]
-				if !ok || model.Symbol != m.Symbol || !model.Valid(now) {
-					continue
-				}
-				bars, err := e.Client.History(ctx, m.Symbol, 200)
-				if err != nil {
-					continue
-				}
-				p, err := model.Forecast(bars, now)
-				if err == nil {
-					observed[m.Symbol] = true
-					ready = true
-					if p > RoundTripCost {
-						scores[m.Symbol] = p
+	// A risk halt is latched until operator review, but reductions from
+	// protective stops must keep running. Other ledger halts remain hard stops.
+	// Incomplete account valuation cannot authorize entries, rotation or
+	// new account-risk baselines. Independently observed stops still run.
+	if !riskHalted && fullyPriced {
+		if predErr == nil {
+			scores = prediction.Scores()
+			for symbol := range scores {
+				observed[symbol] = true
+			}
+			ready = !now.Before(prediction.Execution)
+			decisionHour = prediction.Execution
+		} else {
+			source = "go_boosted_fallback"
+			models := map[string]Model{}
+			if Load(filepath.Join(e.Config.StateDir, "models.json"), &models) == nil {
+				for _, m := range markets {
+					model, ok := models[m.Symbol]
+					if !ok || model.Symbol != m.Symbol || !model.Valid(now) {
+						continue
+					}
+					bars, err := e.Client.History(ctx, m.Symbol, 200)
+					if err != nil {
+						continue
+					}
+					p, err := model.Forecast(bars, now)
+					if err == nil {
+						observed[m.Symbol] = true
+						ready = true
+						if p > RoundTripCost {
+							scores[m.Symbol] = p
+						}
 					}
 				}
 			}
 		}
-	}
-	if predErr != nil && !ready && e.Config.ExperimentalFallback {
-		candidate, err := e.Client.ResearchSignals(ctx, e.Config.StateDir, markets)
-		if err == nil {
-			scores = candidate.Scores
-			observed = candidate.Observed
-			source = candidate.Source
-			ready = true
+		if predErr != nil && !ready && e.Config.ExperimentalFallback {
+			candidate, err := e.Client.ResearchSignals(ctx, e.Config.StateDir, markets)
+			if err == nil {
+				scores = candidate.Scores
+				observed = candidate.Observed
+				source = candidate.Source
+				ready = true
+			}
 		}
 	}
+
 	ranked := Targets(scores, markets, e.Config.Slots)
 	desired := make(map[string]bool, len(ranked))
 	for _, symbol := range ranked {
 		desired[symbol] = true
 	}
 	symbols := make([]string, 0, len(s.Holdings))
-	for symbol := range s.Holdings {
+	stops := make(map[string]bool, len(s.Holdings))
+	for symbol, p := range s.Holdings {
+		if _, ok := books[symbol]; !ok {
+			continue
+		}
 		symbols = append(symbols, symbol)
+		bid, _ := decimal.NewFromString(books[symbol].Bids[0])
+		stops[symbol] = bid.LessThanOrEqual(p.Peak.Mul(decimal.NewFromFloat(.9)))
 	}
-	sort.Strings(symbols)
+	// Spend scarce daily order allowances on protective reductions before
+	// discretionary rotation/funding exits. Keep the existing cap and a
+	// deterministic symbol order within each class.
+	sort.Slice(symbols, func(i, j int) bool {
+		if stops[symbols[i]] != stops[symbols[j]] {
+			return stops[symbols[i]]
+		}
+		return symbols[i] < symbols[j]
+	})
 	// Exits never remove desired holdings, so needsCash and the funding floor
 	// are fixed for the whole exit scan instead of rebuilt per position.
 	needsCash := false
@@ -546,8 +591,7 @@ func (e *Engine) Cycle(ctx context.Context) error {
 	for _, symbol := range symbols {
 		p := s.Holdings[symbol]
 		b := books[symbol]
-		bid, _ := decimal.NewFromString(b.Bids[0])
-		stop := bid.LessThanOrEqual(p.Peak.Mul(decimal.NewFromFloat(.9)))
+		stop := stops[symbol]
 		riskOff := e.Config.ExperimentalFallback && len(desired) == 0
 		fundingExit := (needsCash || riskOff) && s.AccountBacked && p.Imported && ready && !desired[symbol] && (riskOff || s.Cash.LessThan(fundingFloor))
 		exit := ready && observed[symbol] && !desired[symbol] && now.Sub(p.Entered) >= 72*time.Hour
@@ -583,11 +627,22 @@ func (e *Engine) Cycle(ctx context.Context) error {
 	}
 	s.LastCycle = now.UTC()
 	s.LastSource = source
-	if !ready {
+	if !fullyPriced {
+		s.LastSource = "incomplete_quotes_protective_exits"
+	} else if riskHalted {
+		s.LastSource = "risk_halt_protective_exits"
+	} else if !ready {
 		s.LastSource = "waiting_for_execution_or_validated_fallback"
 	}
 	if err = Save(e.path(), s); err != nil {
 		return err
+	}
+	if !fullyPriced {
+		sort.Strings(unavailableBooks)
+		return fmt.Errorf("held books unavailable (%s); entries paused; protective stops checked", strings.Join(unavailableBooks, ","))
+	}
+	if riskHalted {
+		return fmt.Errorf("ledger halted: %s; protective stops checked", s.Halted)
 	}
 	if predErr != nil && !ready {
 		return ErrEntriesPaused
@@ -595,6 +650,12 @@ func (e *Engine) Cycle(ctx context.Context) error {
 	return nil
 }
 func (e *Engine) trade(ctx context.Context, s *State, m Market, b Book, side string, hour time.Time, source string) error {
+	if side == "BUY" && s.Halted != "" {
+		return fmt.Errorf("entries halted: %s", s.Halted)
+	}
+	if side == "BUY" && s.DayStartPending {
+		return errors.New("entries paused pending complete daily valuation")
+	}
 	key := fmt.Sprintf("%s|%s|%s", hour.Format(time.RFC3339), m.Symbol, side)
 	if s.AccountBacked && s.Holdings[m.Symbol].Imported && side == "SELL" {
 		key += fmt.Sprintf("|allocation-%d", s.OrdersToday)

@@ -1,0 +1,97 @@
+package bot
+
+import (
+ "context"
+ "encoding/json"
+ "errors"
+ "fmt"
+ "net/http"
+ "net/http/httptest"
+ "os"
+ "path/filepath"
+ "strconv"
+ "strings"
+ "sync/atomic"
+ "testing"
+ "time"
+
+ "github.com/shopspring/decimal"
+)
+
+type replayHour struct { TS int64; Open, PriorTurnover, Volume24 []float64 }
+type replayFixture struct { Pairs []string; Hours []replayHour; Ranks map[string][]float64 }
+var replayClock atomic.Int64
+var replayBonus float64
+func replayNow() time.Time { return time.Unix(replayClock.Load(),0).UTC() }
+func replayTargets(scores map[string]float64, markets []Market, slots int, s *State) []string {
+ if replayBonus==0 { return Targets(scores,markets,slots) }
+ adjusted:=make(map[string]float64,len(scores))
+ for symbol,score:=range scores { if _,held:=s.Holdings[symbol];held {score+=replayBonus};adjusted[symbol]=score }
+ return Targets(adjusted,markets,slots)
+}
+func replayRead(t *testing.T,path string,v any) {t.Helper();raw,err:=os.ReadFile(path);if err!=nil {t.Fatal(err)};if err=json.Unmarshal(raw,v);err!=nil {t.Fatal(err)}}
+
+func TestFrozenLedgerReplay(t *testing.T) {
+ fixturePath:=os.Getenv("POLONIEX_LEDGER_FIXTURE");if fixturePath=="" {t.Skip("explicit frozen fixture required")}
+ var f replayFixture;replayRead(t,fixturePath,&f)
+ var all []Market;replayRead(t,os.Getenv("POLONIEX_LEDGER_MARKETS"),&all)
+ var markets []Market;lookup:=map[string]int{}
+ for i,pair:=range f.Pairs {
+  symbol:=strings.TrimSuffix(pair,"USDT")+"_USDT";found:=false
+  for _,m:=range all {if m.Symbol==symbol {markets=append(markets,m);found=true;break}}
+  if !found {t.Fatalf("missing market contract %s",symbol)};lookup[symbol]=i
+ }
+ first:=f.Hours[0].TS
+ srv:=httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter,r *http.Request) {
+  if r.Method!="GET" {t.Error("research attempted a write");http.Error(w,"no writes",403);return}
+  tick:=int((replayClock.Load()-45-first)/3600)
+  if tick<0 || tick>=len(f.Hours) {t.Errorf("invalid research clock %d",tick);http.Error(w,"clock",500);return}
+  h:=f.Hours[tick];now:=replayNow();enc:=json.NewEncoder(w)
+  switch r.URL.Path {
+  case "/markets":enc.Encode(markets)
+  case "/markets/ticker24h":
+   ts:=make([]Ticker,len(markets));for i,m:=range markets {ts[i]=Ticker{Symbol:m.Symbol,Amount:strconv.FormatFloat(h.Volume24[i],'g',-1,64),TS:now.UnixMilli()}};enc.Encode(ts)
+  case "/prediction":
+   issued:=now.Truncate(24*time.Hour);rs,ok:=f.Ranks[strconv.FormatInt(issued.Unix(),10)]
+   if !ok || now.Hour()>1 {http.Error(w,"outside daily issue window",503);return}
+   ranks:=map[string]float64{};for i,p:=range f.Pairs {ranks[p]=rs[i]}
+   enc.Encode(Prediction{Available:true,Venue:"POLONIEX",Mode:"research_rank_forecast",Issued:issued,Execution:issued.Add(time.Hour),Ranks:ranks})
+  default:
+   if strings.HasPrefix(r.URL.Path,"/markets/") && strings.HasSuffix(r.URL.Path,"/orderBook") {
+    symbol:=strings.TrimSuffix(strings.TrimPrefix(r.URL.Path,"/markets/"),"/orderBook");i,ok:=lookup[symbol];if !ok {t.Error("unknown symbol");http.Error(w,"symbol",400);return}
+    px:=h.Open[i];depth:=h.PriorTurnover[i]/px*.1
+    num:=func(x float64)string {return strconv.FormatFloat(x,'f',14,64)}
+    enc.Encode(Book{Bids:[]string{num(px*.9995),num(depth)},Asks:[]string{num(px*1.0005),num(depth)},TS:now.UnixMilli()})
+   } else {t.Errorf("unexpected nonpublic endpoint %s",r.URL.Path);http.Error(w,"unexpected",400)}
+  }
+ }))
+ defer srv.Close()
+ outPath:=os.Getenv("POLONIEX_LEDGER_OUT");out,err:=os.OpenFile(outPath,os.O_CREATE|os.O_WRONLY|os.O_TRUNC,0644);if err!=nil {t.Fatal(err)};defer out.Close();enc:=json.NewEncoder(out)
+ for _,days:=range []int{0,28} {
+  bars:=days*24;if days==0 {bars=len(f.Hours)}
+  for _,fee:=range []float64{.003,.006} {for _,bonus:=range []float64{0,.4} {
+   replayBonus=bonus
+   for a:=0;a<len(f.Hours);a+=bars {
+    b:=a+bars;if b>len(f.Hours) {b=len(f.Hours)};if b-a<7*24 {continue}
+    cfg:=DefaultConfig();cfg.StateDir=t.TempDir();cfg.PredictionURL=srv.URL+"/prediction";cfg.FeeRate=decimal.NewFromFloat(fee)
+    client:=NewClient("","");client.BaseURL=srv.URL;e:=&Engine{Client:client,Config:cfg}
+    replayClock.Store(f.Hours[a].TS+45);if err:=e.Initialize();err!=nil {t.Fatal(err)}
+    paused,halts:=0,0
+    for k:=a;k<b;k++ {
+     replayClock.Store(f.Hours[k].TS+45)
+     if err:=e.Cycle(context.Background());err!=nil {if errors.Is(err,ErrEntriesPaused){paused++} else if strings.Contains(err.Error(),"ledger halted:"){halts++} else {t.Fatalf("hour=%d: %v",k,err)}}
+    }
+    // Repeat the idempotent final observation so the reported mark includes
+    // any final protective fill costs. The same decision IDs cannot resubmit.
+    _=e.Cycle(context.Background())
+    s,err:=e.read();if err!=nil {t.Fatal(err)};report:=Summarize(s)
+    dust:=map[string]string{};last:=f.Hours[b-1]
+    for symbol,pos:=range s.Holdings {i:=lookup[symbol];value:=pos.Quantity.Mul(decimal.NewFromFloat(last.Open[i]*.9995));if value.LessThan(decimal.NewFromInt(1)){dust[symbol]=value.String()}}
+    row:=struct{Days int; Fee,Bonus float64; Start,End int64; Report Report; Paused,HaltCycles int; Dust map[string]string}{days,fee,bonus,f.Hours[a].TS,f.Hours[b-1].TS,report,paused,halts,dust}
+    if err:=enc.Encode(row);err!=nil {t.Fatal(err)}
+    fmt.Printf("days=%d fee=%g bonus=%g fold=%d return=%.6f dd=%.6f fills=%d holdings=%d dust=%d\n",days,fee,bonus,a/bars,report.ReturnPct,report.MaxDrawdownPct,report.Fills,report.Holdings,len(dust))
+    if days==0 {raw,_:=json.MarshalIndent(s,"","  ");name:=fmt.Sprintf("ledger_fee%g_bonus%g.json",fee,bonus);if err:=os.WriteFile(filepath.Join(filepath.Dir(outPath),name),raw,0644);err!=nil {t.Fatal(err)}}
+   }
+  }}
+ }
+}

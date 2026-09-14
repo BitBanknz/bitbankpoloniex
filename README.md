@@ -49,6 +49,12 @@ Positions rotate on a 72-hour minimum hold with a 10% trailing stop; when
 neither BitBank nor a validated fallback model is usable, entries pause but
 tracked positions still get stop checks.
 
+The remote live and standard paper services use a 120-hour post-sale re-entry
+cooldown (`--cooldown-hours 120`). The CLI default remains 72 hours for the
+separate experimental account. Existing persisted cooldown deadlines are
+preserved; the new setting applies when subsequent sales create a deadline.
+See [September 14 validation](docs/2026-09-14-cooldown-results.md).
+
 Simulated ledger (1000 USDT cash, 25 USDT max per order, 40% cash reserve,
 12 orders/day, 30bps paper fee/side, 10% peak / 3% daily loss halt):
 paper fills are modeled at visible quotes, not proof of real fills or profit.

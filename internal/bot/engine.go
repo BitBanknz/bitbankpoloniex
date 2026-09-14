@@ -29,12 +29,16 @@ type Config struct {
 	FeeRate              decimal.Decimal
 	MaxOrdersDay         int
 	Slots                int
+	CooldownHours        int // post-sale re-entry delay; zero retains the legacy 72h default
 }
 
 func DefaultConfig() Config {
-	return Config{Mode: "paper", StateDir: "data/paper", PredictionURL: "https://bitbank.nz/api/trading-bot/rotation-signals", Budget: decimal.NewFromInt(1000), MaxOrder: decimal.NewFromInt(25), MinVolume: 100000, MaxSpread: .003, FeeRate: decimal.NewFromFloat(.003), MaxOrdersDay: 12, Slots: 3}
+	return Config{Mode: "paper", StateDir: "data/paper", PredictionURL: "https://bitbank.nz/api/trading-bot/rotation-signals", Budget: decimal.NewFromInt(1000), MaxOrder: decimal.NewFromInt(25), MinVolume: 100000, MaxSpread: .003, FeeRate: decimal.NewFromFloat(.003), MaxOrdersDay: 12, Slots: 3, CooldownHours: 72}
 }
 func (c Config) Validate() error {
+	if c.CooldownHours < 0 || c.CooldownHours > 14*24 {
+		return errors.New("post-sale cooldown must be between 0 (legacy default) and 336 hours")
+	}
 	if c.ExperimentalFallback && c.Mode != "paper" {
 		return errors.New("experimental policy is paper-only")
 	}
@@ -45,6 +49,14 @@ func (c Config) Validate() error {
 		return errors.New("invalid budget or risk limits")
 	}
 	return nil
+}
+
+func (c Config) postSaleCooldown() time.Duration {
+	hours := c.CooldownHours
+	if hours == 0 {
+		hours = 72
+	}
+	return time.Duration(hours) * time.Hour
 }
 
 type Position struct {
@@ -377,7 +389,7 @@ func (e *Engine) apply(s *State, o Order, qty, amount, fee decimal.Decimal) {
 		s.Holdings[o.Symbol] = p
 	} else {
 		delete(s.Holdings, o.Symbol)
-		s.Cooldown[o.Symbol] = time.Now().Add(72 * time.Hour)
+		s.Cooldown[o.Symbol] = time.Now().Add(e.Config.postSaleCooldown())
 	}
 	source := ""
 	if s.Pending != nil {

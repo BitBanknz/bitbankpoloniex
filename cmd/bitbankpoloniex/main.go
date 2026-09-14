@@ -36,6 +36,7 @@ func run() error {
 	ack := flag.Bool("enable-live-orders", false, "explicitly enable real order submission")
 	interval := flag.Duration("interval", time.Minute, "cycle interval")
 	slots := flag.Int("slots", cfg.Slots, "maximum simultaneous rotation holdings (1-4)")
+	cooldown := flag.Int("cooldown-hours", cfg.CooldownHours, "post-sale re-entry cooldown in hours (0 keeps the 72h legacy default)")
 	symbol := flag.String("symbol", "ETH_USDT", "market for funding plan")
 	funding := flag.String("funding", "convert", "convert or margin for read-only plan")
 	archiveDir := flag.String("archive", "data/archive-daily", "historical archive directory")
@@ -55,6 +56,7 @@ func run() error {
 	cfg.StateDir = *state
 	cfg.PredictionURL = *endpoint
 	cfg.Slots = *slots
+	cfg.CooldownHours = *cooldown
 	cfg.Budget, err = decimal.NewFromString(*budget)
 	if err != nil {
 		return errors.New("invalid budget")

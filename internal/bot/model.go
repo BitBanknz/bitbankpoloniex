@@ -14,6 +14,7 @@ import (
 // Fixed model family/parameters. No hyperparameter search against the held-out folds.
 // This is native Go gradient boosting with depth-one trees, not an XGBoost/LightGBM binary.
 const FeatureSchema = "returns-1-6-24-168-vol24-range24-v1"
+const ValidationSchema = "hourly-holding-path-dd-v1"
 const Horizon = 24
 const RoundTripCost = .006 // doubled 15bps per side; fixed conservative validation cost
 
@@ -166,14 +167,15 @@ type Fold struct {
 	ZeroMSE     float64
 }
 type Model struct {
-	Symbol         string
-	Schema         string
-	TrainedThrough time.Time
-	Expires        time.Time
-	Folds          []Fold
-	Accepted       bool
-	Ensemble       Ensemble
-	Hash           string
+	Symbol           string
+	Schema           string
+	ValidationSchema string
+	TrainedThrough   time.Time
+	Expires          time.Time
+	Folds            []Fold
+	Accepted         bool
+	Ensemble         Ensemble
+	Hash             string
 }
 
 func (m Model) checksum() string {
@@ -183,7 +185,7 @@ func (m Model) checksum() string {
 	return hex.EncodeToString(h[:])
 }
 func (m Model) Valid(now time.Time) bool {
-	if m.Schema != FeatureSchema || m.Hash != m.checksum() || !m.Accepted || m.TrainedThrough.After(now) || !m.Expires.After(now) || m.Expires.Sub(m.TrainedThrough) > 7*24*time.Hour || len(m.Folds) != 4 || !finite(m.Ensemble.Bias) {
+	if m.Schema != FeatureSchema || m.ValidationSchema != ValidationSchema || m.Hash != m.checksum() || !m.Accepted || m.TrainedThrough.After(now) || !m.Expires.After(now) || m.Expires.Sub(m.TrainedThrough) > 7*24*time.Hour || len(m.Folds) != 4 || !finite(m.Ensemble.Bias) {
 		return false
 	}
 	for _, t := range m.Ensemble.Trees {
@@ -199,7 +201,7 @@ func accepted(folds []Fold) bool {
 	net, modelMSE, zeroMSE := 0., 0., 0.
 	var last int64
 	for _, f := range folds {
-		if f.TrainLast >= f.TestFirst || f.TestFirst <= last || f.TestLast < f.TestFirst || f.MaxDrawdown > .15 || !finite(f.Net) || !finite(f.ModelMSE) || !finite(f.ZeroMSE) {
+		if f.TrainLast >= f.TestFirst || f.TestFirst <= last || f.TestLast < f.TestFirst || !finite(f.MaxDrawdown) || f.MaxDrawdown < 0 || f.MaxDrawdown > .15 || !finite(f.Net) || !finite(f.ModelMSE) || !finite(f.ZeroMSE) {
 			return false
 		}
 		last = f.TestLast
@@ -214,7 +216,7 @@ func accepted(folds []Fold) bool {
 	return len(folds) == 4 && positive >= 3 && trades >= 12 && net > 0 && modelMSE < zeroMSE
 }
 func Train(symbol string, b []Candle) (Model, error) {
-	m := Model{Symbol: symbol, Schema: FeatureSchema}
+	m := Model{Symbol: symbol, Schema: FeatureSchema, ValidationSchema: ValidationSchema}
 	if len(b) < 2400 {
 		return m, errors.New("need at least 2400 contiguous completed hourly bars")
 	}
@@ -245,10 +247,21 @@ func Train(symbol string, b []Candle) (Model, error) {
 			f.ModelMSE += (p - row.Y) * (p - row.Y)
 			f.ZeroMSE += row.Y * row.Y
 			if p > RoundTripCost {
+				// Reserve the existing fixed round-trip cost from entry onward.
+				// Assess the realized holding path without changing this earlier
+				// prediction, the model target or the original terminal return.
+				markRisk := func(mark float64) {
+					peak = math.Max(peak, mark)
+					f.MaxDrawdown = math.Max(f.MaxDrawdown, 1-mark/peak)
+				}
+				entry := row.Index + 1
+				markRisk(equity * (1 - RoundTripCost))
+				for held := entry; held < entry+Horizon; held++ {
+					markRisk(equity * (b[held].Close/b[entry].Open - RoundTripCost))
+				}
 				equity *= 1 + row.Y - RoundTripCost
 				f.Trades++
-				peak = math.Max(peak, equity)
-				f.MaxDrawdown = math.Max(f.MaxDrawdown, 1-equity/peak)
+				markRisk(equity)
 			}
 		}
 		f.Net = equity - 1

@@ -1,0 +1,16 @@
+{
+  "histories": 56,
+  "paired_folds": 224,
+  "saved_models_per_arm": 280,
+  "ensembles_and_fold_models_exact": true,
+  "terminal_results_and_boundaries_exact": true,
+  "independent_path_oracle_matches": true,
+  "dd_never_decreases": true,
+  "old_accepted": 0,
+  "new_accepted": 0,
+  "increased_dd_folds": 44,
+  "maximum_dd_increase": 0.2022962412153938,
+  "newly_exceeds_15pct": 3,
+  "unchanged_inputs": true,
+  "live_deployment": false
+}

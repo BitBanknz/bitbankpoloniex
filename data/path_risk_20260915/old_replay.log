@@ -1,0 +1,5 @@
+=== RUN   TestPathRiskHistoricalAudit
+    zz_path_risk_audit_test.go:59: verified 56 historical model records
+--- PASS: TestPathRiskHistoricalAudit (14.11s)
+PASS
+ok  	github.com/lee101/bitbankpoloniex/internal/bot	14.118s

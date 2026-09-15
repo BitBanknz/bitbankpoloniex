@@ -1,0 +1,1794 @@
+[
+  {
+    "symbol": "AAVE_USDT",
+    "fold": 1,
+    "old_dd": 0.1292432105347885,
+    "new_dd": 0.14192851589771083,
+    "net": -0.04470120231226071,
+    "trades": 6
+  },
+  {
+    "symbol": "AAVE_USDT",
+    "fold": 2,
+    "old_dd": 0.025426755462832018,
+    "new_dd": 0.03773568090424961,
+    "net": -0.023449310762521658,
+    "trades": 4
+  },
+  {
+    "symbol": "AAVE_USDT",
+    "fold": 3,
+    "old_dd": 0.02993697840703846,
+    "new_dd": 0.04534762921116109,
+    "net": -0.012773143984031288,
+    "trades": 4
+  },
+  {
+    "symbol": "AAVE_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0.028353023818132983,
+    "net": 0.051929600023446154,
+    "trades": 2
+  },
+  {
+    "symbol": "ADA_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ADA_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ADA_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ADA_USDT",
+    "fold": 4,
+    "old_dd": 0.05342798800028725,
+    "new_dd": 0.08270616865444302,
+    "net": 0.001585461413399436,
+    "trades": 3
+  },
+  {
+    "symbol": "APT_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "APT_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "APT_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "APT_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ARB_USDT",
+    "fold": 1,
+    "old_dd": 0.06939026262626258,
+    "new_dd": 0.08597578898083968,
+    "net": -0.0611318997852206,
+    "trades": 3
+  },
+  {
+    "symbol": "ARB_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ARB_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ARB_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ATOM_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ATOM_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ATOM_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ATOM_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "AVAX_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "AVAX_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "AVAX_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "AVAX_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "A_USDT",
+    "fold": 1,
+    "old_dd": 0.06608010680907861,
+    "new_dd": 0.06860565487349057,
+    "net": -0.06534767031211197,
+    "trades": 2
+  },
+  {
+    "symbol": "A_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "A_USDT",
+    "fold": 3,
+    "old_dd": 0.026486441261837856,
+    "new_dd": 0.08778387302447788,
+    "net": -0.026486441261837856,
+    "trades": 2
+  },
+  {
+    "symbol": "A_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "BCHSV_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "BCHSV_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "BCHSV_USDT",
+    "fold": 3,
+    "old_dd": 0.02361597181444519,
+    "new_dd": 0.03535995302407513,
+    "net": -0.02361597181444519,
+    "trades": 1
+  },
+  {
+    "symbol": "BCHSV_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "BCH_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "BCH_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "BCH_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "BCH_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "BNB_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "BNB_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "BNB_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "BNB_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0.025736572412870973,
+    "net": 0.024885029244732237,
+    "trades": 2
+  },
+  {
+    "symbol": "BTC_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "BTC_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "BTC_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "BTC_USDT",
+    "fold": 4,
+    "old_dd": 0.020055454602080358,
+    "new_dd": 0.023733035696099525,
+    "net": -0.020055454602080358,
+    "trades": 2
+  },
+  {
+    "symbol": "BTT_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "BTT_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "BTT_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "BTT_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "DASH_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "DASH_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "DASH_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "DASH_USDT",
+    "fold": 4,
+    "old_dd": 0.00334708916728077,
+    "new_dd": 0.12342170119489315,
+    "net": 0.3518614107964071,
+    "trades": 3
+  },
+  {
+    "symbol": "DOGE_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "DOGE_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "DOGE_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "DOGE_USDT",
+    "fold": 4,
+    "old_dd": 0.03717290193731093,
+    "new_dd": 0.04930851562887095,
+    "net": -0.03717290193731093,
+    "trades": 2
+  },
+  {
+    "symbol": "DOT_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "DOT_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "DOT_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "DOT_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ETC_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ETC_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ETC_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ETC_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ETH_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ETH_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ETH_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ETH_USDT",
+    "fold": 4,
+    "old_dd": 0.05317173164735112,
+    "new_dd": 0.07745334131857229,
+    "net": -0.05317173164735112,
+    "trades": 3
+  },
+  {
+    "symbol": "FIL_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "FIL_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "FIL_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "FIL_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "FLOKI_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "FLOKI_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "FLOKI_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "FLOKI_USDT",
+    "fold": 4,
+    "old_dd": 0.004482549317146978,
+    "new_dd": 0.07819008008468598,
+    "net": -0.004482549317146978,
+    "trades": 1
+  },
+  {
+    "symbol": "GRT_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "GRT_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "GRT_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "GRT_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "HTX_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "HTX_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "HTX_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "HTX_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ICP_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ICP_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ICP_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ICP_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "IMX_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "IMX_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "IMX_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "IMX_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "JST_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "JST_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "JST_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "JST_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "LDO_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "LDO_USDT",
+    "fold": 2,
+    "old_dd": 0.006000000000000005,
+    "new_dd": 0.0620815702167391,
+    "net": -0.006000000000000005,
+    "trades": 1
+  },
+  {
+    "symbol": "LDO_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "LDO_USDT",
+    "fold": 4,
+    "old_dd": 0.04709589041095896,
+    "new_dd": 0.09581099679426108,
+    "net": 0.05563210036869437,
+    "trades": 9
+  },
+  {
+    "symbol": "LINK_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "LINK_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "LINK_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "LINK_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "LSK_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "LSK_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "LSK_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "LSK_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "LTC_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "LTC_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "LTC_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "LTC_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "LWOLF_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "LWOLF_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "LWOLF_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "LWOLF_USDT",
+    "fold": 4,
+    "old_dd": 0.3243926939130912,
+    "new_dd": 0.3254701480545653,
+    "net": -0.3243926939130912,
+    "trades": 4
+  },
+  {
+    "symbol": "MANA_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "MANA_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "MANA_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "MANA_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "NEAR_USDT",
+    "fold": 1,
+    "old_dd": 0.19035887149469366,
+    "new_dd": 0.19153633835613215,
+    "net": -0.12547404727949163,
+    "trades": 14
+  },
+  {
+    "symbol": "NEAR_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "NEAR_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0.0465336069779374,
+    "net": 0.003235505387378046,
+    "trades": 1
+  },
+  {
+    "symbol": "NEAR_USDT",
+    "fold": 4,
+    "old_dd": 0.04967285041713454,
+    "new_dd": 0.09189824582803252,
+    "net": 0.057103488137242975,
+    "trades": 7
+  },
+  {
+    "symbol": "NFT_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "NFT_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "NFT_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "NFT_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "OP_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "OP_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "OP_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "OP_USDT",
+    "fold": 4,
+    "old_dd": 0.05824668781574238,
+    "new_dd": 0.06389720768884788,
+    "net": 0.06422504524784767,
+    "trades": 3
+  },
+  {
+    "symbol": "PEPE_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "PEPE_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "PEPE_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "PEPE_USDT",
+    "fold": 4,
+    "old_dd": 0.1046868100292353,
+    "new_dd": 0.12234546874713426,
+    "net": -0.1046868100292353,
+    "trades": 2
+  },
+  {
+    "symbol": "POL_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "POL_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "POL_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "POL_USDT",
+    "fold": 4,
+    "old_dd": 0.1459687094814056,
+    "new_dd": 0.1819134510587328,
+    "net": -0.1459687094814056,
+    "trades": 4
+  },
+  {
+    "symbol": "SAND_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "SAND_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "SAND_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "SAND_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "SC_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "SC_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "SC_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "SC_USDT",
+    "fold": 4,
+    "old_dd": 0.16400865800865794,
+    "new_dd": 0.18384372860439357,
+    "net": -0.16400865800865794,
+    "trades": 1
+  },
+  {
+    "symbol": "SHIB_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "SHIB_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "SHIB_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "SHIB_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "SKY_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "SKY_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "SKY_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "SKY_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "SOL_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "SOL_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "SOL_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "SOL_USDT",
+    "fold": 4,
+    "old_dd": 0.08485636871286095,
+    "new_dd": 0.10214392035056896,
+    "net": -0.08485636871286095,
+    "trades": 5
+  },
+  {
+    "symbol": "STEEM_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "STEEM_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "STEEM_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "STEEM_USDT",
+    "fold": 4,
+    "old_dd": 0.057714720920454154,
+    "new_dd": 0.08884389088467559,
+    "net": -0.05348863936736081,
+    "trades": 7
+  },
+  {
+    "symbol": "SUI_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "SUI_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "SUI_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "SUI_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "SUN_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "SUN_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "SUN_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "SUN_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "TRX_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "TRX_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "TRX_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "TRX_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "TUSD_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "TUSD_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "TUSD_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "TUSD_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "UNI_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0.023837065353089826,
+    "net": 0.019606359678771224,
+    "trades": 1
+  },
+  {
+    "symbol": "UNI_USDT",
+    "fold": 2,
+    "old_dd": 0.05295064163315488,
+    "new_dd": 0.061300837581004575,
+    "net": -0.05295064163315488,
+    "trades": 1
+  },
+  {
+    "symbol": "UNI_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0.03062166809829725,
+    "net": 0.049358107531773276,
+    "trades": 1
+  },
+  {
+    "symbol": "UNI_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0.07464515347476319,
+    "net": 0.04527105666156195,
+    "trades": 1
+  },
+  {
+    "symbol": "WIN_USDT",
+    "fold": 1,
+    "old_dd": 0.016430839002267605,
+    "new_dd": 0.017337868480725604,
+    "net": -0.016430839002267605,
+    "trades": 1
+  },
+  {
+    "symbol": "WIN_USDT",
+    "fold": 2,
+    "old_dd": 0.005327731092436894,
+    "new_dd": 0.03961344537815126,
+    "net": 0.01605030959664422,
+    "trades": 2
+  },
+  {
+    "symbol": "WIN_USDT",
+    "fold": 3,
+    "old_dd": 0.06763687936579366,
+    "new_dd": 0.09567101898525665,
+    "net": -0.06763687936579366,
+    "trades": 7
+  },
+  {
+    "symbol": "WIN_USDT",
+    "fold": 4,
+    "old_dd": 0.1710439440596827,
+    "new_dd": 0.19114037169491838,
+    "net": -0.10011922774751558,
+    "trades": 11
+  },
+  {
+    "symbol": "WLD_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "WLD_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "WLD_USDT",
+    "fold": 3,
+    "old_dd": 0.0035186104218363212,
+    "new_dd": 0.20581485163723012,
+    "net": 0.03087151053124071,
+    "trades": 3
+  },
+  {
+    "symbol": "WLD_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "WSTUSDT_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "WSTUSDT_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "WSTUSDT_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "WSTUSDT_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "XEC_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "XEC_USDT",
+    "fold": 2,
+    "old_dd": 0.007706484641638256,
+    "new_dd": 0.08063445083195797,
+    "net": -0.007706484641638256,
+    "trades": 1
+  },
+  {
+    "symbol": "XEC_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0.05791349267038659,
+    "net": 0.09676738893900216,
+    "trades": 2
+  },
+  {
+    "symbol": "XEC_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "XEM_USDT",
+    "fold": 1,
+    "old_dd": 0.10197173437524187,
+    "new_dd": 0.15687854149187097,
+    "net": -0.07020608982299459,
+    "trades": 5
+  },
+  {
+    "symbol": "XEM_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "XEM_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "XEM_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "XLM_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "XLM_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "XLM_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "XLM_USDT",
+    "fold": 4,
+    "old_dd": 0.01087276664861947,
+    "new_dd": 0.041192203573362285,
+    "net": -0.01087276664861947,
+    "trades": 1
+  },
+  {
+    "symbol": "XMR_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "XMR_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "XMR_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "XMR_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "XRP_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "XRP_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "XRP_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "XRP_USDT",
+    "fold": 4,
+    "old_dd": 0.03380082987551869,
+    "new_dd": 0.0455573997233748,
+    "net": -0.03380082987551869,
+    "trades": 1
+  },
+  {
+    "symbol": "ZEC_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ZEC_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ZEC_USDT",
+    "fold": 3,
+    "old_dd": 0.012613204132208344,
+    "new_dd": 0.0701968089549746,
+    "net": -0.012613204132208344,
+    "trades": 1
+  },
+  {
+    "symbol": "ZEC_USDT",
+    "fold": 4,
+    "old_dd": 0.050276123720216837,
+    "new_dd": 0.08551542291901648,
+    "net": 0.0774971975972063,
+    "trades": 4
+  },
+  {
+    "symbol": "ZRX_USDT",
+    "fold": 1,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ZRX_USDT",
+    "fold": 2,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ZRX_USDT",
+    "fold": 3,
+    "old_dd": 0,
+    "new_dd": 0,
+    "net": 0,
+    "trades": 0
+  },
+  {
+    "symbol": "ZRX_USDT",
+    "fold": 4,
+    "old_dd": 0,
+    "new_dd": 0.01337368364742375,
+    "net": 0.007618677042801503,
+    "trades": 1
+  }
+]

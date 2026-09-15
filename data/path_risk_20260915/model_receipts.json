@@ -1,0 +1,5950 @@
+{
+  "old": {
+    "file": "/vfast/data/trading_research_20260915/poloniex_path_risk/old_models.json",
+    "sha256": "0ab55e453f75eec411c036d3d2542a15dc22c11ec53ed97054a76d1a136af4be",
+    "symbols": {
+      "AAVE_USDT": {
+        "ensemble_sha256": "ecf5898cbaa3eddcc1c12a6a01ec4ffe6fbf87f7736b139e9511e07c71182d7a",
+        "fold_model_sha256": "66f139b72ee04b41e7e941ff6968d9cb3422e7cb04e47092cf528421d89e3a00",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 6,
+            "Net": -0.04470120231226071,
+            "MaxDrawdown": 0.1292432105347885,
+            "ModelMSE": 0.02073851851877001,
+            "ZeroMSE": 0.01786817651513358
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 4,
+            "Net": -0.023449310762521658,
+            "MaxDrawdown": 0.025426755462832018,
+            "ModelMSE": 0.010624764924528142,
+            "ZeroMSE": 0.0100337717984318
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 4,
+            "Net": -0.012773143984031288,
+            "MaxDrawdown": 0.02993697840703846,
+            "ModelMSE": 0.05514595128117921,
+            "ZeroMSE": 0.054735355862634796
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 2,
+            "Net": 0.051929600023446154,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.00649480446152479,
+            "ZeroMSE": 0.006715930016834456
+          }
+        ],
+        "oracle_dd": [
+          0.14192851589771077,
+          0.03773568090424961,
+          0.04534762921116128,
+          0.028353023818132782
+        ]
+      },
+      "ADA_USDT": {
+        "ensemble_sha256": "3ed79ff56f352488d90593b20e4eb5407ce5e7e47fde992b066c8a49827174e9",
+        "fold_model_sha256": "796cd40c529174a86958cf5aeb00643245d37f544dc6b38fc233332b25ea9314",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.01437198859219962,
+            "ZeroMSE": 0.01403607642333371
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.028009220578166603,
+            "ZeroMSE": 0.021749712410691513
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.028455929963728192,
+            "ZeroMSE": 0.029435642117882663
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 3,
+            "Net": 0.001585461413399436,
+            "MaxDrawdown": 0.05342798800028725,
+            "ModelMSE": 0.016106740277933473,
+            "ZeroMSE": 0.016633455384687766
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.08270616865444319
+        ]
+      },
+      "APT_USDT": {
+        "ensemble_sha256": "b351773a263b9f6e89ce948e552f9e2681853c5df363c464fa298b4a2f1c9abe",
+        "fold_model_sha256": "0d28d1475f8be499ab05184760183f1d557ff9ffea17e29e3b3f48fe245b2bcd",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.011131081603431292,
+            "ZeroMSE": 0.009769894564550288
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.007750247193647411,
+            "ZeroMSE": 0.007359927170764157
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.021266705946161105,
+            "ZeroMSE": 0.02013087387509699
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.04731229060258013,
+            "ZeroMSE": 0.04572419832524452
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ARB_USDT": {
+        "ensemble_sha256": "33a6661e91b74e70a5283912ef31397f76537b82363d039ce231a9651932d944",
+        "fold_model_sha256": "a189379edfbf779d7373ca419a29b9882166631bd1e9ad91991bce67e69af7e2",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 3,
+            "Net": -0.0611318997852206,
+            "MaxDrawdown": 0.06939026262626258,
+            "ModelMSE": 0.008180632208367775,
+            "ZeroMSE": 0.005937394357187723
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0052868516180662965,
+            "ZeroMSE": 0.004571586463394162
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.029190977212812635,
+            "ZeroMSE": 0.02730432044184534
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.32713506125345054,
+            "ZeroMSE": 0.32144996316179036
+          }
+        ],
+        "oracle_dd": [
+          0.08597578898083974,
+          0,
+          0,
+          0
+        ]
+      },
+      "ATOM_USDT": {
+        "ensemble_sha256": "adc560ea92b8b57d2065a9fc4c4d961ccd0f597832f766a1714adcc0d6371ee1",
+        "fold_model_sha256": "0de4e8882d6f258644fed2a89480c5026fab199f16149f785b56ddebc807967e",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.005816203251573341,
+            "ZeroMSE": 0.00549096425563846
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.01759377497442196,
+            "ZeroMSE": 0.015940899677061835
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.015229765628090749,
+            "ZeroMSE": 0.01563696348285529
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.006888236306774159,
+            "ZeroMSE": 0.006488159410841351
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "AVAX_USDT": {
+        "ensemble_sha256": "96cdf458831eb9c337d8c19a4dca02ce784a2795085b5c8f92f92f656a89d4bd",
+        "fold_model_sha256": "deb587b174bae8a913cf84a8cdf9d466e7645e21d717966f2366d43e1ebcf7bf",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.009017198126092685,
+            "ZeroMSE": 0.00827816130095401
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.012140271654447737,
+            "ZeroMSE": 0.011377058768248566
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.01794750801007855,
+            "ZeroMSE": 0.015198662320151546
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.006777876455722037,
+            "ZeroMSE": 0.0064972986398992025
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "A_USDT": {
+        "ensemble_sha256": "b6472f568ffcf86ecb82ada8480e181335f9456696137e8294bbffa6792ccb6e",
+        "fold_model_sha256": "01fe9d8bd31e5418f25f89525930e06b7947ca6ae52ae1062f668060e169acc4",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 2,
+            "Net": -0.06534767031211197,
+            "MaxDrawdown": 0.06608010680907861,
+            "ModelMSE": 0.012790378440007714,
+            "ZeroMSE": 0.011541857140351174
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.004834454314697406,
+            "ZeroMSE": 0.0047690329434372045
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 2,
+            "Net": -0.026486441261837856,
+            "MaxDrawdown": 0.026486441261837856,
+            "ModelMSE": 0.024301068510831213,
+            "ZeroMSE": 0.022286810736564938
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.003519342665063485,
+            "ZeroMSE": 0.003663818505350584
+          }
+        ],
+        "oracle_dd": [
+          0.06860565487349068,
+          0,
+          0.08778387302447782,
+          0
+        ]
+      },
+      "BCHSV_USDT": {
+        "ensemble_sha256": "9cb4c2b1a45bcf78c20563af7653a435b6f046bc176fe20458b3620a3700f161",
+        "fold_model_sha256": "7c116368c9b43e3413daa6fd77d1273f5133e5f2ae5257cdcff9f440573b0acf",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.009742371797387347,
+            "ZeroMSE": 0.009730180599143724
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.008319774381822125,
+            "ZeroMSE": 0.00764019519430157
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 1,
+            "Net": -0.02361597181444519,
+            "MaxDrawdown": 0.02361597181444519,
+            "ModelMSE": 0.07665159005237956,
+            "ZeroMSE": 0.07766291170829029
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.005016338968791385,
+            "ZeroMSE": 0.0049357481067821484
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0.03535995302407513,
+          0
+        ]
+      },
+      "BCH_USDT": {
+        "ensemble_sha256": "aba050bb8fd9ce2be51b3d6cd07b60894c5f53b724493155ebf8e5ea2bba7e15",
+        "fold_model_sha256": "07b4b9b421570b6b2f9683f916c4d5401d46d27a6cbe07c5051b2b98910f8185",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.010453026446443657,
+            "ZeroMSE": 0.010087218102988713
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.004105717130080107,
+            "ZeroMSE": 0.002451825421754238
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.09273629287258642,
+            "ZeroMSE": 0.08969111158789908
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.013020773262849042,
+            "ZeroMSE": 0.01153632791665937
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "BNB_USDT": {
+        "ensemble_sha256": "c922019f7d5076a06c248c0e2820d45d888908e03471768b4c02bc2a98507f37",
+        "fold_model_sha256": "fb07f35b653fd63e5fa5e8ac8165ce91e702749b8f85f7e397427afd7f8145c9",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0031607162795814635,
+            "ZeroMSE": 0.003245816193150633
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0021874310999457597,
+            "ZeroMSE": 0.002283775871467215
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.007871960256155082,
+            "ZeroMSE": 0.006651572553778073
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 2,
+            "Net": 0.024885029244732237,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.004003372000471418,
+            "ZeroMSE": 0.004473723556261671
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.025736572412870935
+        ]
+      },
+      "BTC_USDT": {
+        "ensemble_sha256": "52927556f8c2fb50400e58567089d17ac2862f3416c1dc988988a8afd3c82072",
+        "fold_model_sha256": "ffe5fabac45ae9bfd8240e3f8fe19b67562e050fe70bc4b3427f4c19eb3df5b4",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.004561140144141091,
+            "ZeroMSE": 0.004414821680403148
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.002495051062394942,
+            "ZeroMSE": 0.0022024674037359267
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.012461324759145407,
+            "ZeroMSE": 0.011712118500004637
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 2,
+            "Net": -0.020055454602080358,
+            "MaxDrawdown": 0.020055454602080358,
+            "ModelMSE": 0.004354371566378225,
+            "ZeroMSE": 0.0039883224046212435
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.023733035696099525
+        ]
+      },
+      "BTT_USDT": {
+        "ensemble_sha256": "35d2223f2e7443c7aa7e3bab366e4c277bcd06bf45cc9099718df37368ff1d0d",
+        "fold_model_sha256": "40f15e53b3110d35efa7377164adaca86e899dbef98a5187ca506cf3a169999a",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.002504537115049766,
+            "ZeroMSE": 0.002500088614238491
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0009900409131610556,
+            "ZeroMSE": 0.001022973054819841
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.006299252155635987,
+            "ZeroMSE": 0.005417987789115015
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0022902068087999323,
+            "ZeroMSE": 0.0022020720611577262
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "DASH_USDT": {
+        "ensemble_sha256": "0960e9dfab8195cc70e80bbda042b5b025aea3d8cc187a30c3c3fe408dd1b4a3",
+        "fold_model_sha256": "e8a3b7f0e478753c3c471241af23a744a64560b8c8e60b860300208d40e251a6",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.007113203075686885,
+            "ZeroMSE": 0.007273540677166558
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.00928000696539732,
+            "ZeroMSE": 0.009076992587975286
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.07672104038283296,
+            "ZeroMSE": 0.0725112002904359
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 3,
+            "Net": 0.3518614107964071,
+            "MaxDrawdown": 0.00334708916728077,
+            "ModelMSE": 0.1585907863259394,
+            "ZeroMSE": 0.16500283374767685
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.12342170119489329
+        ]
+      },
+      "DOGE_USDT": {
+        "ensemble_sha256": "845a8b079a1d53c6cc63ac3d8946bab34e5721348e216b9556db3d7feed35c62",
+        "fold_model_sha256": "85ffa4d4a4a93279564fc2a79217d169417ec73d7a4fceed9690f41481f77edb",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.007010873015228842,
+            "ZeroMSE": 0.006323045626109246
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0019041340206811567,
+            "ZeroMSE": 0.0019724980512840096
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.032254195408692815,
+            "ZeroMSE": 0.026496928857073773
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 2,
+            "Net": -0.03717290193731093,
+            "MaxDrawdown": 0.03717290193731093,
+            "ModelMSE": 0.01399565162746508,
+            "ZeroMSE": 0.011076201491290261
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.04930851562887073
+        ]
+      },
+      "DOT_USDT": {
+        "ensemble_sha256": "1324d156e46f423e3bbb3aab5a4e5acebfa8048a50543a391012a814865001e3",
+        "fold_model_sha256": "cd2a0b1ef56ea9b3a5eebd56213ce784d2db0d21ab07b2993a5d70ec746e4fcc",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.008657854744777229,
+            "ZeroMSE": 0.008949178438277252
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.01196679018727903,
+            "ZeroMSE": 0.011322580776780453
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.018346432748292674,
+            "ZeroMSE": 0.014079838744011813
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.028809356222144228,
+            "ZeroMSE": 0.023225495704303527
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ETC_USDT": {
+        "ensemble_sha256": "9e71834ad5e6c2a92e50368dc6218b3932e7b82fc576cc58c4f5c2007cb67f93",
+        "fold_model_sha256": "de3c369384e72f75c2d784e03bb7f23ef7f1d33d258cfa7cd24fbd898e2f334f",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0067176543119876805,
+            "ZeroMSE": 0.006392862189814215
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.00235959710035514,
+            "ZeroMSE": 0.0026625053193143097
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.026525610986563506,
+            "ZeroMSE": 0.02348491752844389
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.007206261592517671,
+            "ZeroMSE": 0.007328042238767101
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ETH_USDT": {
+        "ensemble_sha256": "d0061479edfb20e3642277bdd1795af103b5bc8e7c3aa7cfaaa3452fe523cb11",
+        "fold_model_sha256": "39687d1864b0dddc726b87029621f4505a8140e5714043b3017da877175b9c83",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.008882969032224424,
+            "ZeroMSE": 0.008829741318476284
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.003507045216126214,
+            "ZeroMSE": 0.0028435213066028016
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.022715682469257502,
+            "ZeroMSE": 0.02290246590514748
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 3,
+            "Net": -0.05317173164735112,
+            "MaxDrawdown": 0.05317173164735112,
+            "ModelMSE": 0.007821446318836547,
+            "ZeroMSE": 0.006649683276634556
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.07745334131857251
+        ]
+      },
+      "FIL_USDT": {
+        "ensemble_sha256": "c717790de1bcfc2c404d159ff60f2d823aeee39288c66837f90297db59ab1817",
+        "fold_model_sha256": "c7530ed784f800d73b35d8d1bf3f2d5c3a47f4b9b50af96de0ef6502c3b043cb",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.012749505223160982,
+            "ZeroMSE": 0.013729441250972496
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.011105145969406902,
+            "ZeroMSE": 0.010465402783324713
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0232570246872893,
+            "ZeroMSE": 0.02006976332996997
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.022268859087904727,
+            "ZeroMSE": 0.022519613533256495
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "FLOKI_USDT": {
+        "ensemble_sha256": "6011b4b813d86cb97d6d9a1ed95fd9132fe41d15c7001656e412c04a9c36908f",
+        "fold_model_sha256": "a06cbec950a1d5d45ebe12b201ae9c8d6e11060894f3930b310062f5d571a749",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.007540277439653,
+            "ZeroMSE": 0.007149462888228063
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.005811190354463863,
+            "ZeroMSE": 0.006002623937435252
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.03767607528875335,
+            "ZeroMSE": 0.034380847873621403
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 1,
+            "Net": -0.004482549317146978,
+            "MaxDrawdown": 0.004482549317146978,
+            "ModelMSE": 0.013434723377905937,
+            "ZeroMSE": 0.012936606027458712
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.07819008008468588
+        ]
+      },
+      "GRT_USDT": {
+        "ensemble_sha256": "38810b8cfa754be45e9d3d45926999c089dfd53cfc020b55d4207bd5dddaa8cd",
+        "fold_model_sha256": "57cdbca9724eddca08c700fff42064ac0f9763e1a434d1935261ff834ba501eb",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.006317694159505542,
+            "ZeroMSE": 0.007121630289923089
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.014976056569043534,
+            "ZeroMSE": 0.013498021548278921
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.05138587142982347,
+            "ZeroMSE": 0.04549329385700891
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.031616387117620146,
+            "ZeroMSE": 0.0305471158539869
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "HTX_USDT": {
+        "ensemble_sha256": "e3729d95ee772c641a3151a81c6a221130ec423c043dd2d8587323b2ff606f90",
+        "fold_model_sha256": "f51030f348304e7225f29b283004c8f89ce3c7b52971fd523d20fb95be4806a6",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0014961923904210723,
+            "ZeroMSE": 0.0007763764672603031
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0009489544855788122,
+            "ZeroMSE": 0.0010468230679385167
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0021858415904006992,
+            "ZeroMSE": 0.0021628748680633204
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0024419603076052698,
+            "ZeroMSE": 0.0025849868319856215
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ICP_USDT": {
+        "ensemble_sha256": "97a33bfab457dc14c3703b07693a932ae8139713c983afa75d16546bd395153c",
+        "fold_model_sha256": "b0e3a7bf50f4817d0b480d5e9a8f1dc7ac83945b513a56cbffa0edbc37511fce",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0049637752404504505,
+            "ZeroMSE": 0.004787110273819757
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.006267899099093677,
+            "ZeroMSE": 0.006428498565367935
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.011168149383181407,
+            "ZeroMSE": 0.0085973699858035
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.01718384323460191,
+            "ZeroMSE": 0.018236702043171873
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "IMX_USDT": {
+        "ensemble_sha256": "14c2f6f760c1df61d8b7f32ecb9905cdd54c950f73761c9a3f9885104e9e7d2e",
+        "fold_model_sha256": "246f0f205c2e9796e1b935c4924453d4ee3fbf55ea20aeae2727379f0c91e763",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0031035432667777204,
+            "ZeroMSE": 0.0030350473019862337
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.012858558599027941,
+            "ZeroMSE": 0.013750715066166885
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.029866287104447466,
+            "ZeroMSE": 0.021405141735071805
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.013230302513460015,
+            "ZeroMSE": 0.01166353679338031
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "JST_USDT": {
+        "ensemble_sha256": "ce27a6dcf4768845f7e6de7ff045559a9d5b5bc6730f91755a3a2bdcd14637f4",
+        "fold_model_sha256": "adcf8a653350736155f5449fd7ead51c553b0da2e4348e393aae8e4502d12c2f",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.007249708146891092,
+            "ZeroMSE": 0.00722922761564638
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.004143659735678034,
+            "ZeroMSE": 0.004042305081937682
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.005712808889693525,
+            "ZeroMSE": 0.005838053846859888
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.013801208304240616,
+            "ZeroMSE": 0.013682476719798494
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "LDO_USDT": {
+        "ensemble_sha256": "e9236b2995ce86a31e925862eced115c84a762afc73ff61cc09471fe235e29d2",
+        "fold_model_sha256": "6796654b4675137263c783258c19ccd336f67c06e2575ac813d5a64d20a0d168",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.042440755347343206,
+            "ZeroMSE": 0.04376281055603703
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 1,
+            "Net": -0.006000000000000005,
+            "MaxDrawdown": 0.006000000000000005,
+            "ModelMSE": 0.0355696251050384,
+            "ZeroMSE": 0.03550930572289318
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.037557048073426275,
+            "ZeroMSE": 0.03956674966923035
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 9,
+            "Net": 0.05563210036869437,
+            "MaxDrawdown": 0.04709589041095896,
+            "ModelMSE": 0.019709642179698762,
+            "ZeroMSE": 0.02082985514649998
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0.06208157021673925,
+          0,
+          0.0958109967942611
+        ]
+      },
+      "LINK_USDT": {
+        "ensemble_sha256": "0b8697a0636263579459fc5b4994f58b4ad500680a76b0c782c90daa8c91211f",
+        "fold_model_sha256": "ca570759246dbc0968f9ae9efdfcc82637b1cffeba4de96a92bd71b9ed744e52",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.008894179197643081,
+            "ZeroMSE": 0.0085722244677225
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.004073373873377166,
+            "ZeroMSE": 0.004006560022301385
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.027109228053659576,
+            "ZeroMSE": 0.023948430023580387
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.021157487310880005,
+            "ZeroMSE": 0.020791945553698007
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "LSK_USDT": {
+        "ensemble_sha256": "704b3321118cd86d42dee774842cbecbb18ef6b97a6115d5c899bfda9a7b465c",
+        "fold_model_sha256": "e6c7440c615931396accf3867bfb4b12669a36e796a0c8be6897d804923c28ab",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.008520571669807495,
+            "ZeroMSE": 0.009239440823399706
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.009244313014690374,
+            "ZeroMSE": 0.009245745253984501
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.01876647966667122,
+            "ZeroMSE": 0.01673835374284611
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.00769960476238158,
+            "ZeroMSE": 0.008191664238582372
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "LTC_USDT": {
+        "ensemble_sha256": "b1fc7e3b43b3c09c92e479032b3584ee2a9ac93fcbd2fdaadaa729134ea3df80",
+        "fold_model_sha256": "f3dd2ae90b9b70dd7a56949f6082f1232581af90bebd4a70bf51b080bf7261dd",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.007324681660174118,
+            "ZeroMSE": 0.006260881685124022
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0019110918170966937,
+            "ZeroMSE": 0.001966065721478427
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.011855831998657782,
+            "ZeroMSE": 0.011448451410076253
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.005522248564846106,
+            "ZeroMSE": 0.005797931781895481
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "LWOLF_USDT": {
+        "ensemble_sha256": "8989466d58582b75aba08f735965203ef6fa896fe02cf2d0ef6140818113659b",
+        "fold_model_sha256": "3847d32f0ac947c969a0b2dd6c869eb9d137b84de63c6f6ef5374019b99c43b4",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.02972756613888485,
+            "ZeroMSE": 0.026064834352296416
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0818357661746251,
+            "ZeroMSE": 0.0687306075918195
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.13760521905734233,
+            "ZeroMSE": 0.14042405845613837
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 4,
+            "Net": -0.3243926939130912,
+            "MaxDrawdown": 0.3243926939130912,
+            "ModelMSE": 0.1227598292362319,
+            "ZeroMSE": 0.10649611365884316
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.32547014805456503
+        ]
+      },
+      "MANA_USDT": {
+        "ensemble_sha256": "6de553f176996cc71eaf0878b2afd199ea6aa0971dced8f80422f0c39b1d7843",
+        "fold_model_sha256": "92c3c67adc31cbf67e9fc5eec5621b2ddc80d3a3fe4e68b0674a031f39140eac",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.008561125499342286,
+            "ZeroMSE": 0.008387155637367338
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0012154672494635085,
+            "ZeroMSE": 0.0013065657235483974
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.020590807125646333,
+            "ZeroMSE": 0.020069930111429043
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.005576593595987027,
+            "ZeroMSE": 0.005179899289425979
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "NEAR_USDT": {
+        "ensemble_sha256": "719f282517624309976fa16898fc41f362534d23d1d32153cf0f008dc5a32bc2",
+        "fold_model_sha256": "40fd33ddd33ea0fba55b25bc37fdcc7f6bd4b21a6ec443152c26dc908694e5e1",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 14,
+            "Net": -0.12547404727949163,
+            "MaxDrawdown": 0.19035887149469366,
+            "ModelMSE": 0.01457541924970372,
+            "ZeroMSE": 0.013356680350437872
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.017578139086085673,
+            "ZeroMSE": 0.016144194658045997
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 1,
+            "Net": 0.003235505387378046,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.015279405796604119,
+            "ZeroMSE": 0.016756450980949526
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 7,
+            "Net": 0.057103488137242975,
+            "MaxDrawdown": 0.04967285041713454,
+            "ModelMSE": 0.03323903919506873,
+            "ZeroMSE": 0.030924596780173855
+          }
+        ],
+        "oracle_dd": [
+          0.19153633835613226,
+          0,
+          0.0465336069779374,
+          0.0918982458280325
+        ]
+      },
+      "NFT_USDT": {
+        "ensemble_sha256": "6cbbe8cc185a5adfcc2bc306315346317944f2510df902ab287674f5376cc711",
+        "fold_model_sha256": "9bae37c978618210e0ef845523baab94fe5037b2bd8b56fe57d7444fd100f17c",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0006752744171475393,
+            "ZeroMSE": 0.0006031393097527118
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.002089835044216495,
+            "ZeroMSE": 0.002485826761934768
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0006023976030671511,
+            "ZeroMSE": 0.0005386829932943136
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.007607715763636212,
+            "ZeroMSE": 0.007404505474596531
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "OP_USDT": {
+        "ensemble_sha256": "fd405fefb299c5193f999cdd5e418219e9a8d021a1d8d46085eae3ad66bd87b5",
+        "fold_model_sha256": "6e94fc572c381b91c28650a6ec2290d639d29c734dc7efbaef46659e7633472c",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.05921655540751232,
+            "ZeroMSE": 0.053771158438522405
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.007296169905583405,
+            "ZeroMSE": 0.007773657275684064
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.03620871894799734,
+            "ZeroMSE": 0.030827543601841763
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 3,
+            "Net": 0.06422504524784767,
+            "MaxDrawdown": 0.05824668781574238,
+            "ModelMSE": 0.038906222498714234,
+            "ZeroMSE": 0.03995439541306159
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.06389720768884788
+        ]
+      },
+      "PEPE_USDT": {
+        "ensemble_sha256": "ed685295a275a3e6536e200d07777a0e4567949ae0c52a37b803fd68b0736425",
+        "fold_model_sha256": "18f0ddbf9cc4f789b4b0e6d39dc51236847899d12d0f448723aa75aca9f7e656",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.018324149357955104,
+            "ZeroMSE": 0.017406258295852642
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.00873615686786274,
+            "ZeroMSE": 0.008331357293192721
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.08468373308968646,
+            "ZeroMSE": 0.08311700723887042
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 2,
+            "Net": -0.1046868100292353,
+            "MaxDrawdown": 0.1046868100292353,
+            "ModelMSE": 0.019575646301354162,
+            "ZeroMSE": 0.015436765557638428
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.12234546874713426
+        ]
+      },
+      "POL_USDT": {
+        "ensemble_sha256": "0f0344131f8a22a189e157a78b3f4cc368db2af64836a618c8cca306d7edeca5",
+        "fold_model_sha256": "b0c5005d0f76a29d981de5508bf0e38ec53af458097a01160ccef5275ac76143",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0028760915575867687,
+            "ZeroMSE": 0.0030169008517563637
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0054818401397549715,
+            "ZeroMSE": 0.005493472315381238
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.06256307810899747,
+            "ZeroMSE": 0.06075277167508624
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 4,
+            "Net": -0.1459687094814056,
+            "MaxDrawdown": 0.1459687094814056,
+            "ModelMSE": 0.04125092103764483,
+            "ZeroMSE": 0.023752259263677127
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.18191345105873274
+        ]
+      },
+      "SAND_USDT": {
+        "ensemble_sha256": "a95f50b2b6298c0251d7ad73322389b7548537fb1038c16dadc0c3ac6cd3996f",
+        "fold_model_sha256": "69c63fe34a57561b4c4642f93bc44dd54c3ddc7b6562a328737c13125278e578",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.015773134409026737,
+            "ZeroMSE": 0.017188166000279174
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.016811532271216897,
+            "ZeroMSE": 0.014382148776282645
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.029333408944323465,
+            "ZeroMSE": 0.02466271405416934
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.021636130367651576,
+            "ZeroMSE": 0.021817984903086233
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "SC_USDT": {
+        "ensemble_sha256": "77dc38ed4d5f55ec2d8b5b9e8794064f86d2e09568900f505d4845ee67759d7a",
+        "fold_model_sha256": "4d06cc9081d5280d07c0b1ed5ee88bbba3e210302fd02f892256a935dfb4f0a1",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0037714475181173965,
+            "ZeroMSE": 0.004206461079150794
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.020448612940482537,
+            "ZeroMSE": 0.0211281895062051
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.13028433193007305,
+            "ZeroMSE": 0.1207897757364497
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 1,
+            "Net": -0.16400865800865794,
+            "MaxDrawdown": 0.16400865800865794,
+            "ModelMSE": 0.25686164449643356,
+            "ZeroMSE": 0.23637973366743145
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.18384372860439366
+        ]
+      },
+      "SHIB_USDT": {
+        "ensemble_sha256": "c1ea05a6301fd889bb42aff58e6f26fc7e203d146e958db580f8e65386fffb4a",
+        "fold_model_sha256": "dd59d1956d01d27bc121922f3e7db20cd0e5b7aa33dee36b9f82f3c0536cfd46",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0522242613032082,
+            "ZeroMSE": 0.048890716254354406
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.013708311550802972,
+            "ZeroMSE": 0.012983654176144608
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.020960563353437194,
+            "ZeroMSE": 0.019155313020975014
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.005384659682725218,
+            "ZeroMSE": 0.004980043123509662
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "SKY_USDT": {
+        "ensemble_sha256": "4f234dd2422215a29871f733c71c95678b8b978fac64a4e43736c2e234990021",
+        "fold_model_sha256": "416ebfacd17febef4d3e989b441ea034c20b7c562df402a917ea6e5627bfd7c3",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.013613112871645483,
+            "ZeroMSE": 0.013971958252286048
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.008750424834689933,
+            "ZeroMSE": 0.0063985162431676925
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.01868844145270464,
+            "ZeroMSE": 0.016574353608017275
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.01519512291573493,
+            "ZeroMSE": 0.015477316023824034
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "SOL_USDT": {
+        "ensemble_sha256": "b0dd7568db45f3cd5b3544757c820892b07ff1b0b31103fcd469ea54d99741e3",
+        "fold_model_sha256": "a28a1406d6385fdee6b5c3d2c8398817788a3534771f7f1fb6e902e76ddb4189",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.005145710658875665,
+            "ZeroMSE": 0.0051718520033290855
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0034562605018692892,
+            "ZeroMSE": 0.003369305877680682
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.01240005917536296,
+            "ZeroMSE": 0.0122610092995009
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 5,
+            "Net": -0.08485636871286095,
+            "MaxDrawdown": 0.08485636871286095,
+            "ModelMSE": 0.013500732345799312,
+            "ZeroMSE": 0.012649245357774128
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.1021439203505688
+        ]
+      },
+      "STEEM_USDT": {
+        "ensemble_sha256": "e9c9509e3742ac98c2bda022e51781587e37e10cda54460a23fb4c813c13f92a",
+        "fold_model_sha256": "54b8e59e4d1d4e798a2d56d7b21e3d970dff0190eb254e4c81336a2ba58a27c1",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0019772323008954472,
+            "ZeroMSE": 0.0019659172455934555
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.009409527580887252,
+            "ZeroMSE": 0.009190174016818846
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.02181202443014793,
+            "ZeroMSE": 0.017906837842976822
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 7,
+            "Net": -0.05348863936736081,
+            "MaxDrawdown": 0.057714720920454154,
+            "ModelMSE": 0.006951778542369875,
+            "ZeroMSE": 0.005409386763062373
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.08884389088467597
+        ]
+      },
+      "SUI_USDT": {
+        "ensemble_sha256": "967c61b71ad6c876df7cd994cdd671909a8a8b7de4668de5c5e4102dc55e4c53",
+        "fold_model_sha256": "7b6e938d74b6bb9deb647888f783b66853cbb21ff0ac411a729aae1e88b84e13",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.007158075556930434,
+            "ZeroMSE": 0.007051878541673098
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.003963068172873664,
+            "ZeroMSE": 0.003999918091681133
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.02546791578480173,
+            "ZeroMSE": 0.020518744066366217
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.011119050307300087,
+            "ZeroMSE": 0.010466120448488613
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "SUN_USDT": {
+        "ensemble_sha256": "1f986e78c22c1ab4b236da8f28f61d541b832bfc53de8cd1771a71676dae21c0",
+        "fold_model_sha256": "f3f5c6557deef8b276ad4f70c801e2735342186f87fd5848c55a835917ca0c7e",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0012385194960248837,
+            "ZeroMSE": 0.0012782305171181309
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0007997832056598953,
+            "ZeroMSE": 0.000854481756966889
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0019127455574875806,
+            "ZeroMSE": 0.002026810772415344
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.002704284419565872,
+            "ZeroMSE": 0.002776407260172148
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "TRX_USDT": {
+        "ensemble_sha256": "5b4e0d2b21433629c65d8501322a0b9f315f3c311c3ac7fcd3e17ec26c036221",
+        "fold_model_sha256": "36aef24727632d419f352a42f14cb8afec02d01e83a6418b53713d4d0df812f7",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0010932526421768081,
+            "ZeroMSE": 0.0010294609621505518
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0008958472842222696,
+            "ZeroMSE": 0.0008771072820738933
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0015643156949362023,
+            "ZeroMSE": 0.0014721977643471324
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0017838446203834516,
+            "ZeroMSE": 0.0017291978598371399
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "TUSD_USDT": {
+        "ensemble_sha256": "5ba48b9aaf93cc9dbf717e40d17c7107b6c7f5e4579efd745cbd76dd93e80055",
+        "fold_model_sha256": "89085916a0ff89d1d2fd16aa164fde795cf901130fde2485612d690f6b41c1c5",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 2.122337530954255e-06,
+            "ZeroMSE": 2.0653078202521007e-06
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 9.809469013365698e-07,
+            "ZeroMSE": 9.002501656901634e-07
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 3.5230144021989303e-06,
+            "ZeroMSE": 3.4559103684993943e-06
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 1.6454500226280846e-06,
+            "ZeroMSE": 1.6129535000293179e-06
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "UNI_USDT": {
+        "ensemble_sha256": "1704a6e16ea73f6f286eb6bed06c1ab49010830c57522a2dd179b381a7eca0a0",
+        "fold_model_sha256": "0ecb68d8dd572a2e66ec8e48011a5bc2e15568618edceccb1977e3e983822a42",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 1,
+            "Net": 0.019606359678771224,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.01572007341042652,
+            "ZeroMSE": 0.016507417984612634
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 1,
+            "Net": -0.05295064163315488,
+            "MaxDrawdown": 0.05295064163315488,
+            "ModelMSE": 0.028712741711715065,
+            "ZeroMSE": 0.028144837947302905
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 1,
+            "Net": 0.049358107531773276,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.04638250072870831,
+            "ZeroMSE": 0.040508499070037084
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 1,
+            "Net": 0.04527105666156195,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.047754688505069046,
+            "ZeroMSE": 0.04942138058842781
+          }
+        ],
+        "oracle_dd": [
+          0.0238370653530898,
+          0.061300837581004686,
+          0.030621668098297496,
+          0.07464515347476337
+        ]
+      },
+      "WIN_USDT": {
+        "ensemble_sha256": "d108459997402e0732d97c4bf79be4809f69fe3208cb586f2d9f934d74a5975f",
+        "fold_model_sha256": "db202aad24d25bc476a3775a6bef903a02dad294ec9ae96c6096ddee7466a8dc",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 1,
+            "Net": -0.016430839002267605,
+            "MaxDrawdown": 0.016430839002267605,
+            "ModelMSE": 0.011494859656500666,
+            "ZeroMSE": 0.01149198010309771
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 2,
+            "Net": 0.01605030959664422,
+            "MaxDrawdown": 0.005327731092436894,
+            "ModelMSE": 0.01599045040161834,
+            "ZeroMSE": 0.0176160006505617
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 7,
+            "Net": -0.06763687936579366,
+            "MaxDrawdown": 0.06763687936579366,
+            "ModelMSE": 0.014151782035716414,
+            "ZeroMSE": 0.01380741061802506
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 11,
+            "Net": -0.10011922774751558,
+            "MaxDrawdown": 0.1710439440596827,
+            "ModelMSE": 0.01548228242554414,
+            "ZeroMSE": 0.01574391325993522
+          }
+        ],
+        "oracle_dd": [
+          0.017337868480725604,
+          0.03961344537815137,
+          0.09567101898525643,
+          0.19114037169491843
+        ]
+      },
+      "WLD_USDT": {
+        "ensemble_sha256": "e43fa17e14ca926689fd0427719dc9dbfe1f2f41096a9bef1aed9c973049a5ef",
+        "fold_model_sha256": "59c3e9fede147733f4b86414384c9d60f25aa532fcf94b8051bd8add13b09d1d",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.016359333793675497,
+            "ZeroMSE": 0.015024160848055737
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.016225069955601048,
+            "ZeroMSE": 0.01629305471908963
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 3,
+            "Net": 0.03087151053124071,
+            "MaxDrawdown": 0.0035186104218363212,
+            "ModelMSE": 0.027987450237667792,
+            "ZeroMSE": 0.028446378214071786
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.021846131333646636,
+            "ZeroMSE": 0.02255746489611041
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0.20581485163723012,
+          0
+        ]
+      },
+      "WSTUSDT_USDT": {
+        "ensemble_sha256": "06e5b624a4ddd6b1cf2de34757c40f00c5af6a77a9f1af5c4a5a3e202039c9de",
+        "fold_model_sha256": "2fe48d88c8cbb319e99f8a9ae227bb7f4dfd43140da2becbc24bbcd30076a233",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0021298989104665267,
+            "ZeroMSE": 0.0020787061341543175
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0003941374691948716,
+            "ZeroMSE": 0.00014135661432255946
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0015698611561703608,
+            "ZeroMSE": 0.0016148529746991833
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 1.4530090531914564e-06,
+            "ZeroMSE": 9.301445296958256e-07
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "XEC_USDT": {
+        "ensemble_sha256": "fff967c072c35de26a6cae084c1209fee3e903ec94d4ab248691d726e0275eef",
+        "fold_model_sha256": "d02290e288462af90f662e2b44f09f738baab1b5e642554fa20a68f7473fcbcb",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.3263443142844184,
+            "ZeroMSE": 0.31459307823310434
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 1,
+            "Net": -0.007706484641638256,
+            "MaxDrawdown": 0.007706484641638256,
+            "ModelMSE": 0.06675804419601387,
+            "ZeroMSE": 0.06709823879041639
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 2,
+            "Net": 0.09676738893900216,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.018094286074777508,
+            "ZeroMSE": 0.019567835132905647
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.004808904922525546,
+            "ZeroMSE": 0.004781462115652213
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0.08063445083195778,
+          0.05791349267038654,
+          0
+        ]
+      },
+      "XEM_USDT": {
+        "ensemble_sha256": "2b794309b9c0a325dd4edcdb2329db858e2566d379f00f4e678f19b1df127a12",
+        "fold_model_sha256": "46c147b869a3594068f2661d99fbcf51ac793ff01321bc4bdbe6e6f989bcad3e",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 5,
+            "Net": -0.07020608982299459,
+            "MaxDrawdown": 0.10197173437524187,
+            "ModelMSE": 0.04781927206496394,
+            "ZeroMSE": 0.041732976089607805
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.009190474043009267,
+            "ZeroMSE": 0.013059620401200732
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.03818969462894242,
+            "ZeroMSE": 0.027490650159417346
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.03267856904704124,
+            "ZeroMSE": 0.0335671400947246
+          }
+        ],
+        "oracle_dd": [
+          0.15687854149187092,
+          0,
+          0,
+          0
+        ]
+      },
+      "XLM_USDT": {
+        "ensemble_sha256": "2e02257c2444baedaae0ad41384af31f2a13c5eaa3c490d9c8d6a8b298ec31fd",
+        "fold_model_sha256": "108470b7682e6d45b27e275660cdd00853f228b82c846fb93aecc7fef10128d0",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.009190689737205444,
+            "ZeroMSE": 0.008573051480326308
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.006333485939863517,
+            "ZeroMSE": 0.005707974537309813
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.01863756804842221,
+            "ZeroMSE": 0.019465659363079795
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 1,
+            "Net": -0.01087276664861947,
+            "MaxDrawdown": 0.01087276664861947,
+            "ModelMSE": 0.008140124551248485,
+            "ZeroMSE": 0.007893260573307073
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.041192203573362174
+        ]
+      },
+      "XMR_USDT": {
+        "ensemble_sha256": "6c41bfc8a81f140bf39ed57ddc7609a09619d1d6139c5afa76f9e49b8cf64782",
+        "fold_model_sha256": "9b3590e85abf7a563e70ff47bf75eb3621f237343d25a61fda7c26a62cc55f13",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.005349111722514627,
+            "ZeroMSE": 0.0050573966553969256
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.005717030983665857,
+            "ZeroMSE": 0.0058992669389341616
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.005734275283997721,
+            "ZeroMSE": 0.004718781329979247
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.022172906750879927,
+            "ZeroMSE": 0.022826410221609316
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "XRP_USDT": {
+        "ensemble_sha256": "9bdd4d49ebfd20be11aa544efd655197c6a50c95db538fe4e9e43f4de3fb851d",
+        "fold_model_sha256": "503bb968c077f14d943cc9a7c0b9bdab4924b0c66f116144132618e76f5caf90",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.005878212579014023,
+            "ZeroMSE": 0.0057310955114914805
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.004599432045280365,
+            "ZeroMSE": 0.004516471018583997
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.05643067891966918,
+            "ZeroMSE": 0.0497163960441248
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 1,
+            "Net": -0.03380082987551869,
+            "MaxDrawdown": 0.03380082987551869,
+            "ModelMSE": 0.01107658786440941,
+            "ZeroMSE": 0.009671063161206634
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.0455573997233748
+        ]
+      },
+      "ZEC_USDT": {
+        "ensemble_sha256": "500797fa87e7783c79210e721d92db5f6e8e3d36a1a937206283057e975ce62c",
+        "fold_model_sha256": "1253e8b2070b0750688effef67ccf48e7e2e27330ec4e5638362c354118fb34a",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.010530028323556193,
+            "ZeroMSE": 0.01085609757248122
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.009180661960354983,
+            "ZeroMSE": 0.009444518823574352
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 1,
+            "Net": -0.012613204132208344,
+            "MaxDrawdown": 0.012613204132208344,
+            "ModelMSE": 0.07651553868789855,
+            "ZeroMSE": 0.07654389174754296
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 4,
+            "Net": 0.0774971975972063,
+            "MaxDrawdown": 0.050276123720216837,
+            "ModelMSE": 0.12024621671950746,
+            "ZeroMSE": 0.12734869225126078
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0.07019680895497449,
+          0.08551542291901648
+        ]
+      },
+      "ZRX_USDT": {
+        "ensemble_sha256": "d16f1ac4ea63282db2fadd16c8400944059c4c658bd472e7a919c4d24a3fa069",
+        "fold_model_sha256": "af2d2ebec07253e157a7ea718b16a59d55c843b8189cba166c6670706d5e789d",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0024979502287498876,
+            "ZeroMSE": 0.0026762344035281866
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0066545765758845195,
+            "ZeroMSE": 0.006623210332125236
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.03528749719388248,
+            "ZeroMSE": 0.03335450627331853
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 1,
+            "Net": 0.007618677042801503,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.005430369708601661,
+            "ZeroMSE": 0.0055108210990477
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.0133736836474238
+        ]
+      }
+    }
+  },
+  "corrected": {
+    "file": "/vfast/data/trading_research_20260915/poloniex_path_risk/corrected_models.json",
+    "sha256": "41b26bd9e24a2817e27ec06821e99f64eacadd28d91e414eeedee4c9e1b1c389",
+    "symbols": {
+      "AAVE_USDT": {
+        "ensemble_sha256": "ecf5898cbaa3eddcc1c12a6a01ec4ffe6fbf87f7736b139e9511e07c71182d7a",
+        "fold_model_sha256": "66f139b72ee04b41e7e941ff6968d9cb3422e7cb04e47092cf528421d89e3a00",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 6,
+            "Net": -0.04470120231226071,
+            "MaxDrawdown": 0.14192851589771083,
+            "ModelMSE": 0.02073851851877001,
+            "ZeroMSE": 0.01786817651513358
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 4,
+            "Net": -0.023449310762521658,
+            "MaxDrawdown": 0.03773568090424961,
+            "ModelMSE": 0.010624764924528142,
+            "ZeroMSE": 0.0100337717984318
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 4,
+            "Net": -0.012773143984031288,
+            "MaxDrawdown": 0.04534762921116109,
+            "ModelMSE": 0.05514595128117921,
+            "ZeroMSE": 0.054735355862634796
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 2,
+            "Net": 0.051929600023446154,
+            "MaxDrawdown": 0.028353023818132983,
+            "ModelMSE": 0.00649480446152479,
+            "ZeroMSE": 0.006715930016834456
+          }
+        ],
+        "oracle_dd": [
+          0.14192851589771077,
+          0.03773568090424961,
+          0.04534762921116128,
+          0.028353023818132782
+        ]
+      },
+      "ADA_USDT": {
+        "ensemble_sha256": "3ed79ff56f352488d90593b20e4eb5407ce5e7e47fde992b066c8a49827174e9",
+        "fold_model_sha256": "796cd40c529174a86958cf5aeb00643245d37f544dc6b38fc233332b25ea9314",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.01437198859219962,
+            "ZeroMSE": 0.01403607642333371
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.028009220578166603,
+            "ZeroMSE": 0.021749712410691513
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.028455929963728192,
+            "ZeroMSE": 0.029435642117882663
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 3,
+            "Net": 0.001585461413399436,
+            "MaxDrawdown": 0.08270616865444302,
+            "ModelMSE": 0.016106740277933473,
+            "ZeroMSE": 0.016633455384687766
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.08270616865444319
+        ]
+      },
+      "APT_USDT": {
+        "ensemble_sha256": "b351773a263b9f6e89ce948e552f9e2681853c5df363c464fa298b4a2f1c9abe",
+        "fold_model_sha256": "0d28d1475f8be499ab05184760183f1d557ff9ffea17e29e3b3f48fe245b2bcd",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.011131081603431292,
+            "ZeroMSE": 0.009769894564550288
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.007750247193647411,
+            "ZeroMSE": 0.007359927170764157
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.021266705946161105,
+            "ZeroMSE": 0.02013087387509699
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.04731229060258013,
+            "ZeroMSE": 0.04572419832524452
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ARB_USDT": {
+        "ensemble_sha256": "33a6661e91b74e70a5283912ef31397f76537b82363d039ce231a9651932d944",
+        "fold_model_sha256": "a189379edfbf779d7373ca419a29b9882166631bd1e9ad91991bce67e69af7e2",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 3,
+            "Net": -0.0611318997852206,
+            "MaxDrawdown": 0.08597578898083968,
+            "ModelMSE": 0.008180632208367775,
+            "ZeroMSE": 0.005937394357187723
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0052868516180662965,
+            "ZeroMSE": 0.004571586463394162
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.029190977212812635,
+            "ZeroMSE": 0.02730432044184534
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.32713506125345054,
+            "ZeroMSE": 0.32144996316179036
+          }
+        ],
+        "oracle_dd": [
+          0.08597578898083974,
+          0,
+          0,
+          0
+        ]
+      },
+      "ATOM_USDT": {
+        "ensemble_sha256": "adc560ea92b8b57d2065a9fc4c4d961ccd0f597832f766a1714adcc0d6371ee1",
+        "fold_model_sha256": "0de4e8882d6f258644fed2a89480c5026fab199f16149f785b56ddebc807967e",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.005816203251573341,
+            "ZeroMSE": 0.00549096425563846
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.01759377497442196,
+            "ZeroMSE": 0.015940899677061835
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.015229765628090749,
+            "ZeroMSE": 0.01563696348285529
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.006888236306774159,
+            "ZeroMSE": 0.006488159410841351
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "AVAX_USDT": {
+        "ensemble_sha256": "96cdf458831eb9c337d8c19a4dca02ce784a2795085b5c8f92f92f656a89d4bd",
+        "fold_model_sha256": "deb587b174bae8a913cf84a8cdf9d466e7645e21d717966f2366d43e1ebcf7bf",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.009017198126092685,
+            "ZeroMSE": 0.00827816130095401
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.012140271654447737,
+            "ZeroMSE": 0.011377058768248566
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.01794750801007855,
+            "ZeroMSE": 0.015198662320151546
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.006777876455722037,
+            "ZeroMSE": 0.0064972986398992025
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "A_USDT": {
+        "ensemble_sha256": "b6472f568ffcf86ecb82ada8480e181335f9456696137e8294bbffa6792ccb6e",
+        "fold_model_sha256": "01fe9d8bd31e5418f25f89525930e06b7947ca6ae52ae1062f668060e169acc4",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 2,
+            "Net": -0.06534767031211197,
+            "MaxDrawdown": 0.06860565487349057,
+            "ModelMSE": 0.012790378440007714,
+            "ZeroMSE": 0.011541857140351174
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.004834454314697406,
+            "ZeroMSE": 0.0047690329434372045
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 2,
+            "Net": -0.026486441261837856,
+            "MaxDrawdown": 0.08778387302447788,
+            "ModelMSE": 0.024301068510831213,
+            "ZeroMSE": 0.022286810736564938
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.003519342665063485,
+            "ZeroMSE": 0.003663818505350584
+          }
+        ],
+        "oracle_dd": [
+          0.06860565487349068,
+          0,
+          0.08778387302447782,
+          0
+        ]
+      },
+      "BCHSV_USDT": {
+        "ensemble_sha256": "9cb4c2b1a45bcf78c20563af7653a435b6f046bc176fe20458b3620a3700f161",
+        "fold_model_sha256": "7c116368c9b43e3413daa6fd77d1273f5133e5f2ae5257cdcff9f440573b0acf",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.009742371797387347,
+            "ZeroMSE": 0.009730180599143724
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.008319774381822125,
+            "ZeroMSE": 0.00764019519430157
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 1,
+            "Net": -0.02361597181444519,
+            "MaxDrawdown": 0.03535995302407513,
+            "ModelMSE": 0.07665159005237956,
+            "ZeroMSE": 0.07766291170829029
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.005016338968791385,
+            "ZeroMSE": 0.0049357481067821484
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0.03535995302407513,
+          0
+        ]
+      },
+      "BCH_USDT": {
+        "ensemble_sha256": "aba050bb8fd9ce2be51b3d6cd07b60894c5f53b724493155ebf8e5ea2bba7e15",
+        "fold_model_sha256": "07b4b9b421570b6b2f9683f916c4d5401d46d27a6cbe07c5051b2b98910f8185",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.010453026446443657,
+            "ZeroMSE": 0.010087218102988713
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.004105717130080107,
+            "ZeroMSE": 0.002451825421754238
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.09273629287258642,
+            "ZeroMSE": 0.08969111158789908
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.013020773262849042,
+            "ZeroMSE": 0.01153632791665937
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "BNB_USDT": {
+        "ensemble_sha256": "c922019f7d5076a06c248c0e2820d45d888908e03471768b4c02bc2a98507f37",
+        "fold_model_sha256": "fb07f35b653fd63e5fa5e8ac8165ce91e702749b8f85f7e397427afd7f8145c9",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0031607162795814635,
+            "ZeroMSE": 0.003245816193150633
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0021874310999457597,
+            "ZeroMSE": 0.002283775871467215
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.007871960256155082,
+            "ZeroMSE": 0.006651572553778073
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 2,
+            "Net": 0.024885029244732237,
+            "MaxDrawdown": 0.025736572412870973,
+            "ModelMSE": 0.004003372000471418,
+            "ZeroMSE": 0.004473723556261671
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.025736572412870935
+        ]
+      },
+      "BTC_USDT": {
+        "ensemble_sha256": "52927556f8c2fb50400e58567089d17ac2862f3416c1dc988988a8afd3c82072",
+        "fold_model_sha256": "ffe5fabac45ae9bfd8240e3f8fe19b67562e050fe70bc4b3427f4c19eb3df5b4",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.004561140144141091,
+            "ZeroMSE": 0.004414821680403148
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.002495051062394942,
+            "ZeroMSE": 0.0022024674037359267
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.012461324759145407,
+            "ZeroMSE": 0.011712118500004637
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 2,
+            "Net": -0.020055454602080358,
+            "MaxDrawdown": 0.023733035696099525,
+            "ModelMSE": 0.004354371566378225,
+            "ZeroMSE": 0.0039883224046212435
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.023733035696099525
+        ]
+      },
+      "BTT_USDT": {
+        "ensemble_sha256": "35d2223f2e7443c7aa7e3bab366e4c277bcd06bf45cc9099718df37368ff1d0d",
+        "fold_model_sha256": "40f15e53b3110d35efa7377164adaca86e899dbef98a5187ca506cf3a169999a",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.002504537115049766,
+            "ZeroMSE": 0.002500088614238491
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0009900409131610556,
+            "ZeroMSE": 0.001022973054819841
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.006299252155635987,
+            "ZeroMSE": 0.005417987789115015
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0022902068087999323,
+            "ZeroMSE": 0.0022020720611577262
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "DASH_USDT": {
+        "ensemble_sha256": "0960e9dfab8195cc70e80bbda042b5b025aea3d8cc187a30c3c3fe408dd1b4a3",
+        "fold_model_sha256": "e8a3b7f0e478753c3c471241af23a744a64560b8c8e60b860300208d40e251a6",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.007113203075686885,
+            "ZeroMSE": 0.007273540677166558
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.00928000696539732,
+            "ZeroMSE": 0.009076992587975286
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.07672104038283296,
+            "ZeroMSE": 0.0725112002904359
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 3,
+            "Net": 0.3518614107964071,
+            "MaxDrawdown": 0.12342170119489315,
+            "ModelMSE": 0.1585907863259394,
+            "ZeroMSE": 0.16500283374767685
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.12342170119489329
+        ]
+      },
+      "DOGE_USDT": {
+        "ensemble_sha256": "845a8b079a1d53c6cc63ac3d8946bab34e5721348e216b9556db3d7feed35c62",
+        "fold_model_sha256": "85ffa4d4a4a93279564fc2a79217d169417ec73d7a4fceed9690f41481f77edb",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.007010873015228842,
+            "ZeroMSE": 0.006323045626109246
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0019041340206811567,
+            "ZeroMSE": 0.0019724980512840096
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.032254195408692815,
+            "ZeroMSE": 0.026496928857073773
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 2,
+            "Net": -0.03717290193731093,
+            "MaxDrawdown": 0.04930851562887095,
+            "ModelMSE": 0.01399565162746508,
+            "ZeroMSE": 0.011076201491290261
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.04930851562887073
+        ]
+      },
+      "DOT_USDT": {
+        "ensemble_sha256": "1324d156e46f423e3bbb3aab5a4e5acebfa8048a50543a391012a814865001e3",
+        "fold_model_sha256": "cd2a0b1ef56ea9b3a5eebd56213ce784d2db0d21ab07b2993a5d70ec746e4fcc",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.008657854744777229,
+            "ZeroMSE": 0.008949178438277252
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.01196679018727903,
+            "ZeroMSE": 0.011322580776780453
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.018346432748292674,
+            "ZeroMSE": 0.014079838744011813
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.028809356222144228,
+            "ZeroMSE": 0.023225495704303527
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ETC_USDT": {
+        "ensemble_sha256": "9e71834ad5e6c2a92e50368dc6218b3932e7b82fc576cc58c4f5c2007cb67f93",
+        "fold_model_sha256": "de3c369384e72f75c2d784e03bb7f23ef7f1d33d258cfa7cd24fbd898e2f334f",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0067176543119876805,
+            "ZeroMSE": 0.006392862189814215
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.00235959710035514,
+            "ZeroMSE": 0.0026625053193143097
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.026525610986563506,
+            "ZeroMSE": 0.02348491752844389
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.007206261592517671,
+            "ZeroMSE": 0.007328042238767101
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ETH_USDT": {
+        "ensemble_sha256": "d0061479edfb20e3642277bdd1795af103b5bc8e7c3aa7cfaaa3452fe523cb11",
+        "fold_model_sha256": "39687d1864b0dddc726b87029621f4505a8140e5714043b3017da877175b9c83",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.008882969032224424,
+            "ZeroMSE": 0.008829741318476284
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.003507045216126214,
+            "ZeroMSE": 0.0028435213066028016
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.022715682469257502,
+            "ZeroMSE": 0.02290246590514748
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 3,
+            "Net": -0.05317173164735112,
+            "MaxDrawdown": 0.07745334131857229,
+            "ModelMSE": 0.007821446318836547,
+            "ZeroMSE": 0.006649683276634556
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.07745334131857251
+        ]
+      },
+      "FIL_USDT": {
+        "ensemble_sha256": "c717790de1bcfc2c404d159ff60f2d823aeee39288c66837f90297db59ab1817",
+        "fold_model_sha256": "c7530ed784f800d73b35d8d1bf3f2d5c3a47f4b9b50af96de0ef6502c3b043cb",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.012749505223160982,
+            "ZeroMSE": 0.013729441250972496
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.011105145969406902,
+            "ZeroMSE": 0.010465402783324713
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0232570246872893,
+            "ZeroMSE": 0.02006976332996997
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.022268859087904727,
+            "ZeroMSE": 0.022519613533256495
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "FLOKI_USDT": {
+        "ensemble_sha256": "6011b4b813d86cb97d6d9a1ed95fd9132fe41d15c7001656e412c04a9c36908f",
+        "fold_model_sha256": "a06cbec950a1d5d45ebe12b201ae9c8d6e11060894f3930b310062f5d571a749",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.007540277439653,
+            "ZeroMSE": 0.007149462888228063
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.005811190354463863,
+            "ZeroMSE": 0.006002623937435252
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.03767607528875335,
+            "ZeroMSE": 0.034380847873621403
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 1,
+            "Net": -0.004482549317146978,
+            "MaxDrawdown": 0.07819008008468598,
+            "ModelMSE": 0.013434723377905937,
+            "ZeroMSE": 0.012936606027458712
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.07819008008468588
+        ]
+      },
+      "GRT_USDT": {
+        "ensemble_sha256": "38810b8cfa754be45e9d3d45926999c089dfd53cfc020b55d4207bd5dddaa8cd",
+        "fold_model_sha256": "57cdbca9724eddca08c700fff42064ac0f9763e1a434d1935261ff834ba501eb",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.006317694159505542,
+            "ZeroMSE": 0.007121630289923089
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.014976056569043534,
+            "ZeroMSE": 0.013498021548278921
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.05138587142982347,
+            "ZeroMSE": 0.04549329385700891
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.031616387117620146,
+            "ZeroMSE": 0.0305471158539869
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "HTX_USDT": {
+        "ensemble_sha256": "e3729d95ee772c641a3151a81c6a221130ec423c043dd2d8587323b2ff606f90",
+        "fold_model_sha256": "f51030f348304e7225f29b283004c8f89ce3c7b52971fd523d20fb95be4806a6",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0014961923904210723,
+            "ZeroMSE": 0.0007763764672603031
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0009489544855788122,
+            "ZeroMSE": 0.0010468230679385167
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0021858415904006992,
+            "ZeroMSE": 0.0021628748680633204
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0024419603076052698,
+            "ZeroMSE": 0.0025849868319856215
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "ICP_USDT": {
+        "ensemble_sha256": "97a33bfab457dc14c3703b07693a932ae8139713c983afa75d16546bd395153c",
+        "fold_model_sha256": "b0e3a7bf50f4817d0b480d5e9a8f1dc7ac83945b513a56cbffa0edbc37511fce",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0049637752404504505,
+            "ZeroMSE": 0.004787110273819757
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.006267899099093677,
+            "ZeroMSE": 0.006428498565367935
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.011168149383181407,
+            "ZeroMSE": 0.0085973699858035
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.01718384323460191,
+            "ZeroMSE": 0.018236702043171873
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "IMX_USDT": {
+        "ensemble_sha256": "14c2f6f760c1df61d8b7f32ecb9905cdd54c950f73761c9a3f9885104e9e7d2e",
+        "fold_model_sha256": "246f0f205c2e9796e1b935c4924453d4ee3fbf55ea20aeae2727379f0c91e763",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0031035432667777204,
+            "ZeroMSE": 0.0030350473019862337
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.012858558599027941,
+            "ZeroMSE": 0.013750715066166885
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.029866287104447466,
+            "ZeroMSE": 0.021405141735071805
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.013230302513460015,
+            "ZeroMSE": 0.01166353679338031
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "JST_USDT": {
+        "ensemble_sha256": "ce27a6dcf4768845f7e6de7ff045559a9d5b5bc6730f91755a3a2bdcd14637f4",
+        "fold_model_sha256": "adcf8a653350736155f5449fd7ead51c553b0da2e4348e393aae8e4502d12c2f",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.007249708146891092,
+            "ZeroMSE": 0.00722922761564638
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.004143659735678034,
+            "ZeroMSE": 0.004042305081937682
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.005712808889693525,
+            "ZeroMSE": 0.005838053846859888
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.013801208304240616,
+            "ZeroMSE": 0.013682476719798494
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "LDO_USDT": {
+        "ensemble_sha256": "e9236b2995ce86a31e925862eced115c84a762afc73ff61cc09471fe235e29d2",
+        "fold_model_sha256": "6796654b4675137263c783258c19ccd336f67c06e2575ac813d5a64d20a0d168",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.042440755347343206,
+            "ZeroMSE": 0.04376281055603703
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 1,
+            "Net": -0.006000000000000005,
+            "MaxDrawdown": 0.0620815702167391,
+            "ModelMSE": 0.0355696251050384,
+            "ZeroMSE": 0.03550930572289318
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.037557048073426275,
+            "ZeroMSE": 0.03956674966923035
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 9,
+            "Net": 0.05563210036869437,
+            "MaxDrawdown": 0.09581099679426108,
+            "ModelMSE": 0.019709642179698762,
+            "ZeroMSE": 0.02082985514649998
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0.06208157021673925,
+          0,
+          0.0958109967942611
+        ]
+      },
+      "LINK_USDT": {
+        "ensemble_sha256": "0b8697a0636263579459fc5b4994f58b4ad500680a76b0c782c90daa8c91211f",
+        "fold_model_sha256": "ca570759246dbc0968f9ae9efdfcc82637b1cffeba4de96a92bd71b9ed744e52",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.008894179197643081,
+            "ZeroMSE": 0.0085722244677225
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.004073373873377166,
+            "ZeroMSE": 0.004006560022301385
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.027109228053659576,
+            "ZeroMSE": 0.023948430023580387
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.021157487310880005,
+            "ZeroMSE": 0.020791945553698007
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "LSK_USDT": {
+        "ensemble_sha256": "704b3321118cd86d42dee774842cbecbb18ef6b97a6115d5c899bfda9a7b465c",
+        "fold_model_sha256": "e6c7440c615931396accf3867bfb4b12669a36e796a0c8be6897d804923c28ab",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.008520571669807495,
+            "ZeroMSE": 0.009239440823399706
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.009244313014690374,
+            "ZeroMSE": 0.009245745253984501
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.01876647966667122,
+            "ZeroMSE": 0.01673835374284611
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.00769960476238158,
+            "ZeroMSE": 0.008191664238582372
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "LTC_USDT": {
+        "ensemble_sha256": "b1fc7e3b43b3c09c92e479032b3584ee2a9ac93fcbd2fdaadaa729134ea3df80",
+        "fold_model_sha256": "f3dd2ae90b9b70dd7a56949f6082f1232581af90bebd4a70bf51b080bf7261dd",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.007324681660174118,
+            "ZeroMSE": 0.006260881685124022
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0019110918170966937,
+            "ZeroMSE": 0.001966065721478427
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.011855831998657782,
+            "ZeroMSE": 0.011448451410076253
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.005522248564846106,
+            "ZeroMSE": 0.005797931781895481
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "LWOLF_USDT": {
+        "ensemble_sha256": "8989466d58582b75aba08f735965203ef6fa896fe02cf2d0ef6140818113659b",
+        "fold_model_sha256": "3847d32f0ac947c969a0b2dd6c869eb9d137b84de63c6f6ef5374019b99c43b4",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.02972756613888485,
+            "ZeroMSE": 0.026064834352296416
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0818357661746251,
+            "ZeroMSE": 0.0687306075918195
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.13760521905734233,
+            "ZeroMSE": 0.14042405845613837
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 4,
+            "Net": -0.3243926939130912,
+            "MaxDrawdown": 0.3254701480545653,
+            "ModelMSE": 0.1227598292362319,
+            "ZeroMSE": 0.10649611365884316
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.32547014805456503
+        ]
+      },
+      "MANA_USDT": {
+        "ensemble_sha256": "6de553f176996cc71eaf0878b2afd199ea6aa0971dced8f80422f0c39b1d7843",
+        "fold_model_sha256": "92c3c67adc31cbf67e9fc5eec5621b2ddc80d3a3fe4e68b0674a031f39140eac",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.008561125499342286,
+            "ZeroMSE": 0.008387155637367338
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0012154672494635085,
+            "ZeroMSE": 0.0013065657235483974
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.020590807125646333,
+            "ZeroMSE": 0.020069930111429043
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.005576593595987027,
+            "ZeroMSE": 0.005179899289425979
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "NEAR_USDT": {
+        "ensemble_sha256": "719f282517624309976fa16898fc41f362534d23d1d32153cf0f008dc5a32bc2",
+        "fold_model_sha256": "40fd33ddd33ea0fba55b25bc37fdcc7f6bd4b21a6ec443152c26dc908694e5e1",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 14,
+            "Net": -0.12547404727949163,
+            "MaxDrawdown": 0.19153633835613215,
+            "ModelMSE": 0.01457541924970372,
+            "ZeroMSE": 0.013356680350437872
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.017578139086085673,
+            "ZeroMSE": 0.016144194658045997
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 1,
+            "Net": 0.003235505387378046,
+            "MaxDrawdown": 0.0465336069779374,
+            "ModelMSE": 0.015279405796604119,
+            "ZeroMSE": 0.016756450980949526
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 7,
+            "Net": 0.057103488137242975,
+            "MaxDrawdown": 0.09189824582803252,
+            "ModelMSE": 0.03323903919506873,
+            "ZeroMSE": 0.030924596780173855
+          }
+        ],
+        "oracle_dd": [
+          0.19153633835613226,
+          0,
+          0.0465336069779374,
+          0.0918982458280325
+        ]
+      },
+      "NFT_USDT": {
+        "ensemble_sha256": "6cbbe8cc185a5adfcc2bc306315346317944f2510df902ab287674f5376cc711",
+        "fold_model_sha256": "9bae37c978618210e0ef845523baab94fe5037b2bd8b56fe57d7444fd100f17c",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0006752744171475393,
+            "ZeroMSE": 0.0006031393097527118
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.002089835044216495,
+            "ZeroMSE": 0.002485826761934768
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0006023976030671511,
+            "ZeroMSE": 0.0005386829932943136
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.007607715763636212,
+            "ZeroMSE": 0.007404505474596531
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "OP_USDT": {
+        "ensemble_sha256": "fd405fefb299c5193f999cdd5e418219e9a8d021a1d8d46085eae3ad66bd87b5",
+        "fold_model_sha256": "6e94fc572c381b91c28650a6ec2290d639d29c734dc7efbaef46659e7633472c",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.05921655540751232,
+            "ZeroMSE": 0.053771158438522405
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.007296169905583405,
+            "ZeroMSE": 0.007773657275684064
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.03620871894799734,
+            "ZeroMSE": 0.030827543601841763
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 3,
+            "Net": 0.06422504524784767,
+            "MaxDrawdown": 0.06389720768884788,
+            "ModelMSE": 0.038906222498714234,
+            "ZeroMSE": 0.03995439541306159
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.06389720768884788
+        ]
+      },
+      "PEPE_USDT": {
+        "ensemble_sha256": "ed685295a275a3e6536e200d07777a0e4567949ae0c52a37b803fd68b0736425",
+        "fold_model_sha256": "18f0ddbf9cc4f789b4b0e6d39dc51236847899d12d0f448723aa75aca9f7e656",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.018324149357955104,
+            "ZeroMSE": 0.017406258295852642
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.00873615686786274,
+            "ZeroMSE": 0.008331357293192721
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.08468373308968646,
+            "ZeroMSE": 0.08311700723887042
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 2,
+            "Net": -0.1046868100292353,
+            "MaxDrawdown": 0.12234546874713426,
+            "ModelMSE": 0.019575646301354162,
+            "ZeroMSE": 0.015436765557638428
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.12234546874713426
+        ]
+      },
+      "POL_USDT": {
+        "ensemble_sha256": "0f0344131f8a22a189e157a78b3f4cc368db2af64836a618c8cca306d7edeca5",
+        "fold_model_sha256": "b0c5005d0f76a29d981de5508bf0e38ec53af458097a01160ccef5275ac76143",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0028760915575867687,
+            "ZeroMSE": 0.0030169008517563637
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0054818401397549715,
+            "ZeroMSE": 0.005493472315381238
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.06256307810899747,
+            "ZeroMSE": 0.06075277167508624
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 4,
+            "Net": -0.1459687094814056,
+            "MaxDrawdown": 0.1819134510587328,
+            "ModelMSE": 0.04125092103764483,
+            "ZeroMSE": 0.023752259263677127
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.18191345105873274
+        ]
+      },
+      "SAND_USDT": {
+        "ensemble_sha256": "a95f50b2b6298c0251d7ad73322389b7548537fb1038c16dadc0c3ac6cd3996f",
+        "fold_model_sha256": "69c63fe34a57561b4c4642f93bc44dd54c3ddc7b6562a328737c13125278e578",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.015773134409026737,
+            "ZeroMSE": 0.017188166000279174
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.016811532271216897,
+            "ZeroMSE": 0.014382148776282645
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.029333408944323465,
+            "ZeroMSE": 0.02466271405416934
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.021636130367651576,
+            "ZeroMSE": 0.021817984903086233
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "SC_USDT": {
+        "ensemble_sha256": "77dc38ed4d5f55ec2d8b5b9e8794064f86d2e09568900f505d4845ee67759d7a",
+        "fold_model_sha256": "4d06cc9081d5280d07c0b1ed5ee88bbba3e210302fd02f892256a935dfb4f0a1",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0037714475181173965,
+            "ZeroMSE": 0.004206461079150794
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.020448612940482537,
+            "ZeroMSE": 0.0211281895062051
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.13028433193007305,
+            "ZeroMSE": 0.1207897757364497
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 1,
+            "Net": -0.16400865800865794,
+            "MaxDrawdown": 0.18384372860439357,
+            "ModelMSE": 0.25686164449643356,
+            "ZeroMSE": 0.23637973366743145
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.18384372860439366
+        ]
+      },
+      "SHIB_USDT": {
+        "ensemble_sha256": "c1ea05a6301fd889bb42aff58e6f26fc7e203d146e958db580f8e65386fffb4a",
+        "fold_model_sha256": "dd59d1956d01d27bc121922f3e7db20cd0e5b7aa33dee36b9f82f3c0536cfd46",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0522242613032082,
+            "ZeroMSE": 0.048890716254354406
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.013708311550802972,
+            "ZeroMSE": 0.012983654176144608
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.020960563353437194,
+            "ZeroMSE": 0.019155313020975014
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.005384659682725218,
+            "ZeroMSE": 0.004980043123509662
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "SKY_USDT": {
+        "ensemble_sha256": "4f234dd2422215a29871f733c71c95678b8b978fac64a4e43736c2e234990021",
+        "fold_model_sha256": "416ebfacd17febef4d3e989b441ea034c20b7c562df402a917ea6e5627bfd7c3",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.013613112871645483,
+            "ZeroMSE": 0.013971958252286048
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.008750424834689933,
+            "ZeroMSE": 0.0063985162431676925
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.01868844145270464,
+            "ZeroMSE": 0.016574353608017275
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.01519512291573493,
+            "ZeroMSE": 0.015477316023824034
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "SOL_USDT": {
+        "ensemble_sha256": "b0dd7568db45f3cd5b3544757c820892b07ff1b0b31103fcd469ea54d99741e3",
+        "fold_model_sha256": "a28a1406d6385fdee6b5c3d2c8398817788a3534771f7f1fb6e902e76ddb4189",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.005145710658875665,
+            "ZeroMSE": 0.0051718520033290855
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0034562605018692892,
+            "ZeroMSE": 0.003369305877680682
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.01240005917536296,
+            "ZeroMSE": 0.0122610092995009
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 5,
+            "Net": -0.08485636871286095,
+            "MaxDrawdown": 0.10214392035056896,
+            "ModelMSE": 0.013500732345799312,
+            "ZeroMSE": 0.012649245357774128
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.1021439203505688
+        ]
+      },
+      "STEEM_USDT": {
+        "ensemble_sha256": "e9c9509e3742ac98c2bda022e51781587e37e10cda54460a23fb4c813c13f92a",
+        "fold_model_sha256": "54b8e59e4d1d4e798a2d56d7b21e3d970dff0190eb254e4c81336a2ba58a27c1",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0019772323008954472,
+            "ZeroMSE": 0.0019659172455934555
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.009409527580887252,
+            "ZeroMSE": 0.009190174016818846
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.02181202443014793,
+            "ZeroMSE": 0.017906837842976822
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 7,
+            "Net": -0.05348863936736081,
+            "MaxDrawdown": 0.08884389088467559,
+            "ModelMSE": 0.006951778542369875,
+            "ZeroMSE": 0.005409386763062373
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.08884389088467597
+        ]
+      },
+      "SUI_USDT": {
+        "ensemble_sha256": "967c61b71ad6c876df7cd994cdd671909a8a8b7de4668de5c5e4102dc55e4c53",
+        "fold_model_sha256": "7b6e938d74b6bb9deb647888f783b66853cbb21ff0ac411a729aae1e88b84e13",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.007158075556930434,
+            "ZeroMSE": 0.007051878541673098
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.003963068172873664,
+            "ZeroMSE": 0.003999918091681133
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.02546791578480173,
+            "ZeroMSE": 0.020518744066366217
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.011119050307300087,
+            "ZeroMSE": 0.010466120448488613
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "SUN_USDT": {
+        "ensemble_sha256": "1f986e78c22c1ab4b236da8f28f61d541b832bfc53de8cd1771a71676dae21c0",
+        "fold_model_sha256": "f3f5c6557deef8b276ad4f70c801e2735342186f87fd5848c55a835917ca0c7e",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0012385194960248837,
+            "ZeroMSE": 0.0012782305171181309
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0007997832056598953,
+            "ZeroMSE": 0.000854481756966889
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0019127455574875806,
+            "ZeroMSE": 0.002026810772415344
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.002704284419565872,
+            "ZeroMSE": 0.002776407260172148
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "TRX_USDT": {
+        "ensemble_sha256": "5b4e0d2b21433629c65d8501322a0b9f315f3c311c3ac7fcd3e17ec26c036221",
+        "fold_model_sha256": "36aef24727632d419f352a42f14cb8afec02d01e83a6418b53713d4d0df812f7",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0010932526421768081,
+            "ZeroMSE": 0.0010294609621505518
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0008958472842222696,
+            "ZeroMSE": 0.0008771072820738933
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0015643156949362023,
+            "ZeroMSE": 0.0014721977643471324
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0017838446203834516,
+            "ZeroMSE": 0.0017291978598371399
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "TUSD_USDT": {
+        "ensemble_sha256": "5ba48b9aaf93cc9dbf717e40d17c7107b6c7f5e4579efd745cbd76dd93e80055",
+        "fold_model_sha256": "89085916a0ff89d1d2fd16aa164fde795cf901130fde2485612d690f6b41c1c5",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 2.122337530954255e-06,
+            "ZeroMSE": 2.0653078202521007e-06
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 9.809469013365698e-07,
+            "ZeroMSE": 9.002501656901634e-07
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 3.5230144021989303e-06,
+            "ZeroMSE": 3.4559103684993943e-06
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 1.6454500226280846e-06,
+            "ZeroMSE": 1.6129535000293179e-06
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "UNI_USDT": {
+        "ensemble_sha256": "1704a6e16ea73f6f286eb6bed06c1ab49010830c57522a2dd179b381a7eca0a0",
+        "fold_model_sha256": "0ecb68d8dd572a2e66ec8e48011a5bc2e15568618edceccb1977e3e983822a42",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 1,
+            "Net": 0.019606359678771224,
+            "MaxDrawdown": 0.023837065353089826,
+            "ModelMSE": 0.01572007341042652,
+            "ZeroMSE": 0.016507417984612634
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 1,
+            "Net": -0.05295064163315488,
+            "MaxDrawdown": 0.061300837581004575,
+            "ModelMSE": 0.028712741711715065,
+            "ZeroMSE": 0.028144837947302905
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 1,
+            "Net": 0.049358107531773276,
+            "MaxDrawdown": 0.03062166809829725,
+            "ModelMSE": 0.04638250072870831,
+            "ZeroMSE": 0.040508499070037084
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 1,
+            "Net": 0.04527105666156195,
+            "MaxDrawdown": 0.07464515347476319,
+            "ModelMSE": 0.047754688505069046,
+            "ZeroMSE": 0.04942138058842781
+          }
+        ],
+        "oracle_dd": [
+          0.0238370653530898,
+          0.061300837581004686,
+          0.030621668098297496,
+          0.07464515347476337
+        ]
+      },
+      "WIN_USDT": {
+        "ensemble_sha256": "d108459997402e0732d97c4bf79be4809f69fe3208cb586f2d9f934d74a5975f",
+        "fold_model_sha256": "db202aad24d25bc476a3775a6bef903a02dad294ec9ae96c6096ddee7466a8dc",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 1,
+            "Net": -0.016430839002267605,
+            "MaxDrawdown": 0.017337868480725604,
+            "ModelMSE": 0.011494859656500666,
+            "ZeroMSE": 0.01149198010309771
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 2,
+            "Net": 0.01605030959664422,
+            "MaxDrawdown": 0.03961344537815126,
+            "ModelMSE": 0.01599045040161834,
+            "ZeroMSE": 0.0176160006505617
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 7,
+            "Net": -0.06763687936579366,
+            "MaxDrawdown": 0.09567101898525665,
+            "ModelMSE": 0.014151782035716414,
+            "ZeroMSE": 0.01380741061802506
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 11,
+            "Net": -0.10011922774751558,
+            "MaxDrawdown": 0.19114037169491838,
+            "ModelMSE": 0.01548228242554414,
+            "ZeroMSE": 0.01574391325993522
+          }
+        ],
+        "oracle_dd": [
+          0.017337868480725604,
+          0.03961344537815137,
+          0.09567101898525643,
+          0.19114037169491843
+        ]
+      },
+      "WLD_USDT": {
+        "ensemble_sha256": "e43fa17e14ca926689fd0427719dc9dbfe1f2f41096a9bef1aed9c973049a5ef",
+        "fold_model_sha256": "59c3e9fede147733f4b86414384c9d60f25aa532fcf94b8051bd8add13b09d1d",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.016359333793675497,
+            "ZeroMSE": 0.015024160848055737
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.016225069955601048,
+            "ZeroMSE": 0.01629305471908963
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 3,
+            "Net": 0.03087151053124071,
+            "MaxDrawdown": 0.20581485163723012,
+            "ModelMSE": 0.027987450237667792,
+            "ZeroMSE": 0.028446378214071786
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.021846131333646636,
+            "ZeroMSE": 0.02255746489611041
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0.20581485163723012,
+          0
+        ]
+      },
+      "WSTUSDT_USDT": {
+        "ensemble_sha256": "06e5b624a4ddd6b1cf2de34757c40f00c5af6a77a9f1af5c4a5a3e202039c9de",
+        "fold_model_sha256": "2fe48d88c8cbb319e99f8a9ae227bb7f4dfd43140da2becbc24bbcd30076a233",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0021298989104665267,
+            "ZeroMSE": 0.0020787061341543175
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0003941374691948716,
+            "ZeroMSE": 0.00014135661432255946
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0015698611561703608,
+            "ZeroMSE": 0.0016148529746991833
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 1.4530090531914564e-06,
+            "ZeroMSE": 9.301445296958256e-07
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "XEC_USDT": {
+        "ensemble_sha256": "fff967c072c35de26a6cae084c1209fee3e903ec94d4ab248691d726e0275eef",
+        "fold_model_sha256": "d02290e288462af90f662e2b44f09f738baab1b5e642554fa20a68f7473fcbcb",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.3263443142844184,
+            "ZeroMSE": 0.31459307823310434
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 1,
+            "Net": -0.007706484641638256,
+            "MaxDrawdown": 0.08063445083195797,
+            "ModelMSE": 0.06675804419601387,
+            "ZeroMSE": 0.06709823879041639
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 2,
+            "Net": 0.09676738893900216,
+            "MaxDrawdown": 0.05791349267038659,
+            "ModelMSE": 0.018094286074777508,
+            "ZeroMSE": 0.019567835132905647
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.004808904922525546,
+            "ZeroMSE": 0.004781462115652213
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0.08063445083195778,
+          0.05791349267038654,
+          0
+        ]
+      },
+      "XEM_USDT": {
+        "ensemble_sha256": "2b794309b9c0a325dd4edcdb2329db858e2566d379f00f4e678f19b1df127a12",
+        "fold_model_sha256": "46c147b869a3594068f2661d99fbcf51ac793ff01321bc4bdbe6e6f989bcad3e",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 5,
+            "Net": -0.07020608982299459,
+            "MaxDrawdown": 0.15687854149187097,
+            "ModelMSE": 0.04781927206496394,
+            "ZeroMSE": 0.041732976089607805
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.009190474043009267,
+            "ZeroMSE": 0.013059620401200732
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.03818969462894242,
+            "ZeroMSE": 0.027490650159417346
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.03267856904704124,
+            "ZeroMSE": 0.0335671400947246
+          }
+        ],
+        "oracle_dd": [
+          0.15687854149187092,
+          0,
+          0,
+          0
+        ]
+      },
+      "XLM_USDT": {
+        "ensemble_sha256": "2e02257c2444baedaae0ad41384af31f2a13c5eaa3c490d9c8d6a8b298ec31fd",
+        "fold_model_sha256": "108470b7682e6d45b27e275660cdd00853f228b82c846fb93aecc7fef10128d0",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.009190689737205444,
+            "ZeroMSE": 0.008573051480326308
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.006333485939863517,
+            "ZeroMSE": 0.005707974537309813
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.01863756804842221,
+            "ZeroMSE": 0.019465659363079795
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 1,
+            "Net": -0.01087276664861947,
+            "MaxDrawdown": 0.041192203573362285,
+            "ModelMSE": 0.008140124551248485,
+            "ZeroMSE": 0.007893260573307073
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.041192203573362174
+        ]
+      },
+      "XMR_USDT": {
+        "ensemble_sha256": "6c41bfc8a81f140bf39ed57ddc7609a09619d1d6139c5afa76f9e49b8cf64782",
+        "fold_model_sha256": "9b3590e85abf7a563e70ff47bf75eb3621f237343d25a61fda7c26a62cc55f13",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.005349111722514627,
+            "ZeroMSE": 0.0050573966553969256
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.005717030983665857,
+            "ZeroMSE": 0.0058992669389341616
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.005734275283997721,
+            "ZeroMSE": 0.004718781329979247
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.022172906750879927,
+            "ZeroMSE": 0.022826410221609316
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "XRP_USDT": {
+        "ensemble_sha256": "9bdd4d49ebfd20be11aa544efd655197c6a50c95db538fe4e9e43f4de3fb851d",
+        "fold_model_sha256": "503bb968c077f14d943cc9a7c0b9bdab4924b0c66f116144132618e76f5caf90",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.005878212579014023,
+            "ZeroMSE": 0.0057310955114914805
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.004599432045280365,
+            "ZeroMSE": 0.004516471018583997
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.05643067891966918,
+            "ZeroMSE": 0.0497163960441248
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 1,
+            "Net": -0.03380082987551869,
+            "MaxDrawdown": 0.0455573997233748,
+            "ModelMSE": 0.01107658786440941,
+            "ZeroMSE": 0.009671063161206634
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.0455573997233748
+        ]
+      },
+      "ZEC_USDT": {
+        "ensemble_sha256": "500797fa87e7783c79210e721d92db5f6e8e3d36a1a937206283057e975ce62c",
+        "fold_model_sha256": "1253e8b2070b0750688effef67ccf48e7e2e27330ec4e5638362c354118fb34a",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.010530028323556193,
+            "ZeroMSE": 0.01085609757248122
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.009180661960354983,
+            "ZeroMSE": 0.009444518823574352
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 1,
+            "Net": -0.012613204132208344,
+            "MaxDrawdown": 0.0701968089549746,
+            "ModelMSE": 0.07651553868789855,
+            "ZeroMSE": 0.07654389174754296
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 4,
+            "Net": 0.0774971975972063,
+            "MaxDrawdown": 0.08551542291901648,
+            "ModelMSE": 0.12024621671950746,
+            "ZeroMSE": 0.12734869225126078
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0.07019680895497449,
+          0.08551542291901648
+        ]
+      },
+      "ZRX_USDT": {
+        "ensemble_sha256": "d16f1ac4ea63282db2fadd16c8400944059c4c658bd472e7a919c4d24a3fa069",
+        "fold_model_sha256": "af2d2ebec07253e157a7ea718b16a59d55c843b8189cba166c6670706d5e789d",
+        "accepted": false,
+        "folds": [
+          {
+            "TrainLast": 1783857600000,
+            "TestFirst": 1783861200000,
+            "TestLast": 1785121200000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0024979502287498876,
+            "ZeroMSE": 0.0026762344035281866
+          },
+          {
+            "TrainLast": 1785121200000,
+            "TestFirst": 1785124800000,
+            "TestLast": 1786384800000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.0066545765758845195,
+            "ZeroMSE": 0.006623210332125236
+          },
+          {
+            "TrainLast": 1786384800000,
+            "TestFirst": 1786388400000,
+            "TestLast": 1787648400000,
+            "Trades": 0,
+            "Net": 0,
+            "MaxDrawdown": 0,
+            "ModelMSE": 0.03528749719388248,
+            "ZeroMSE": 0.03335450627331853
+          },
+          {
+            "TrainLast": 1787648400000,
+            "TestFirst": 1787652000000,
+            "TestLast": 1788912000000,
+            "Trades": 1,
+            "Net": 0.007618677042801503,
+            "MaxDrawdown": 0.01337368364742375,
+            "ModelMSE": 0.005430369708601661,
+            "ZeroMSE": 0.0055108210990477
+          }
+        ],
+        "oracle_dd": [
+          0,
+          0,
+          0,
+          0.0133736836474238
+        ]
+      }
+    }
+  }
+}

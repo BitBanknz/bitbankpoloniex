@@ -368,7 +368,7 @@ func TestUnavailablePrimaryAndNoFallbackPausesEntries(t *testing.T) {
 // Synthetic acceptance metadata exercises the failover plumbing only; it is not
 // evidence that any trained market model passed historical validation.
 func acceptedFixture(now time.Time) Model {
-	m := Model{Symbol: "ETH_USDT", Schema: FeatureSchema, TrainedThrough: now.Truncate(time.Hour).Add(-time.Hour), Expires: now.Add(time.Hour), Accepted: true, Ensemble: Ensemble{Bias: .02}}
+	m := Model{Symbol: "ETH_USDT", Schema: FeatureSchema, ValidationSchema: ValidationSchema, TrainedThrough: now.Truncate(time.Hour).Add(-time.Hour), Expires: now.Add(time.Hour), Accepted: true, Ensemble: Ensemble{Bias: .02}}
 	base := now.Add(-30 * 24 * time.Hour).UnixMilli()
 	for i := 0; i < 4; i++ {
 		first := base + int64(i)*48*3600000

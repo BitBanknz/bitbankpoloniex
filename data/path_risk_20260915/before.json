@@ -1,0 +1,8 @@
+{
+  "revision": "14cf0c633cde202b48402ac1b27937b20b810090",
+  "inputs": {
+    "/vfast/data/code/bitbankpoloniex/internal/bot/model.go": "71397c93a1cc0aa3d425783c2a81b50f6f91d6ea9e11ecfb8219c0ffde9a74f4",
+    "/vfast/data/code/bitbankpoloniex/internal/bot/model_path_risk_test.go": "0f7b7133beee4c7c6bc71f65052c73617c6fd19cb2b0cae7caf41d4df5ee2610",
+    "/vfast/data/code/bitbankpoloniex/docs/2026-09-15-fallback-path-risk-prereg.md": "49fdd9f3302c8050ebb0dfc8f5197c3dddf32960e271ef99c19ca2b17f16d88a"
+  }
+}

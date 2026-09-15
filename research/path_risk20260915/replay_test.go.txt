@@ -1,0 +1,60 @@
+package bot
+
+import (
+	"encoding/json"
+	"math"
+	"os"
+	"sort"
+	"testing"
+)
+
+func TestPathRiskHistoricalAudit(t *testing.T) {
+	raw, err := os.ReadFile(os.Getenv("POL_PATH_RISK_INPUT"))
+	if err != nil { t.Fatal(err) }
+	var histories map[string][]Candle
+	if err = json.Unmarshal(raw, &histories); err != nil { t.Fatal(err) }
+	type result struct {
+		Model Model
+		FoldModels []Ensemble
+		OracleDD []float64
+	}
+	results := make(map[string]result)
+	symbols := make([]string, 0, len(histories))
+	for symbol := range histories { symbols = append(symbols, symbol) }
+	sort.Strings(symbols)
+	for _, symbol := range symbols {
+		bars := histories[symbol]
+		model, err := Train(symbol, bars)
+		if err != nil { t.Fatalf("%s: %v", symbol, err) }
+		record := result{Model: model}
+		rows := samples(bars)
+		initial := len(rows)/2
+		width := (len(rows)-initial)/4
+		for fold := 0; fold < 4; fold++ {
+			start, end := initial+fold*width, initial+(fold+1)*width
+			if fold == 3 { end = len(rows) }
+			teacher := fit(rows[:start-Horizon-1])
+			record.FoldModels = append(record.FoldModels, teacher)
+			cash, maximum, dd := 1., 1., 0.
+			observe := func(value float64) { maximum = math.Max(maximum,value); dd = math.Max(dd, (maximum-value)/maximum) }
+			for decision := start; decision+Horizon+1 < end; decision += Horizon {
+				row := rows[decision]
+				if teacher.Predict(row.X) <= RoundTripCost { continue }
+				entry := row.Index+1
+				quantity := cash/bars[entry].Open
+				reservedCost := cash*RoundTripCost
+				observe(cash-reservedCost)
+				for hour := entry; hour < entry+Horizon; hour++ { observe(quantity*bars[hour].Close-reservedCost) }
+				cash = quantity*bars[entry+Horizon].Open-reservedCost
+				observe(cash)
+			}
+			if math.Abs((cash-1)-model.Folds[fold].Net) > 1e-10 { t.Fatalf("%s fold %d oracle terminal parity",symbol,fold) }
+			record.OracleDD = append(record.OracleDD,dd)
+		}
+		results[symbol] = record
+	}
+	raw, err = json.MarshalIndent(results,"","  ")
+	if err != nil { t.Fatal(err) }
+	if err = os.WriteFile(os.Getenv("POL_PATH_RISK_OUTPUT"), raw, 0600); err != nil { t.Fatal(err) }
+	t.Logf("verified %d historical model records",len(results))
+}

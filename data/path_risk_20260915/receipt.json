@@ -1,0 +1,18 @@
+{
+  "full_artifacts": "/vfast/data/trading_research_20260915/poloniex_path_risk",
+  "files": {
+    "data/path_risk_20260915/after.log": "aef2ab5a1ac10a5920e938af824e838fd39a251e696819c331ffc781bcf03b72",
+    "data/path_risk_20260915/before.json": "0fabbe0511326cb212e6e2b78563458a821e8564093bfe2f8542f8938fcc9552",
+    "data/path_risk_20260915/before.log": "9ee9fdfd3b27445c8572f1a1ae1fd9579907afe7bdc6c97e49f9f6385bf42041",
+    "data/path_risk_20260915/corrected_replay.log": "8d70aad7628ce3c7bbbb82c0f32d2be05e63449b3614b7cf79cc39a8c88b7406",
+    "data/path_risk_20260915/fold_comparisons.json": "451cf2dddff21704b8d9a11a0e176fbe9ae5a1de791f11bdbd1cd7ac2d5b6621",
+    "data/path_risk_20260915/history_receipt.json": "ea78a5ce5f98f54f06b355bd3f8f03265e39b658836f3ae5a75a8d4b1124250d",
+    "data/path_risk_20260915/model_receipts.json": "1e0892831e8c81404ea1f30af40a40cd19f40d6409bf306de01fed35f59c5b66",
+    "data/path_risk_20260915/old_replay.log": "66edd4085045e76d8c4986ad77a3923aae310b8db6acaf5e90676f28d643e41c",
+    "data/path_risk_20260915/paired_inputs.json": "193df090c60b45507c08725611707352506ecf2e2395c75fe46c2543b60b880b",
+    "data/path_risk_20260915/paired_summary.json": "5aceb71e4d41731560427f4d7647eade796519a414f6e39c26ae88253bd11aff",
+    "data/path_risk_20260915/prepare.log": "575e136dee631f0b6f0f62b69cb72b33fc42a862381c45bd0aa9bf91afbb2741",
+    "data/path_risk_20260915/race.log": "2b2a7ff876f5d3e1d0293d33218202f8c6379982b19297d540fa9b43459e7a0c"
+  },
+  "live_deployment": false
+}

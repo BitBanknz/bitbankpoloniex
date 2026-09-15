@@ -1,0 +1,5 @@
+--- FAIL: TestFallbackFoldRejectsRecoveredHoldingDrawdown (0.09s)
+    model_path_risk_test.go:45: accepted hidden holding loss: accepted=true maximumDD=0.00000000 exitNet=0.22047850
+FAIL
+FAIL	github.com/lee101/bitbankpoloniex/internal/bot	0.093s
+FAIL

@@ -1,0 +1,57 @@
+{
+  "utc": "2026-09-15T03:18:36.617270+00:00",
+  "units": {
+    "bitbankpoloniex-live.service": {
+      "MainPID": "3478763",
+      "Result": "success",
+      "NRestarts": "0",
+      "ExecMainStatus": "0",
+      "ActiveState": "active",
+      "SubState": "running",
+      "exe_sha256": "2c2c81c45d6c060c80e2f1803c6cffd3dff3e3bdf1252ce03cebc0919e5d7a5d"
+    },
+    "bitbankpoloniex-paper.service": {
+      "MainPID": "3478765",
+      "Result": "success",
+      "NRestarts": "0",
+      "ExecMainStatus": "0",
+      "ActiveState": "active",
+      "SubState": "running",
+      "exe_sha256": "2c2c81c45d6c060c80e2f1803c6cffd3dff3e3bdf1252ce03cebc0919e5d7a5d"
+    },
+    "bitbankpoloniex-account-paper.service": {
+      "MainPID": "99568",
+      "Result": "success",
+      "NRestarts": "0",
+      "ExecMainStatus": "0",
+      "ActiveState": "active",
+      "SubState": "running",
+      "exe_sha256": "275563f00a62cbb43c53206b4c83904a1daf07715360da5665ef551ae791a1a2"
+    },
+    "bitbankpoloniex-train.service": {
+      "MainPID": "0",
+      "Result": "success",
+      "NRestarts": "0",
+      "ExecMainStatus": "0",
+      "ActiveState": "inactive",
+      "SubState": "dead"
+    }
+  },
+  "models": {
+    "live": {
+      "exists": false
+    },
+    "paper": {
+      "exists": true,
+      "count": 56,
+      "accepted": 0,
+      "validation_schemas": [
+        "hourly-holding-path-dd-v1"
+      ],
+      "latest_training": "2026-09-15T03:00:00Z"
+    },
+    "account-paper-v2": {
+      "exists": false
+    }
+  }
+}

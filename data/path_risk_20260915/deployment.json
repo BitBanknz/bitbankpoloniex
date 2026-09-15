@@ -1,0 +1,94 @@
+{
+  "utc": "2026-09-15T03:16:51.882880+00:00",
+  "revision": "698c9b50829a230b7c1e8fc4477df7d2073faaab",
+  "old_sha256": "c5d0364880ad03dec6a6838e9a1b5d36ef975dcfb676ac857464581357e78ec2",
+  "new_sha256": "2c2c81c45d6c060c80e2f1803c6cffd3dff3e3bdf1252ce03cebc0919e5d7a5d",
+  "backup": "/nvme0n1-disk/code/bitbank-poloniex/bin/bitbankpoloniex.before-path-risk-20260915",
+  "before": {
+    "bitbankpoloniex-live.service": {
+      "MainPID": "3475551",
+      "NRestarts": "0",
+      "ActiveState": "active",
+      "SubState": "running",
+      "exe_sha256": "c5d0364880ad03dec6a6838e9a1b5d36ef975dcfb676ac857464581357e78ec2",
+      "settings": {
+        "--budget": "495",
+        "--max-order": "49",
+        "--slots": "3",
+        "--cooldown-hours": "120",
+        "--mode": "live",
+        "--state": "data/live"
+      }
+    },
+    "bitbankpoloniex-paper.service": {
+      "MainPID": "3475552",
+      "NRestarts": "0",
+      "ActiveState": "active",
+      "SubState": "running",
+      "exe_sha256": "c5d0364880ad03dec6a6838e9a1b5d36ef975dcfb676ac857464581357e78ec2",
+      "settings": {
+        "--slots": "3",
+        "--cooldown-hours": "120",
+        "--mode": "paper",
+        "--state": "data/paper"
+      }
+    },
+    "bitbankpoloniex-account-paper.service": {
+      "MainPID": "99568",
+      "NRestarts": "0",
+      "ActiveState": "active",
+      "SubState": "running",
+      "exe_sha256": "275563f00a62cbb43c53206b4c83904a1daf07715360da5665ef551ae791a1a2",
+      "settings": {
+        "--slots": "3",
+        "--mode": "paper",
+        "--state": "data/account-paper-v2"
+      }
+    }
+  },
+  "after": {
+    "bitbankpoloniex-live.service": {
+      "MainPID": "3478763",
+      "NRestarts": "0",
+      "ActiveState": "active",
+      "SubState": "running",
+      "exe_sha256": "2c2c81c45d6c060c80e2f1803c6cffd3dff3e3bdf1252ce03cebc0919e5d7a5d",
+      "settings": {
+        "--budget": "495",
+        "--max-order": "49",
+        "--slots": "3",
+        "--cooldown-hours": "120",
+        "--mode": "live",
+        "--state": "data/live"
+      }
+    },
+    "bitbankpoloniex-paper.service": {
+      "MainPID": "3478765",
+      "NRestarts": "0",
+      "ActiveState": "active",
+      "SubState": "running",
+      "exe_sha256": "2c2c81c45d6c060c80e2f1803c6cffd3dff3e3bdf1252ce03cebc0919e5d7a5d",
+      "settings": {
+        "--slots": "3",
+        "--cooldown-hours": "120",
+        "--mode": "paper",
+        "--state": "data/paper"
+      }
+    },
+    "bitbankpoloniex-account-paper.service": {
+      "MainPID": "99568",
+      "NRestarts": "0",
+      "ActiveState": "active",
+      "SubState": "running",
+      "exe_sha256": "275563f00a62cbb43c53206b4c83904a1daf07715360da5665ef551ae791a1a2",
+      "settings": {
+        "--slots": "3",
+        "--mode": "paper",
+        "--state": "data/account-paper-v2"
+      }
+    }
+  },
+  "live_deployment": true,
+  "local_binary_build_info": "/vfast/data/trading_research_20260915/poloniex_path_risk/bitbankpoloniex.committed: go1.25.0\n\tpath\tgithub.com/lee101/bitbankpoloniex/cmd/bitbankpoloniex\n\tmod\tgithub.com/lee101/bitbankpoloniex\tv0.0.0-20260915030810-698c9b50829a\t\n\tdep\tgithub.com/joho/godotenv\tv1.5.1\th1:7eLL/+HRGLY0ldzfGMeQkb7vMd0as4CfYvUVzLqw0N0=\n\tdep\tgithub.com/shopspring/decimal\tv1.4.0\th1:bxl37RwXBklmTi0C79JfXCEBD1cqqHt0bbgBAGFp81k=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=linux\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=698c9b50829a230b7c1e8fc4477df7d2073faaab\n\tbuild\tvcs.time=2026-09-15T03:08:10Z\n\tbuild\tvcs.modified=false\n",
+  "deployer_sha256": "ce43948a3ab560d97a587bd196513b896354a997cf4e6899263dad187125122c"
+}

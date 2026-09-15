@@ -41,3 +41,19 @@ live or account-paper, and 56 legacy paper models with zero accepted models.
 This records current deployment impact, not permission to assume future
 receipts are safe. Completed-close drawdown still does not measure intrahour
 extremes, order latency, partial fills, portfolio allocation or live capacity.
+
+The repair was deployed remotely at 2026-09-15T03:16:51Z to live, standard paper
+and the shared training binary. The clean source commit is `698c9b5`; deployed
+SHA256 is `2c2c81c45d6c060c80e2f1803c6cffd3dff3e3bdf1252ce03cebc0919e5d7a5d`.
+Live retained budget495, maximum order49, three slots and cooldown120 hours.
+The experimental account-paper process and its prior binary were preserved.
+The previous shared binary is retained at
+`bin/bitbankpoloniex.before-path-risk-20260915` for rollback.
+
+The first restart verification hit a process-read permission restriction and
+automatically restored the prior binary. A retry using privileged process
+inspection passed. The subsequent 03:18:36Z check verified the new mapped
+executables, active services and zero automatic restarts. Fresh remote public-
+data training completed successfully: all56 paper models now carry the corrected
+validation schema, with zero accepted models and training through03:00Z.
+Deployment, failed-attempt and follow-up receipts accompany the compact evidence.

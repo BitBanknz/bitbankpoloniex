@@ -1,0 +1,77 @@
+from pathlib import Path
+import hashlib
+import json
+import subprocess
+
+OUT = Path(__file__).resolve().parent
+binary = OUT / 'bitbankpoloniex.committed'
+sha = hashlib.sha256(binary.read_bytes()).hexdigest()
+info = subprocess.check_output(['go', 'version', '-m', str(binary)], text=True)
+assert 'vcs.revision=698c9b50829a230b7c1e8fc4477df7d2073faaab' in info
+assert 'vcs.modified=false' in info
+host = 'administrator@93.127.141.100'
+staged = '/nvme0n1-disk/code/bitbank-poloniex/bin/bitbankpoloniex.pathrisk698c9b5.new'
+subprocess.run(['scp', '-q', str(binary), host+':'+staged], check=True)
+script = r'''
+from pathlib import Path
+import datetime,hashlib,json,os,shutil,subprocess,sys,time
+root=Path('/nvme0n1-disk/code/bitbank-poloniex')
+current=root/'bin/bitbankpoloniex'
+staged=root/'bin/bitbankpoloniex.pathrisk698c9b5.new'
+backup=root/'bin/bitbankpoloniex.before-path-risk-20260915'
+old_sha='c5d0364880ad03dec6a6838e9a1b5d36ef975dcfb676ac857464581357e78ec2'
+new_sha=sys.argv[1]
+units=['bitbankpoloniex-live.service','bitbankpoloniex-paper.service']
+account='bitbankpoloniex-account-paper.service'
+def digest(path): return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+def status(unit):
+    values=dict(line.split('=',1) for line in subprocess.check_output(['systemctl','show',unit,'-p','MainPID','-p','ActiveState','-p','SubState','-p','NRestarts'],text=True).splitlines())
+    pid=int(values['MainPID'])
+    if pid:
+        values['exe_sha256']=subprocess.check_output(['sudo','-n','sha256sum','/proc/'+str(pid)+'/exe'],text=True).split()[0]
+        argv=subprocess.check_output(['sudo','-n','cat','/proc/'+str(pid)+'/cmdline']).decode().split('\0')
+        flags=['--budget','--max-order','--slots','--cooldown-hours','--mode','--state']
+        values['settings']={flag:argv[argv.index(flag)+1] for flag in flags if flag in argv}
+    return values
+assert digest(current)==old_sha and digest(staged)==new_sha
+before={u:status(u) for u in units+[account]}
+assert all(before[u]['ActiveState']=='active' and before[u]['exe_sha256']==old_sha for u in units)
+if backup.exists(): assert digest(backup)==old_sha
+else: shutil.copy2(current,backup)
+staged.chmod(0o755)
+assert subprocess.run([str(staged),'--help'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode==0
+os.replace(staged,current)
+try:
+    subprocess.run(['sudo','-n','systemctl','restart',*units],check=True)
+    after=None
+    for _ in range(10):
+        try: after={u:status(u) for u in units+[account]}
+        except (FileNotFoundError,subprocess.CalledProcessError):
+            time.sleep(.5)
+            continue
+        if all(after[u]['ActiveState']=='active' and after[u].get('exe_sha256')==new_sha for u in units): break
+        time.sleep(.5)
+    assert all(after[u]['ActiveState']=='active' and after[u]['exe_sha256']==new_sha and after[u]['settings']==before[u]['settings'] for u in units)
+    assert after[account]==before[account]
+except Exception:
+    rollback=root/'bin/bitbankpoloniex.pathrisk-rollback'
+    shutil.copy2(backup,rollback)
+    os.replace(rollback,current)
+    subprocess.run(['sudo','-n','systemctl','restart',*units],check=True)
+    raise
+receipt=dict(utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),revision='698c9b50829a230b7c1e8fc4477df7d2073faaab',old_sha256=old_sha,new_sha256=new_sha,backup=str(backup),before=before,after=after,live_deployment=True)
+folder=root/'data/path-risk-20260915';folder.mkdir(exist_ok=True,mode=0o700)
+(folder/'deployment.json').write_text(json.dumps(receipt,indent=2)+'\n')
+subprocess.run(['sudo','-n','systemctl','start','--no-block','bitbankpoloniex-train.service'],check=True)
+print(json.dumps(receipt,indent=2))
+'''
+result = subprocess.run(['ssh','-o','BatchMode=yes','-o','ConnectTimeout=10',host,'python3','-',sha],
+                        input=script,text=True,capture_output=True)
+(OUT/'deployment.stdout.log').write_text(result.stdout)
+(OUT/'deployment.stderr.log').write_text(result.stderr)
+result.check_returncode()
+receipt=json.loads(result.stdout)
+receipt['local_binary_build_info']=info
+receipt['deployer_sha256']=hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+(OUT/'deployment.json').write_text(json.dumps(receipt,indent=2)+'\n')
+print(json.dumps(receipt,indent=2))

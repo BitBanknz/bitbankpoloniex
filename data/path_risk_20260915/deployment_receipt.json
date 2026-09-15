@@ -1,0 +1,11 @@
+{
+  "files": {
+    "data/path_risk_20260915/deployment.json": "411c832e73c15f2e3a1818722f70f7b411ccd9f60100ed46b4a28412c230a5ab",
+    "data/path_risk_20260915/remote_health.json": "ee875c4bdf30e96f684f4f77b575164eb06c8e292561a2576788f9c9c9e6ef43",
+    "data/path_risk_20260915/deployment.stderr.log.attempt1": "48e3296fbddff76b2048576fd498c5522cd1b330fdd4681993ffb7a2be09b7ab",
+    "data/path_risk_20260915/deployment.stdout.log.attempt1": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/path_risk_20260915/deploy_at_run.py.txt": "ce43948a3ab560d97a587bd196513b896354a997cf4e6899263dad187125122c"
+  },
+  "live_deployment": true,
+  "revision": "698c9b50829a230b7c1e8fc4477df7d2073faaab"
+}

@@ -30,14 +30,19 @@ type Config struct {
 	MaxOrdersDay         int
 	Slots                int
 	CooldownHours        int // post-sale re-entry delay; zero retains the legacy 72h default
+	CashReserve          float64 // fraction of budget kept in USDT; entries never spend below it
+	SlotTopUp            bool    // add to held rotation holdings until each reaches its slot target
 }
 
 func DefaultConfig() Config {
-	return Config{Mode: "paper", StateDir: "data/paper", PredictionURL: "https://bitbank.nz/api/trading-bot/rotation-signals", Budget: decimal.NewFromInt(1000), MaxOrder: decimal.NewFromInt(25), MinVolume: 100000, MaxSpread: .003, FeeRate: decimal.NewFromFloat(.003), MaxOrdersDay: 12, Slots: 3, CooldownHours: 72}
+	return Config{Mode: "paper", StateDir: "data/paper", PredictionURL: "https://bitbank.nz/api/trading-bot/rotation-signals", Budget: decimal.NewFromInt(1000), MaxOrder: decimal.NewFromInt(25), MinVolume: 100000, MaxSpread: .003, FeeRate: decimal.NewFromFloat(.003), MaxOrdersDay: 12, Slots: 3, CooldownHours: 72, CashReserve: .4}
 }
 func (c Config) Validate() error {
 	if c.CooldownHours < 0 || c.CooldownHours > 14*24 {
 		return errors.New("post-sale cooldown must be between 0 (legacy default) and 336 hours")
+	}
+	if !finite(c.CashReserve) || c.CashReserve < 0 || c.CashReserve > .9 {
+		return errors.New("cash reserve must be between 0 and 0.9 of budget")
 	}
 	if c.ExperimentalFallback && c.Mode != "paper" {
 		return errors.New("experimental policy is paper-only")
@@ -49,6 +54,15 @@ func (c Config) Validate() error {
 		return errors.New("invalid budget or risk limits")
 	}
 	return nil
+}
+
+func (c Config) reserve(budget decimal.Decimal) decimal.Decimal {
+	return budget.Mul(decimal.NewFromFloat(c.CashReserve))
+}
+
+// slotTarget is the notional each rotation slot aims to hold when top-ups are enabled.
+func (c Config) slotTarget(budget decimal.Decimal) decimal.Decimal {
+	return budget.Sub(c.reserve(budget)).Div(decimal.NewFromInt(int64(c.Slots)))
 }
 
 func (c Config) postSaleCooldown() time.Duration {
@@ -598,7 +612,7 @@ func (e *Engine) Cycle(ctx context.Context) error {
 			break
 		}
 	}
-	fundingFloor := s.Budget.Mul(decimal.NewFromFloat(.4)).Add(e.Config.MaxOrder.Mul(decimal.NewFromFloat(1.003)))
+	fundingFloor := e.Config.reserve(s.Budget).Add(e.Config.MaxOrder.Mul(decimal.NewFromFloat(1.003)))
 	// Exit only tracked bot holdings. Untracked account ETH is never sold implicitly.
 	for _, symbol := range symbols {
 		p := s.Holdings[symbol]
@@ -616,16 +630,36 @@ func (e *Engine) Cycle(ctx context.Context) error {
 	}
 	if ready {
 		for _, symbol := range ranked {
+			if p, held := s.Holdings[symbol]; held {
+				// Top up a tracked rotation holding toward its slot target with
+				// further capped orders; imported inventory is never grown.
+				if !e.Config.SlotTopUp || p.Imported || s.OrdersToday >= e.Config.MaxOrdersDay {
+					continue
+				}
+				b, err := e.Client.Book(ctx, symbol)
+				if err != nil {
+					continue
+				}
+				bid, err := decimal.NewFromString(b.Bids[0])
+				if err != nil || !bid.IsPositive() {
+					continue
+				}
+				gap := e.Config.slotTarget(s.Budget).Sub(p.Quantity.Mul(bid))
+				if gap.LessThan(e.Config.MaxOrder.Mul(decimal.NewFromFloat(.25))) {
+					continue
+				}
+				if err = e.tradeCapped(ctx, &s, bySymbol[symbol], b, "BUY", decisionHour, source, gap, fmt.Sprintf("|topup-%d", s.OrdersToday)); err != nil {
+					return err
+				}
+				continue
+			}
 			activeSlots := 0
 			for _, p := range s.Holdings {
 				if !p.Imported {
 					activeSlots++
 				}
 			}
-			if activeSlots >= e.Config.Slots {
-				break
-			}
-			if _, held := s.Holdings[symbol]; held || now.Before(s.Cooldown[symbol]) {
+			if activeSlots >= e.Config.Slots || now.Before(s.Cooldown[symbol]) {
 				continue
 			}
 			b, err := e.Client.Book(ctx, symbol)
@@ -662,13 +696,20 @@ func (e *Engine) Cycle(ctx context.Context) error {
 	return nil
 }
 func (e *Engine) trade(ctx context.Context, s *State, m Market, b Book, side string, hour time.Time, source string) error {
+	return e.tradeCapped(ctx, s, m, b, side, hour, source, decimal.Zero, "")
+}
+
+// tradeCapped places one capped order. A positive cap bounds the quote spend
+// below the ordinary per-order limit; suffix distinguishes repeated decisions
+// (top-ups) for the same symbol and hour.
+func (e *Engine) tradeCapped(ctx context.Context, s *State, m Market, b Book, side string, hour time.Time, source string, cap decimal.Decimal, suffix string) error {
 	if side == "BUY" && s.Halted != "" {
 		return fmt.Errorf("entries halted: %s", s.Halted)
 	}
 	if side == "BUY" && s.DayStartPending {
 		return errors.New("entries paused pending complete daily valuation")
 	}
-	key := fmt.Sprintf("%s|%s|%s", hour.Format(time.RFC3339), m.Symbol, side)
+	key := fmt.Sprintf("%s|%s|%s", hour.Format(time.RFC3339), m.Symbol, side) + suffix
 	if s.AccountBacked && s.Holdings[m.Symbol].Imported && side == "SELL" {
 		key += fmt.Sprintf("|allocation-%d", s.OrdersToday)
 	}
@@ -684,7 +725,10 @@ func (e *Engine) trade(ctx context.Context, s *State, m Market, b Book, side str
 	id := "bbp-" + hex.EncodeToString(hash[:20])
 	limit := decimal.Min(e.Config.MaxOrder, s.Budget.Mul(decimal.NewFromFloat(.1)))
 	onePlusFee := decimal.NewFromInt(1).Add(e.Config.FeeRate)
-	spend := decimal.Min(limit, s.Cash.Sub(s.Budget.Mul(decimal.NewFromFloat(.4))).Div(onePlusFee))
+	spend := decimal.Min(limit, s.Cash.Sub(e.Config.reserve(s.Budget)).Div(onePlusFee))
+	if cap.IsPositive() {
+		spend = decimal.Min(spend, cap)
+	}
 	if side == "BUY" && !spend.IsPositive() {
 		return nil
 	}

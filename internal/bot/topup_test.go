@@ -109,3 +109,60 @@ func TestCashReserveConfig(t *testing.T) {
 		}
 	}
 }
+
+func TestRiskHaltBandsConfigurable(t *testing.T) {
+	c := DefaultConfig()
+	if p, d := c.haltBands(); p != .1 || d != .03 {
+		t.Fatal("legacy halt bands changed")
+	}
+	c.HaltPeakDD, c.HaltDailyLoss = .25, .08
+	if err := c.Validate(); err != nil {
+		t.Fatal(err)
+	}
+	if p, d := c.haltBands(); p != .25 || d != .08 {
+		t.Fatal("configured halt bands ignored")
+	}
+	for _, bad := range [][2]float64{{.6, .03}, {.1, .3}, {-.1, .03}} {
+		c.HaltPeakDD, c.HaltDailyLoss = bad[0], bad[1]
+		if err := c.Validate(); err == nil {
+			t.Fatalf("halt bands %v accepted", bad)
+		}
+	}
+	e := engine(t)
+	e.Config.HaltPeakDD = .25
+	s, err := e.read()
+	if err != nil {
+		t.Fatal(err)
+	}
+	s.HighWater, s.DayStart, s.Cash = d("1000"), d("850"), d("850")
+	if err := Save(e.path(), s); err != nil {
+		t.Fatal(err)
+	}
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		switch {
+		case r.URL.Path == "/markets":
+			json.NewEncoder(w).Encode([]Market{market()})
+		case r.URL.Path == "/markets/ticker24h":
+			json.NewEncoder(w).Encode([]Ticker{{Symbol: "ETH_USDT", Amount: "1000000", TS: time.Now().UnixMilli()}})
+		case strings.HasSuffix(r.URL.Path, "/orderBook"):
+			json.NewEncoder(w).Encode(book())
+		default:
+			w.WriteHeader(503)
+		}
+	}))
+	defer srv.Close()
+	e.Client.BaseURL, e.Config.PredictionURL = srv.URL, srv.URL+"/prediction"
+	_ = e.Cycle(context.Background())
+	after, err := e.read()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if after.Halted != "" {
+		t.Fatalf("15%% below peak halted under a 25%% band: %s", after.Halted)
+	}
+	e.Config.HaltPeakDD = .1
+	_ = e.Cycle(context.Background())
+	if after, err = e.read(); err != nil || after.Halted == "" {
+		t.Fatalf("legacy 10%% band did not halt: %v %q", err, after.Halted)
+	}
+}

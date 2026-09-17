@@ -32,6 +32,8 @@ type Config struct {
 	CooldownHours        int // post-sale re-entry delay; zero retains the legacy 72h default
 	CashReserve          float64 // fraction of budget kept in USDT; entries never spend below it
 	SlotTopUp            bool    // add to held rotation holdings until each reaches its slot target
+	HaltPeakDD           float64 // latch a risk halt below this fraction under the equity high-water mark (0 = legacy 10%)
+	HaltDailyLoss        float64 // latch a risk halt below this fraction under the UTC day start (0 = legacy 3%)
 }
 
 func DefaultConfig() Config {
@@ -40,6 +42,9 @@ func DefaultConfig() Config {
 func (c Config) Validate() error {
 	if c.CooldownHours < 0 || c.CooldownHours > 14*24 {
 		return errors.New("post-sale cooldown must be between 0 (legacy default) and 336 hours")
+	}
+	if !finite(c.HaltPeakDD) || c.HaltPeakDD < 0 || c.HaltPeakDD > .5 || !finite(c.HaltDailyLoss) || c.HaltDailyLoss < 0 || c.HaltDailyLoss > .2 {
+		return errors.New("halt limits must be within 0-0.5 (peak) and 0-0.2 (daily)")
 	}
 	if !finite(c.CashReserve) || c.CashReserve < 0 || c.CashReserve > .9 {
 		return errors.New("cash reserve must be between 0 and 0.9 of budget")
@@ -54,6 +59,17 @@ func (c Config) Validate() error {
 		return errors.New("invalid budget or risk limits")
 	}
 	return nil
+}
+
+func (c Config) haltBands() (peak, day float64) {
+	peak, day = c.HaltPeakDD, c.HaltDailyLoss
+	if peak == 0 {
+		peak = .1
+	}
+	if day == 0 {
+		day = .03
+	}
+	return peak, day
 }
 
 func (c Config) reserve(budget decimal.Decimal) decimal.Decimal {
@@ -507,8 +523,9 @@ func (e *Engine) Cycle(ctx context.Context) error {
 			s.DayStart = equity
 			s.DayStartPending = false
 		}
-		peakBand := s.HighWater.Mul(decimal.NewFromFloat(.9))
-		dayBand := s.DayStart.Mul(decimal.NewFromFloat(.97))
+		peakLimit, dayLimit := e.Config.haltBands()
+		peakBand := s.HighWater.Mul(decimal.NewFromFloat(1 - peakLimit))
+		dayBand := s.DayStart.Mul(decimal.NewFromFloat(1 - dayLimit))
 		if equity.LessThan(peakBand) || equity.LessThan(dayBand) {
 			s.Halted = riskHaltReason
 			riskHalted = true

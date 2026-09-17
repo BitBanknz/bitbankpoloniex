@@ -13,6 +13,8 @@ def main():
     parser.add_argument('--budget', default='495')
     parser.add_argument('--max-order', default='49')
     parser.add_argument('--reserve', default='0.4', help='cash reserve fraction for the top-up arm')
+    parser.add_argument('--halt-peak', default='0', help='top-up arm peak-drawdown halt (0 = legacy 0.10)')
+    parser.add_argument('--halt-daily', default='0', help='top-up arm daily-loss halt (0 = legacy 0.03)')
     parser.add_argument('--window-cycles', type=int, default=12, help='engine cycles simulated inside the 01:00 execution hour (live runs one per minute)')
     args = parser.parse_args()
     budget, max_order, reserve = Decimal(args.budget), Decimal(args.max_order), Decimal(args.reserve)
@@ -41,7 +43,7 @@ def main():
     text = template.read_text().replace('replayBonus', 'replaySlotTopUp').replace('Bonus', 'SlotTopUp')
     old = 'cfg:=DefaultConfig();cfg.Budget'
     assert text.count(old) == 1
-    text = text.replace(old, f'cfg:=DefaultConfig();cfg.SlotTopUp=bonus>0;if cfg.SlotTopUp {{cfg.CashReserve={reserve}}};cfg.Budget')
+    text = text.replace(old, f'cfg:=DefaultConfig();cfg.SlotTopUp=bonus>0;if cfg.SlotTopUp {{cfg.CashReserve={reserve};cfg.HaltPeakDD={args.halt_peak};cfg.HaltDailyLoss={args.halt_daily}}};cfg.Budget')
     text = text.replace('cfg.Budget=decimal.NewFromInt(495)', f'cfg.Budget=decimal.RequireFromString("{budget}")')
     text = text.replace('cfg.MaxOrder=decimal.NewFromInt(49)', f'cfg.MaxOrder=decimal.RequireFromString("{max_order}")')
     # Live runs one cycle per minute; inside the execution hour both arms get
@@ -65,7 +67,7 @@ def main():
         p = root/'data/frontier_20260912/ledger'/file
         hashes[str(p)] = hashlib.sha256(p.read_bytes()).hexdigest()
     (out/'inputs.json').write_text(json.dumps(hashes, indent=2)+'\n')
-    (out/'config.json').write_text(json.dumps(dict(budget=str(budget), max_order=str(max_order), reserve=str(reserve),
+    (out/'config.json').write_text(json.dumps(dict(budget=str(budget), max_order=str(max_order), reserve=str(reserve), halt_peak=args.halt_peak, halt_daily=args.halt_daily,
         window_cycles=args.window_cycles, geometries=args.geometries), indent=2)+'\n')
 
 

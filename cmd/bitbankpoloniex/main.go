@@ -38,6 +38,8 @@ func run() error {
 	slots := flag.Int("slots", cfg.Slots, "maximum simultaneous rotation holdings (1-4)")
 	cooldown := flag.Int("cooldown-hours", cfg.CooldownHours, "post-sale re-entry cooldown in hours (0 keeps the 72h legacy default)")
 	cashReserve := flag.Float64("cash-reserve", cfg.CashReserve, "fraction of budget kept in USDT (0-0.9)")
+	haltPeak := flag.Float64("halt-peak-dd", cfg.HaltPeakDD, "latch a risk halt this far below the equity high-water mark (0 keeps the legacy 0.10)")
+	haltDaily := flag.Float64("halt-daily-loss", cfg.HaltDailyLoss, "latch a risk halt this far below the UTC day-start equity (0 keeps the legacy 0.03)")
 	slotTopUp := flag.Bool("slot-top-up", cfg.SlotTopUp, "keep adding capped orders to held rotation targets until each reaches (budget-reserve)/slots")
 	symbol := flag.String("symbol", "ETH_USDT", "market for funding plan")
 	funding := flag.String("funding", "convert", "convert or margin for read-only plan")
@@ -61,6 +63,8 @@ func run() error {
 	cfg.CooldownHours = *cooldown
 	cfg.CashReserve = *cashReserve
 	cfg.SlotTopUp = *slotTopUp
+	cfg.HaltPeakDD = *haltPeak
+	cfg.HaltDailyLoss = *haltDaily
 	cfg.Budget, err = decimal.NewFromString(*budget)
 	if err != nil {
 		return errors.New("invalid budget")

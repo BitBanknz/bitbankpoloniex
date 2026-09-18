@@ -55,6 +55,13 @@ separate experimental account. Existing persisted cooldown deadlines are
 preserved; the new setting applies when subsequent sales create a deadline.
 See [September 14 validation](docs/2026-09-14-cooldown-results.md).
 
+The remote live service also runs `--slot-top-up --cash-reserve 0.4
+--halt-peak-dd 0.25 --halt-daily-loss 0.08` (2026-09-18): held rotation targets
+are topped up with further capped orders until each reaches
+`budget × (1 − reserve) / slots`, and the latched risk halts are 25% below the
+high-water mark / 8% below the day start instead of the legacy 10% / 3%.
+See [September 18 results](docs/2026-09-18-slot-top-up-results.md).
+
 Simulated ledger (1000 USDT cash, 25 USDT max per order, 40% cash reserve,
 12 orders/day, 30bps paper fee/side, 10% peak / 3% daily loss halt):
 paper fills are modeled at visible quotes, not proof of real fills or profit.

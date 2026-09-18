@@ -24,29 +24,45 @@ Rule fixed before running: top-up must beat the legacy arm's mean at 30 and
 positive folds. Legacy = deployed flags (budget 495, order 49, 3 slots, 120 h
 cooldown, 40% reserve, 10%/3% halts).
 
-| geometry | fee | legacy mean / worst / max DD / positive | top-up r0.4 halts 25/8 | top-up r0.2 halts 25/8 |
-|---|---:|---|---|---|
-| continuous | 30 | −2.79 / — / 9.0 | **+6.65** / — / 15.5 | +18.51 / — / 22.6 |
-| continuous | 60 | −4.47 / — / 9.6 | **+4.19** / — / 16.4 | −3.31 / — / 23.9 |
-| 28-day (9) | 30 | +0.99 / −7.3 / 8.2 / 7 | **+2.15** / −12.7 / 14.3 / 7 | +3.36 / −19.1 / 20.9 / 6 |
-| 28-day (9) | 60 | +0.64 / −8.0 / 8.8 / 7 | **+2.33** / −13.8 / 15.2 / 7 | +2.34 / −20.6 / 22.2 / 6 |
-| 56-day (5) | 30 | +0.93 / −5.2 / 9.0 / 3 | **+5.18** / −8.4 / 15.5 / 3 | pending |
-| 56-day (5) | 60 | +0.38 / −6.4 / 9.6 / 3 | **+5.40** / −9.9 / 16.4 / 3 | pending |
+The first replay pass exposed a second defect: a rounded sell leaves a
+sub-minimum residual (for example 0.0000884 XRP) that stays in `Holdings`,
+counts as an active slot and can never be sold. The live ledger had two such
+residuals, which is why it had placed no new entry since 2026-09-13. The
+engine now drops residuals below the market minimum amount (at least 1 USDT)
+from the ledger (`TestDustResidualDoesNotOccupySlot`). Both arms below include
+that fix; the pre-fix legacy continuous result was −2.79% / −4.47%.
 
-Reserve 0.4 passes every cell; reserve 0.2 fails the doubled-cost continuous
-cell (churn: 308 fills vs 214) and loses a positive fold, so it is not
-promoted. Fills are modelled at the fixture's open ±5 bps with 10% of prior
-turnover as depth; these are the same assumptions as the 2026-09-14 cooldown
-validation and remain optimistic about real IOC fills.
+| geometry | fee | legacy + dust fix: mean / worst / max DD / positive | top-up r0.4, halts 25/8 |
+|---|---:|---|---|
+| continuous | 30 | **+7.60** / — / 9.0 | +13.14 / — / 15.5 |
+| continuous | 60 | **+4.25** / — / 9.6 | −0.74 / — / 16.4 |
+| 28-day (9) | 30 | +1.12 / −7.3 / 8.2 / 7 | +2.74 / −12.7 / 14.3 / 7 |
+| 28-day (9) | 60 | +0.71 / −8.0 / 8.8 / 7 | +1.98 / −13.8 / 15.2 / 6 |
+| 56-day (5) | 30 | +2.13 / −5.2 / 9.0 / 3 | +5.99 / −8.4 / 15.5 / 3 |
+| 56-day (5) | 60 | +1.42 / −6.4 / 9.6 / 3 | +4.84 / −9.9 / 16.4 / 3 |
 
-## Deployment (remote host, 2026-09-18 00:52 UTC)
+Top-up wins five of six mean cells but fails the doubled-cost continuous cell
+(−0.74 vs +4.25, 208 vs 132 fills) and loses a positive fold at 28 days /
+60 bps: the extra return is churn-sensitive. Under the fixed rule it is not
+promoted. Reserve 0.2 (pre-dust-fix arms) was worse still at doubled cost
+(continuous −3.31, 28-day worst −20.6, DD 22–24%). The legacy halts never
+triggered in the legacy arm, so they stay at 10% / 3%. Fills are modelled at
+the fixture's open ±5 bps with 10% of prior turnover as depth, the same
+assumptions as the 2026-09-14 cooldown validation.
 
-Static binary `fbefa17a4e333586594bc4fb63f6e5d4668a2ee7f817e0e20d28151517548513`
-(source `c75c6de`) replaced `2c2c81c4…` (retained as
-`bin/bitbankpoloniex.before-topup-20260915`-style backup
-`bin/bitbankpoloniex.before-topup-20260918`). Unit flags added:
-`--slot-top-up --cash-reserve 0.4 --halt-peak-dd 0.25 --halt-daily-loss 0.08`.
-Ledger snapshots before stop and at stop are in `data/topup_20260918/` on the
-host; cash 436.83, 4 holdings, 16 fills, no halt, no pending intent. Paper
-units share the binary and keep default (legacy) behaviour. Rollback: stop,
-restore the backup binary and the previous unit, start.
+## Deployment (remote host)
+
+00:52 UTC: the top-up profile was deployed first (binary `fbefa17a…`, source
+`c75c6de`, flags `--slot-top-up --cash-reserve 0.4 --halt-peak-dd 0.25
+--halt-daily-loss 0.08`); it placed one live top-up, TRX 48.89 USDT at 01:00
+UTC, before the dust-fixed replay finished.
+
+02:00 UTC: after the replay failed the rule, the service was restarted on the
+dust-fix binary `eb9a2d1008c9b7c30d7b011e852e994e75fce44f0a255d65f4765b18f14740ec`
+(source `1ef4429`) with the original legacy flags. The first cycle dropped the
+ETH and XRP residuals; the ledger now tracks TRX and ZEC with cash 387.94 and
+one free slot. Snapshots before each stop are in `data/topup_20260918/` on
+the host; the pre-change binary is `bin/bitbankpoloniex.before-topup-20260918`.
+Paper units share the binary and gain only the dust fix. The top-up flags
+remain available, default off, for a future retest once real fill costs are
+measured from live fills.

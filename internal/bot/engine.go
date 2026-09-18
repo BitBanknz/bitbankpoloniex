@@ -61,6 +61,16 @@ func (c Config) Validate() error {
 	return nil
 }
 
+// dustNotional is the quote value below which a residual cannot be sold on
+// the venue (market minimum amount, at least 1 USDT).
+func dustNotional(m Market) decimal.Decimal {
+	floor := decimal.NewFromInt(1)
+	if v, err := decimal.NewFromString(m.Limits.MinAmount); err == nil && v.GreaterThan(floor) {
+		floor = v
+	}
+	return floor
+}
+
 func (c Config) haltBands() (peak, day float64) {
 	peak, day = c.HaltPeakDD, c.HaltDailyLoss
 	if peak == 0 {
@@ -502,6 +512,14 @@ func (e *Engine) Cycle(ctx context.Context) error {
 		books[symbol] = b
 		bid, _ := decimal.NewFromString(b.Bids[0])
 		equity = equity.Add(p.Quantity.Mul(bid))
+		if p.Quantity.Mul(bid).LessThan(dustNotional(bySymbol[symbol])) {
+			// A rounding residual below the market minimum can never be sold and
+			// must not occupy a rotation slot; it stays on the account untracked.
+			log.Printf("dropping dust holding %s qty=%s", symbol, p.Quantity)
+			delete(s.Holdings, symbol)
+			delete(books, symbol)
+			continue
+		}
 		if bid.GreaterThan(p.Peak) {
 			p.Peak = bid
 			s.Holdings[symbol] = p

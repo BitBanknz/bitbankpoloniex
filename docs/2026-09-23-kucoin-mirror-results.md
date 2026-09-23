@@ -50,10 +50,19 @@ symbol (repeatable capped sells within the hour), no cooldown, 30% peak stop
 The signal side is `bitbankkucoin live -paper -tradable <bases> ...`
 (research patch in bitbankkucoin `research/crossvenue20260923/`).
 
-## Correction (same day)
+## Correction and legacy re-run (same day)
 
-All numbers above came from a research binary built from the bitbankkucoin
-working tree after the other session's split-boundary fix (`<` instead of
-`<=` in raw GBDT inference, rejected for deployment). Live KuCoin uses the
-legacy `<=` rule. Legacy re-runs are pending; until they land, treat this table
-as a strict-inference result. The rejection stands only if it holds under legacy inference.
+The tables above came from a research binary that had picked up the other
+session's strict `<` split rule (rejected for deployment). Live KuCoin uses the
+legacy `<=` rule. Re-run with a legacy build of committed source (sanity: B35
+HOLD reproduces +1345.26% exactly), e120 vt3:
+
+| prices / seed | 2024-08→09-10 28d mean / worst / DD / pass | HOLD / stress | 2026 28d @30 bps / +10 slip / positive |
+|---|---|---|---|
+| KuCoin s1 | +8.2 / −11.7 / 23.4 / 27 | +295 / +222 | −1.62 / −2.22 / 2 of 8 |
+| KuCoin s2 | +10.3 / −16.0 / 24.3 / 27 | +420 / +324 | −0.19 / −0.82 / 2 of 8 |
+| Poloniex s1 | +7.9 / −15.7 / 23.6 / 27 | +196 / +133 | −1.02 / −1.67 / 3 of 8 |
+| Poloniex s2 | +8.2 / −17.3 / 22.4 / 27 | +205 / +134 | −2.36 / −3.00 / 3 of 8 |
+
+Same conclusion: strong 2024-25, negative 2026 versus the incumbent's +1.12%
+(7/9 positive). Not deployed.

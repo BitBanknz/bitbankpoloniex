@@ -49,3 +49,11 @@ symbol (repeatable capped sells within the hour), no cooldown, 30% peak stop
 `--max-orders-day` exposes the daily cap. Tests: `internal/bot/mirror_test.go`.
 The signal side is `bitbankkucoin live -paper -tradable <bases> ...`
 (research patch in bitbankkucoin `research/crossvenue20260923/`).
+
+## Correction (same day)
+
+All numbers above came from a research binary built from the bitbankkucoin
+working tree after the other session's split-boundary fix (`<` instead of
+`<=` in raw GBDT inference, rejected for deployment). Live KuCoin uses the
+legacy `<=` rule. Legacy re-runs are pending; until they land, treat this table
+as a strict-inference result. The rejection stands only if it holds under legacy inference.

@@ -41,6 +41,10 @@ func run() error {
 	haltPeak := flag.Float64("halt-peak-dd", cfg.HaltPeakDD, "latch a risk halt this far below the equity high-water mark (0 keeps the legacy 0.10)")
 	haltDaily := flag.Float64("halt-daily-loss", cfg.HaltDailyLoss, "latch a risk halt this far below the UTC day-start equity (0 keeps the legacy 0.03)")
 	slotTopUp := flag.Bool("slot-top-up", cfg.SlotTopUp, "keep adding capped orders to held rotation targets until each reaches (budget-reserve)/slots")
+	mirrorState := flag.String("mirror-state", "", "bitbankkucoin paper ledger (state.json) to mirror hourly instead of BitBank daily ranks")
+	mirrorMaxAge := flag.Duration("mirror-max-age", 3*time.Hour, "reject a mirror ledger whose last bar closed longer ago")
+	mirrorStop := flag.Float64("mirror-stop", .3, "mirror mode: protective exit this far below a holding's peak bid")
+	maxOrdersDay := flag.Int("max-orders-day", cfg.MaxOrdersDay, "daily order cap (1-50)")
 	symbol := flag.String("symbol", "ETH_USDT", "market for funding plan")
 	funding := flag.String("funding", "convert", "convert or margin for read-only plan")
 	archiveDir := flag.String("archive", "data/archive-daily", "historical archive directory")
@@ -65,6 +69,10 @@ func run() error {
 	cfg.SlotTopUp = *slotTopUp
 	cfg.HaltPeakDD = *haltPeak
 	cfg.HaltDailyLoss = *haltDaily
+	cfg.MirrorState = *mirrorState
+	cfg.MirrorMaxAge = *mirrorMaxAge
+	cfg.MirrorStop = *mirrorStop
+	cfg.MaxOrdersDay = *maxOrdersDay
 	cfg.Budget, err = decimal.NewFromString(*budget)
 	if err != nil {
 		return errors.New("invalid budget")

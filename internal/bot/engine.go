@@ -29,11 +29,14 @@ type Config struct {
 	FeeRate              decimal.Decimal
 	MaxOrdersDay         int
 	Slots                int
-	CooldownHours        int // post-sale re-entry delay; zero retains the legacy 72h default
-	CashReserve          float64 // fraction of budget kept in USDT; entries never spend below it
-	SlotTopUp            bool    // add to held rotation holdings until each reaches its slot target
-	HaltPeakDD           float64 // latch a risk halt below this fraction under the equity high-water mark (0 = legacy 10%)
-	HaltDailyLoss        float64 // latch a risk halt below this fraction under the UTC day start (0 = legacy 3%)
+	CooldownHours        int           // post-sale re-entry delay; zero retains the legacy 72h default
+	CashReserve          float64       // fraction of budget kept in USDT; entries never spend below it
+	SlotTopUp            bool          // add to held rotation holdings until each reaches its slot target
+	HaltPeakDD           float64       // latch a risk halt below this fraction under the equity high-water mark (0 = legacy 10%)
+	HaltDailyLoss        float64       // latch a risk halt below this fraction under the UTC day start (0 = legacy 3%)
+	MirrorState          string        // bitbankkucoin paper ledger to mirror hourly instead of BitBank daily ranks
+	MirrorMaxAge         time.Duration // reject a mirror ledger whose last bar closed longer ago (0 = 3h)
+	MirrorStop           float64       // mirror mode: protective exit this far below a holding's peak bid (0 = 0.30)
 }
 
 func DefaultConfig() Config {
@@ -48,6 +51,12 @@ func (c Config) Validate() error {
 	}
 	if !finite(c.CashReserve) || c.CashReserve < 0 || c.CashReserve > .9 {
 		return errors.New("cash reserve must be between 0 and 0.9 of budget")
+	}
+	if c.MirrorStop < 0 || c.MirrorStop > .9 || !finite(c.MirrorStop) || c.MirrorMaxAge < 0 {
+		return errors.New("mirror stop must be within 0-0.9 and max age non-negative")
+	}
+	if c.ExperimentalFallback && c.mirror() {
+		return errors.New("mirror mode and the experimental fallback are exclusive")
 	}
 	if c.ExperimentalFallback && c.Mode != "paper" {
 		return errors.New("experimental policy is paper-only")
@@ -89,6 +98,26 @@ func (c Config) reserve(budget decimal.Decimal) decimal.Decimal {
 // slotTarget is the notional each rotation slot aims to hold when top-ups are enabled.
 func (c Config) slotTarget(budget decimal.Decimal) decimal.Decimal {
 	return budget.Sub(c.reserve(budget)).Div(decimal.NewFromInt(int64(c.Slots)))
+}
+
+func (c Config) mirror() bool { return c.MirrorState != "" }
+
+func (c Config) mirrorMaxAge() time.Duration {
+	if c.MirrorMaxAge <= 0 {
+		return 3 * time.Hour
+	}
+	return c.MirrorMaxAge
+}
+
+// stopFraction is the fraction of the peak bid at or below which a holding is protectively sold.
+func (c Config) stopFraction() float64 {
+	if !c.mirror() {
+		return .9
+	}
+	if c.MirrorStop <= 0 {
+		return .7
+	}
+	return 1 - c.MirrorStop
 }
 
 func (c Config) postSaleCooldown() time.Duration {
@@ -554,8 +583,13 @@ func (e *Engine) Cycle(ctx context.Context) error {
 	}
 	var prediction Prediction
 	var predErr error
+	var mirrorWeights map[string]float64
 	if !riskHalted && fullyPriced {
-		prediction, predErr = FetchPrediction(ctx, e.Config.PredictionURL)
+		if e.Config.mirror() {
+			mirrorWeights, predErr = LoadMirror(e.Config.MirrorState, now, e.Config.mirrorMaxAge(), .02)
+		} else {
+			prediction, predErr = FetchPrediction(ctx, e.Config.PredictionURL)
+		}
 	}
 	scores := map[string]float64{}
 	observed := map[string]bool{}
@@ -572,7 +606,22 @@ func (e *Engine) Cycle(ctx context.Context) error {
 	// Incomplete account valuation cannot authorize entries, rotation or
 	// new account-risk baselines. Independently observed stops still run.
 	if !riskHalted && fullyPriced {
-		if predErr == nil {
+		if e.Config.mirror() {
+			source = "kucoin_mirror"
+			if predErr == nil {
+				scores = mirrorWeights
+				for symbol := range s.Holdings {
+					observed[symbol] = true
+				}
+				for symbol := range scores {
+					observed[symbol] = true
+				}
+				ready = true
+				decisionHour = now.UTC().Truncate(time.Hour)
+			} else {
+				log.Printf("mirror unavailable: %v", predErr)
+			}
+		} else if predErr == nil {
 			scores = prediction.Scores()
 			for symbol := range scores {
 				observed[symbol] = true
@@ -627,7 +676,7 @@ func (e *Engine) Cycle(ctx context.Context) error {
 		}
 		symbols = append(symbols, symbol)
 		bid, _ := decimal.NewFromString(books[symbol].Bids[0])
-		stops[symbol] = bid.LessThanOrEqual(p.Peak.Mul(decimal.NewFromFloat(.9)))
+		stops[symbol] = bid.LessThanOrEqual(p.Peak.Mul(decimal.NewFromFloat(e.Config.stopFraction())))
 	}
 	// Spend scarce daily order allowances on protective reductions before
 	// discretionary rotation/funding exits. Keep the existing cap and a
@@ -656,10 +705,19 @@ func (e *Engine) Cycle(ctx context.Context) error {
 		riskOff := e.Config.ExperimentalFallback && len(desired) == 0
 		fundingExit := (needsCash || riskOff) && s.AccountBacked && p.Imported && ready && !desired[symbol] && (riskOff || s.Cash.LessThan(fundingFloor))
 		exit := ready && observed[symbol] && !desired[symbol] && now.Sub(p.Entered) >= 72*time.Hour
+		if e.Config.mirror() {
+			// The mirrored ledger already enforces its own minimum hold.
+			exit = ready && !desired[symbol] && !p.Imported
+		}
 		if !stop && !exit && !fundingExit {
 			continue
 		}
-		if err = e.trade(ctx, &s, bySymbol[symbol], b, "SELL", decisionHour, source); err != nil {
+		suffix := ""
+		if e.Config.mirror() {
+			// Slot-sized holdings need several capped sells; allow repeats within the hour.
+			suffix = fmt.Sprintf("|exit-%d", s.OrdersToday)
+		}
+		if err = e.tradeCapped(ctx, &s, bySymbol[symbol], b, "SELL", decisionHour, source, decimal.Zero, suffix); err != nil {
 			return err
 		}
 	}
@@ -668,7 +726,7 @@ func (e *Engine) Cycle(ctx context.Context) error {
 			if p, held := s.Holdings[symbol]; held {
 				// Top up a tracked rotation holding toward its slot target with
 				// further capped orders; imported inventory is never grown.
-				if !e.Config.SlotTopUp || p.Imported || s.OrdersToday >= e.Config.MaxOrdersDay {
+				if !(e.Config.SlotTopUp || e.Config.mirror()) || p.Imported || s.OrdersToday >= e.Config.MaxOrdersDay {
 					continue
 				}
 				b, err := e.Client.Book(ctx, symbol)
@@ -679,7 +737,7 @@ func (e *Engine) Cycle(ctx context.Context) error {
 				if err != nil || !bid.IsPositive() {
 					continue
 				}
-				gap := e.Config.slotTarget(s.Budget).Sub(p.Quantity.Mul(bid))
+				gap := e.mirrorTarget(s, scores[symbol]).Sub(p.Quantity.Mul(bid))
 				if gap.LessThan(e.Config.MaxOrder.Mul(decimal.NewFromFloat(.25))) {
 					continue
 				}
@@ -694,14 +752,18 @@ func (e *Engine) Cycle(ctx context.Context) error {
 					activeSlots++
 				}
 			}
-			if activeSlots >= e.Config.Slots || now.Before(s.Cooldown[symbol]) {
+			if activeSlots >= e.Config.Slots || (!e.Config.mirror() && now.Before(s.Cooldown[symbol])) {
 				continue
 			}
 			b, err := e.Client.Book(ctx, symbol)
 			if err != nil {
 				continue
 			}
-			if err = e.trade(ctx, &s, bySymbol[symbol], b, "BUY", decisionHour, source); err != nil {
+			cap := decimal.Zero
+			if e.Config.mirror() {
+				cap = e.mirrorTarget(s, scores[symbol])
+			}
+			if err = e.tradeCapped(ctx, &s, bySymbol[symbol], b, "BUY", decisionHour, source, cap, ""); err != nil {
 				return err
 			}
 		}
@@ -730,6 +792,17 @@ func (e *Engine) Cycle(ctx context.Context) error {
 	}
 	return nil
 }
+
+// mirrorTarget is the notional a held target should reach: its slot target, or in mirror
+// mode the mirrored weight of the deployable budget, capped at the slot target.
+func (e *Engine) mirrorTarget(s State, weight float64) decimal.Decimal {
+	slot := e.Config.slotTarget(s.Budget)
+	if !e.Config.mirror() || !finite(weight) || weight <= 0 {
+		return slot
+	}
+	return decimal.Min(slot, s.Budget.Sub(e.Config.reserve(s.Budget)).Mul(decimal.NewFromFloat(weight)))
+}
+
 func (e *Engine) trade(ctx context.Context, s *State, m Market, b Book, side string, hour time.Time, source string) error {
 	return e.tradeCapped(ctx, s, m, b, side, hour, source, decimal.Zero, "")
 }

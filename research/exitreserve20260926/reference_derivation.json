@@ -1,0 +1,24 @@
+{
+  "replacements": [
+    [
+      "require_stop_guard=False, actual_stop_hour=False):",
+      "require_stop_guard=False, actual_stop_hour=False, max_orders_day=12, exit_order_reserve=0):"
+    ],
+    [
+      "    assert state['Schema']=='poloniex-bot-v1'",
+      "    assert 0<=exit_order_reserve<=max_orders_day\n    assert state['Schema']=='poloniex-bot-v1'"
+    ],
+    [
+      "                assert daily_orders<12 and amount<=MAX_ORDER",
+      "                assert daily_orders<max_orders_day,('total_order_budget',daily_orders,max_orders_day)\n                assert amount<=MAX_ORDER"
+    ],
+    [
+      "                if side=='BUY':\n                    if held",
+      "                if side=='BUY':\n                    assert daily_orders<max_orders_day-exit_order_reserve,('buy_order_budget',daily_orders,max_orders_day,exit_order_reserve)\n                    if held"
+    ]
+  ],
+  "source": "/vfast/data/code/bitbankpoloniex/research/protectiveclock20260926/account_reference.py",
+  "source_sha256": "16c6ff454c80ed269db55d21a2a95cd90b95ba680d840894f81f3438058b3c66",
+  "target": "/vfast/data/code/bitbankpoloniex/research/exitreserve20260926/account_reference.py",
+  "target_sha256": "b0f200fd142c1b5ad2f0ab81fae40e07f00d5a5c08f7861508f7e3252f695641"
+}

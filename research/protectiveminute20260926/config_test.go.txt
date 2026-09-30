@@ -1,0 +1,15 @@
+package bot
+
+import "testing"
+
+func TestMinuteProtectiveConfig(t *testing.T) {
+    cfg := DefaultConfig()
+    if cfg.RepeatProtectiveMinute { t.Fatal("treatment must default off") }
+    cfg.RepeatProtectiveMinute = true
+    if err := cfg.Validate(); err != nil { t.Fatal(err) }
+    cfg.Mode = "live"
+    if cfg.Validate() == nil { t.Fatal("live research flag accepted") }
+    cfg.Mode = "paper"
+    cfg.ExperimentalFallback = true
+    if cfg.Validate() == nil { t.Fatal("combined fallback experiment accepted") }
+}

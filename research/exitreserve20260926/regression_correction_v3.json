@@ -1,0 +1,34 @@
+{
+  "clock_instants_changed": false,
+  "clock_replacements": [
+    [
+      "    return datetime.fromtimestamp(seconds,timezone.utc).strftime('%Y-%m-%dT%H:%M:%S')+f'.{fraction:09d}Z'",
+      "    suffix=('.'+f'{fraction:09d}'.rstrip('0')) if fraction else ''\n    return datetime.fromtimestamp(seconds,timezone.utc).strftime('%Y-%m-%dT%H:%M:%S')+suffix+'Z'"
+    ]
+  ],
+  "financial_oracle_changed": false,
+  "hashes": {
+    "/vfast/data/code/bitbankpoloniex/research/exitreserve20260926/checks.py": "8ba6e84d147c643df8b6d4477e21bda66923e27b6c49bfecf3b85fcdf23c7329",
+    "/vfast/data/code/bitbankpoloniex/research/exitreserve20260926/checks_v2.py": "f2ca8a9722135aafdeba09f54f47b3b5a0e4a1f74c714bd44f3e328e086fb2a5",
+    "/vfast/data/code/bitbankpoloniex/research/exitreserve20260926/regressions_v2.py": "2a5e5963552d49dd170ec3900b6e52e9268f122226c6c9e8a42a35beae4cdc13",
+    "/vfast/data/code/bitbankpoloniex/research/exitreserve20260926/regressions_v3.py": "831474a0fa0965a3fa935838416667201c33598f9367e67f39d7b14fcd520f42",
+    "/vfast/data/trading_research_20260924/poloniex_exit_reserve_v1/regressions_v2/failing_ordinary_cycle.json": "e3cf1c7527d2c5826769153214aee5c275cbf2f5a26a16140c5265b7c0699966"
+  },
+  "historical_outcomes_inspected": false,
+  "native_code_changed": false,
+  "reason": "Synthetic ordinary-exit age used .000000000Z; Go canonically emits whole-second Z. Exact instants agree, and the unchanged money oracle passes with canonical input text.",
+  "runner_replacements": [
+    [
+      "from checks import",
+      "from checks_v2 import"
+    ],
+    [
+      "root=OUT/'regressions_v2'",
+      "root=OUT/'regressions_v3'"
+    ],
+    [
+      "HERE/'checks.py'",
+      "HERE/'checks_v2.py'"
+    ]
+  ]
+}

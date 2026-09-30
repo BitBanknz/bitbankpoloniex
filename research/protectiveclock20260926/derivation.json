@@ -1,0 +1,60 @@
+{
+  "parent_build": "/vfast/data/code/bitbankpoloniex/research/protectiveminute20260926/build.py",
+  "parent_build_sha256": "822bc281a7b518459b0c5a6a33ba3fd9f312ac2a7e2b782ff217092f5d208fa2",
+  "build_sha256": "98d32eedfa1c97b2ab50201efa4e43f52238b74dc0dbd92eb174ff444be573f0",
+  "build_changes": [
+    [
+      "poloniex_protective_minute_v1",
+      "poloniex_protective_clock_v1"
+    ],
+    [
+      "2026-09-26-protective-minute-prereg.md",
+      "2026-09-26-protective-clock-prereg.md"
+    ],
+    [
+      "PROTECTIVE_MINUTE",
+      "PROTECTIVE_CLOCK"
+    ],
+    [
+      "RepeatProtectiveMinute",
+      "ProtectiveActualHour"
+    ],
+    [
+      "minute protective exits require paper rotation",
+      "actual-hour protective exits require paper rotation"
+    ],
+    [
+      "protective_minute",
+      "protective_clock"
+    ],
+    [
+      "RESEARCH_REPEAT",
+      "RESEARCH_CLOCK"
+    ],
+    [
+      "        sellHour, suffix := decisionHour, \"\"\n        if e.Config.ProtectiveActualHour && stop && !p.Imported {\n            // Key the protective decision to observation time, independently of\n            // forecast publication and risk state. Duplicate calls in the same\n            // minute retain the same durable ID, including after a partial fill.\n            minute := now.UTC().Truncate(time.Minute)\n            sellHour = minute.Truncate(time.Hour)\n            suffix = \"|protective-minute-\" + minute.Format(time.RFC3339)\n        }\n        if err = e.tradeCapped(ctx, &s, bySymbol[symbol], b, \"SELL\", sellHour, source, decimal.Zero, suffix); err != nil {",
+      "        sellHour := decisionHour\n        if e.Config.ProtectiveActualHour && stop && !p.Imported {\n            // A protective reduction belongs to the observed hour, regardless\n            // of when a forecast authorizes discretionary entries. Preserve\n            // the existing durable one-sell-per-symbol-per-hour decision ID.\n            sellHour = now.UTC().Truncate(time.Hour)\n        }\n        if err = e.trade(ctx, &s, bySymbol[symbol], b, \"SELL\", sellHour, source); err != nil {"
+    ]
+  ],
+  "reference_parent": "/vfast/data/code/bitbankpoloniex/research/stoptopup20260924/account_reference.py",
+  "reference_parent_sha256": "ae304870928eb20d48081b823a749199c185908e6f21138338b0c16d1b28dbde",
+  "reference_sha256": "16c6ff454c80ed269db55d21a2a95cd90b95ba680d840894f81f3438058b3c66",
+  "reference_changes": [
+    [
+      "require_stop_guard=False):",
+      "require_stop_guard=False, actual_stop_hour=False):"
+    ],
+    [
+      "held=s in positions;suffix=''",
+      "held=s in positions;suffix='';protective_clock=False"
+    ],
+    [
+      "assert held and qty<=positions[s]['quantity']",
+      "assert held and qty<=positions[s]['quantity']\n                    protective_clock=actual_stop_hour and prices[s]<=positions[s]['peak']*D('.9')"
+    ],
+    [
+      "key=f'{iso(decision_hour)}|{s}|{side}'+suffix",
+      "if protective_clock:decision_hour=ts//3600*3600\n                key=f'{iso(decision_hour)}|{s}|{side}'+suffix"
+    ]
+  ]
+}

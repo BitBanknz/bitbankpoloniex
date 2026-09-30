@@ -1,0 +1,44 @@
+package bot
+
+import (
+    "context"
+    "encoding/json"
+    "testing"
+    "time"
+)
+
+func TestExitReserveConfig(t *testing.T) {
+    cfg := DefaultConfig()
+    if cfg.ExitOrderReserve != 0 { t.Fatal("reserve must default off") }
+    cfg.ExitOrderReserve = 3
+    if err := cfg.Validate(); err != nil { t.Fatal(err) }
+    for _, reserve := range []int{-1, cfg.MaxOrdersDay+1} {
+        invalid := cfg; invalid.ExitOrderReserve = reserve
+        if invalid.Validate() == nil { t.Fatal("invalid reserve accepted") }
+    }
+    cfg.Mode = "live"
+    if cfg.Validate() == nil { t.Fatal("live reserve accepted") }
+    cfg.Mode = "paper"; cfg.ExperimentalFallback = true
+    if cfg.Validate() == nil { t.Fatal("fallback combination accepted") }
+}
+
+func TestExitReserveBuyBoundaryAndSellCapacity(t *testing.T) {
+    e := engine(t)
+    e.Config.ExitOrderReserve = 3
+    s, _ := e.read()
+    s.OrdersToday = e.Config.MaxOrdersDay-e.Config.ExitOrderReserve-1
+    hour := time.Now().UTC().Truncate(time.Hour)
+    if err := e.trade(context.Background(), &s, market(), book(), "BUY", hour, "test"); err != nil { t.Fatal(err) }
+    if s.OrdersToday != 9 || len(s.Fills) != 1 { t.Fatal("last unreserved buy missing") }
+    before, _ := json.Marshal(s)
+    if err := e.tradeCapped(context.Background(), &s, market(), book(), "BUY", hour, "test", e.Config.MaxOrder, "|topup-9"); err != nil { t.Fatal(err) }
+    after, _ := json.Marshal(s)
+    if string(before) != string(after) { t.Fatal("reserved buy changed state") }
+    if err := e.trade(context.Background(), &s, market(), book(), "SELL", hour, "test"); err != nil { t.Fatal(err) }
+    if s.OrdersToday != 10 || len(s.Fills) != 2 || s.Fills[1].Order.Side != "SELL" { t.Fatal("reserved sale missing") }
+    s.OrdersToday = e.Config.MaxOrdersDay
+    before, _ = json.Marshal(s)
+    if err := e.trade(context.Background(), &s, market(), book(), "SELL", hour.Add(time.Hour), "test"); err != nil { t.Fatal(err) }
+    after, _ = json.Marshal(s)
+    if string(before) != string(after) { t.Fatal("total cap bypassed") }
+}

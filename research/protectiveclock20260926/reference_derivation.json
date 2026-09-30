@@ -1,0 +1,24 @@
+{
+  "parent": "/vfast/data/code/bitbankpoloniex/research/stoptopup20260924/account_reference.py",
+  "parent_sha256": "ae304870928eb20d48081b823a749199c185908e6f21138338b0c16d1b28dbde",
+  "output_sha256": "16c6ff454c80ed269db55d21a2a95cd90b95ba680d840894f81f3438058b3c66",
+  "changes": [
+    [
+      "require_stop_guard=False):",
+      "require_stop_guard=False, actual_stop_hour=False):"
+    ],
+    [
+      "held=s in positions;suffix=''",
+      "held=s in positions;suffix='';protective_clock=False"
+    ],
+    [
+      "assert held and qty<=positions[s]['quantity']",
+      "assert held and qty<=positions[s]['quantity']\n                    protective_clock=actual_stop_hour and prices[s]<=positions[s]['peak']*D('.9')"
+    ],
+    [
+      "key=f'{iso(decision_hour)}|{s}|{side}'+suffix",
+      "if protective_clock:decision_hour=ts//3600*3600\n                key=f'{iso(decision_hour)}|{s}|{side}'+suffix"
+    ]
+  ],
+  "scope": "unchanged financial checks; protective exit decision hour only"
+}

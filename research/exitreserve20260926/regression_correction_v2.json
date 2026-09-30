@@ -1,0 +1,21 @@
+{
+  "financial_oracle_changed": false,
+  "historical_outcomes_inspected": false,
+  "native_code_changed": false,
+  "original_cycles_sha256": "3771fb751a1eed3c9f22da5b7e17832459280b2042b69401da02e2bfde00a003",
+  "reason": "Repeated no-fill observation updates hourly equity after the preceding sale fees; cash, inventory, fills and order identity remain unchanged.",
+  "replacements": [
+    [
+      "root=OUT/'regressions';root.mkdir(exist_ok=False)",
+      "root=OUT/'regressions_v2';root.mkdir(exist_ok=False)"
+    ],
+    [
+      "                assert duplicate['State']==saved",
+      "                # The second observation can update the hourly equity mark\n                # after first-cycle fees, despite emitting no additional order.\n                for key in ('Cash','Holdings','Fills','OrdersToday','Processed','Cooldown','Day','Halted','Budget'):\n                    assert duplicate['State'][key]==saved[key]\n                assert D(duplicate['State']['Equity'][-1]['Value'])==D(dm['equity'])"
+    ]
+  ],
+  "source": "/vfast/data/code/bitbankpoloniex/research/exitreserve20260926/regressions.py",
+  "source_sha256": "d9acc23a6d414869b628f165aa1553fe30a47c4f7593cea7a891ff12ac0a9975",
+  "target": "/vfast/data/code/bitbankpoloniex/research/exitreserve20260926/regressions_v2.py",
+  "target_sha256": "2a5e5963552d49dd170ec3900b6e52e9268f122226c6c9e8a42a35beae4cdc13"
+}

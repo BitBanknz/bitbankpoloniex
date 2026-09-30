@@ -1,0 +1,47 @@
+[
+  {
+    "file": "history.py",
+    "parent": "/vfast/data/code/bitbankpoloniex/research/protectiveminute20260926/history.py",
+    "parent_sha256": "dff229105231277606743654e816cadacdd7d56ea18145f59576450ac7fcd4da",
+    "output_sha256": "61ca6982a332a775f39c2ae1d1bd620fcf7cc46c7259a32c9f661b7a85cd395b",
+    "changes": [
+      [
+        "RESEARCH_REPEAT",
+        "RESEARCH_CLOCK"
+      ],
+      [
+        "repeat_stop=",
+        "actual_stop_hour="
+      ],
+      [
+        "'repeat'",
+        "'clock'"
+      ],
+      [
+        "protective-minute-history-",
+        "protective-clock-history-"
+      ],
+      [
+        "PROTECTIVE_HISTORY",
+        "CLOCK_HISTORY"
+      ]
+    ],
+    "additional_normalization": "Whole-word repeat identifiers and result keys renamed to clock before any runner execution."
+  },
+  {
+    "file": "observed.py",
+    "parent": "/vfast/data/code/bitbankpoloniex/research/protectiveminute20260926/observed.py",
+    "parent_sha256": "00a3d13e4ac0bd72c5204bb85bc67808cc10468876ee2f61fe0ec7326b942225",
+    "output_sha256": "07713cb4b88a42de175c232cbf1bbc348da9bf0ff58fa6b52198c255a13ed794",
+    "changes": [
+      [
+        "RepeatProtectiveMinute",
+        "ProtectiveActualHour"
+      ],
+      [
+        "'repeat'",
+        "'clock'"
+      ]
+    ]
+  }
+]

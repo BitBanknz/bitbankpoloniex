@@ -1,0 +1,24 @@
+{
+  "parent": "/vfast/data/code/bitbankpoloniex/research/stoptopup20260924/account_reference.py",
+  "parent_sha256": "ae304870928eb20d48081b823a749199c185908e6f21138338b0c16d1b28dbde",
+  "output_sha256": "416e233d97f9ceda93b30b33c9235d7e83f48765f4ee4a1686e536aea1cd1690",
+  "changes": [
+    [
+      "require_stop_guard=False):",
+      "require_stop_guard=False, repeat_stop=False):"
+    ],
+    [
+      "held=s in positions;suffix=''",
+      "held=s in positions;suffix='';protective_repeat=False"
+    ],
+    [
+      "assert held and qty<=positions[s]['quantity']",
+      "assert held and qty<=positions[s]['quantity']\n                    protective_repeat=repeat_stop and prices[s]<=positions[s]['peak']*D('.9')\n                    if protective_repeat:suffix='|protective-minute-'+iso(ts//60*60)"
+    ],
+    [
+      "key=f'{iso(decision_hour)}|{s}|{side}'+suffix",
+      "if protective_repeat:decision_hour=ts//3600*3600\n                key=f'{iso(decision_hour)}|{s}|{side}'+suffix"
+    ]
+  ],
+  "scope": "Same money/quantity/mark checks, new stop-specific actual-minute decision keys only"
+}

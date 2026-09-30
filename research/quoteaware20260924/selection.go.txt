@@ -1,0 +1,26 @@
+package bot
+
+import (
+    "context"
+    "github.com/shopspring/decimal"
+)
+
+// quoteAwareTargets applies new-buy quote constraints only to unheld names.
+// Existing holdings retain their ranking eligibility; their exits still use
+// the ordinary rotation/hold/stop rules. Final trades recheck their own books.
+func (e *Engine) quoteAwareTargets(ctx context.Context, scores map[string]float64, markets []Market, s State) []string {
+    ordered := Targets(scores, markets, len(markets))
+    bySymbol := make(map[string]Market, len(markets))
+    for _, market := range markets { bySymbol[market.Symbol] = market }
+    selected := make([]string, 0, e.Config.Slots)
+    for _, symbol := range ordered {
+        if len(selected) == e.Config.Slots { break }
+        if _, held := s.Holdings[symbol]; !held {
+            book, err := e.Client.Book(ctx, symbol)
+            if err != nil { continue }
+            if _, err = BuildOrder(bySymbol[symbol], book, "BUY", "selection-only", e.Config.MaxOrder, decimal.Zero, e.Config.MaxSpread); err != nil { continue }
+        }
+        selected = append(selected, symbol)
+    }
+    return selected
+}

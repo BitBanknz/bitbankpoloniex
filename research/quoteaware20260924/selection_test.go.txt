@@ -1,0 +1,64 @@
+package bot
+
+import (
+    "context"
+    "encoding/json"
+    "math"
+    "net/http"
+    "net/http/httptest"
+    "reflect"
+    "strings"
+    "testing"
+    "time"
+)
+
+func TestQuoteAwareConfiguration(t *testing.T) {
+    c := DefaultConfig()
+    if c.QuoteAwareEntry { t.Fatal("treatment must default off") }
+    c.QuoteAwareEntry = true
+    if err := c.Validate(); err != nil { t.Fatal(err) }
+    c.Mode = "live"
+    if c.Validate() == nil { t.Fatal("unqualified research treatment accepted in live mode") }
+    c.Mode, c.MirrorState = "paper", "mirror.json"
+    if c.Validate() == nil { t.Fatal("treatment unexpectedly changes mirror mode") }
+}
+
+func TestQuoteAwareEligibility(t *testing.T) {
+    for _, scenario := range []string{"all_feasible", "wide", "thin", "stale", "unavailable", "held_wide", "held_unavailable", "ties", "no_feasible", "nonfinite"} {
+        t.Run(scenario,func(t *testing.T) {
+            e := engine(t);e.Config.Slots=2;e.Config.QuoteAwareEntry=true
+            markets:=[]Market{};scores:=map[string]float64{};books:=map[string]Book{};calls:=map[string]int{}
+            s:=State{Holdings:map[string]Position{}}
+            for i,symbol:=range []string{"AAA_USDT","BBB_USDT","CCC_USDT"} {
+                m:=market();m.Symbol=symbol;m.Base=strings.TrimSuffix(symbol,"_USDT");markets=append(markets,m)
+                scores[symbol]=float64(3-i);books[symbol]=book()
+            }
+            expected:=[]string{"AAA_USDT","BBB_USDT"}
+            b:=books["AAA_USDT"]
+            switch scenario {
+            case "wide", "held_wide":b.Asks=[]string{"2200","100"}
+            case "thin":b.Asks=[]string{"2000.1","0.00001"}
+            case "stale":b.TS=time.Now().Add(-time.Minute).UnixMilli()
+            case "ties":scores["CCC_USDT"]=3
+            case "nonfinite":scores["AAA_USDT"]=math.NaN()
+            }
+            books["AAA_USDT"]=b
+            if scenario=="held_wide" || scenario=="held_unavailable" {s.Holdings["AAA_USDT"]=Position{Quantity:d(".1")}}
+            switch scenario {
+            case "wide","thin","stale","unavailable","nonfinite":expected=[]string{"BBB_USDT","CCC_USDT"}
+            case "ties":expected=[]string{"AAA_USDT","CCC_USDT"}
+            case "no_feasible":expected=[]string{}
+            }
+            server:=httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter,r *http.Request) {
+                if r.Method!="GET" {t.Error("selection attempted a write");w.WriteHeader(403);return}
+                symbol:=strings.TrimSuffix(strings.TrimPrefix(r.URL.Path,"/markets/"),"/orderBook");calls[symbol]++
+                if scenario=="no_feasible" || ((scenario=="unavailable" || scenario=="held_unavailable") && symbol=="AAA_USDT") {w.WriteHeader(503);return}
+                json.NewEncoder(w).Encode(books[symbol])
+            }));defer server.Close();e.Client.BaseURL=server.URL
+            got:=e.quoteAwareTargets(context.Background(),scores,markets,s)
+            if !reflect.DeepEqual(got,expected) {t.Fatalf("got %v, want %v",got,expected)}
+            if (scenario=="held_wide" || scenario=="held_unavailable") && calls["AAA_USDT"]!=0 {t.Fatal("held rank eligibility depends on buy quote")}
+            if scenario=="all_feasible" && calls["CCC_USDT"]!=0 {t.Fatal("requested unnecessary lower-ranked book")}
+        })
+    }
+}

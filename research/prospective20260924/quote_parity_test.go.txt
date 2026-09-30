@@ -1,0 +1,51 @@
+package bot
+
+import (
+    "encoding/json"
+    "fmt"
+    "os"
+    "testing"
+    "time"
+    "github.com/shopspring/decimal"
+)
+
+var retainedClock time.Time
+func retainedNow() time.Time { return retainedClock }
+
+func TestRetainedQuoteFeasibility(t *testing.T) {
+    var cases []struct {
+        Index int
+        Now int64
+        Market Market
+        Book Book
+        Expected struct {
+            QuoteFeasible bool `json:"quote_feasible"`
+            UniverseEligible bool `json:"universe_eligible"`
+            Price string `json:"hypothetical_buy_price"`
+            Quantity string `json:"hypothetical_buy_quantity"`
+            Amount string `json:"hypothetical_buy_amount"`
+        }
+    }
+    raw, err := os.ReadFile(os.Getenv("RETAINED_QUOTE_CASES"))
+    if err != nil { t.Fatal(err) }
+    if err = json.Unmarshal(raw, &cases); err != nil { t.Fatal(err) }
+    if len(cases) != 40 { t.Fatalf("expected fixed first-five-minute matrix, got %d", len(cases)) }
+    for _, c := range cases {
+        t.Run(fmt.Sprintf("%d_%s", c.Index, c.Market.Symbol), func(t *testing.T) {
+            retainedClock = time.Unix(0, c.Now)
+            if !c.Expected.UniverseEligible { t.Fatal("this matrix expects eligible public markets") }
+            order, err := BuildOrder(c.Market, c.Book, "BUY", "offline-quote-parity", decimal.NewFromInt(49), decimal.Zero, .003)
+            if !c.Expected.QuoteFeasible {
+                if err == nil { t.Fatal("native unexpectedly accepted infeasible quote") }
+                return
+            }
+            if err != nil { t.Fatal(err) }
+            price, err := decimal.NewFromString(order.Price); if err != nil { t.Fatal(err) }
+            qty, err := decimal.NewFromString(order.Quantity); if err != nil { t.Fatal(err) }
+            for _, pair := range [][2]string{{price.String(), c.Expected.Price}, {qty.String(), c.Expected.Quantity}, {price.Mul(qty).String(), c.Expected.Amount}} {
+                a, e1 := decimal.NewFromString(pair[0]); b, e2 := decimal.NewFromString(pair[1])
+                if e1 != nil || e2 != nil || !a.Equal(b) { t.Fatalf("native/independent mismatch: %v", pair) }
+            }
+        })
+    }
+}

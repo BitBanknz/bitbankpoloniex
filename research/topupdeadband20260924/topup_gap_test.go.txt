@@ -1,0 +1,30 @@
+package bot
+
+import (
+    "math"
+    "testing"
+)
+
+func TestSlotTopUpGapBoundariesAndMirrorIsolation(t *testing.T) {
+    c:=DefaultConfig();c.MaxOrder=d("49");c.SlotTopUp=true
+    if !c.topUpMinGap(d("495")).Equal(d("12.25")) { t.Fatal("default floor changed") }
+    c.SlotTopUpGapFraction=.1
+    if !c.topUpMinGap(d("495")).Equal(d("12.25")) { t.Fatal("smaller threshold weakened the original floor") }
+    c.SlotTopUpGapFraction=.25
+    if !c.topUpMinGap(d("495")).Equal(d("24.75")) { t.Fatal("target fraction incorrect") }
+    c.SlotTopUp=false
+    if !c.topUpMinGap(d("495")).Equal(d("12.25")) { t.Fatal("legacy changed") }
+    c.SlotTopUp=true;c.MirrorState="unused-paper-path"
+    if !c.topUpMinGap(d("495")).Equal(d("12.25")) { t.Fatal("mirror changed") }
+}
+
+func TestSlotTopUpGapValidation(t *testing.T) {
+    for _,v:=range []float64{-.001,1,2,math.NaN(),math.Inf(1)} {
+        c:=DefaultConfig();c.SlotTopUpGapFraction=v
+        if c.Validate()==nil { t.Fatalf("accepted %g",v) }
+    }
+    for _,v:=range []float64{0,.1,.25,.999} {
+        c:=DefaultConfig();c.SlotTopUpGapFraction=v
+        if err:=c.Validate();err!=nil { t.Fatal(err) }
+    }
+}

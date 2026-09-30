@@ -1,0 +1,85 @@
+package bot
+
+import (
+    "context"
+    "encoding/json"
+    "errors"
+    "fmt"
+    "io"
+    "log"
+    "net/http"
+    "net/http/httptest"
+    "os"
+    "sync/atomic"
+    "testing"
+    "time"
+)
+
+var observedClock atomic.Int64
+func observedNow() time.Time { return time.Unix(0, observedClock.Load()).UTC() }
+type observedResponse struct { Status int; Body json.RawMessage }
+type observedRequest struct {
+    ID string
+    NowNS int64
+    Config json.RawMessage
+    Before *State
+    Responses map[string]observedResponse
+}
+type observedAnswer struct {
+    ID string
+    State State
+    Report Report
+    Paused bool
+    CycleError string
+    Paths []string
+}
+
+func observedCycle(input observedRequest) (observedAnswer,error) {
+    output:=observedAnswer{ID:input.ID,Paths:[]string{}}
+    if input.NowNS<=0 { return output, errors.New("missing observation clock") }
+    observedClock.Store(input.NowNS)
+    directory,err:=os.MkdirTemp("","poloniex-observed-cycle-")
+    if err!=nil {return output,err};defer os.RemoveAll(directory)
+    requests:=make(chan string,100)
+    server:=httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter,r *http.Request) {
+        if r.Method!="GET" || r.Header.Get("key")!="" || r.Header.Get("Authorization")!="" {http.Error(w,"public read only",403);return}
+        requests<-r.URL.Path
+        record,ok:=input.Responses[r.URL.Path]
+        if !ok {http.Error(w,"source not observed",503);return}
+        if record.Status<100 || record.Status>599 {http.Error(w,"source transport unavailable",503);return}
+        w.WriteHeader(record.Status);w.Write(record.Body)
+    }));defer server.Close()
+    cfg:=DefaultConfig()
+    if err=json.Unmarshal(input.Config,&cfg);err!=nil {return output,err}
+    if cfg.Mode!="paper" || cfg.ExperimentalFallback || cfg.MirrorState!="" {return output,errors.New("driver only supports unlevered paper rotation")}
+    cfg.StateDir=directory;cfg.PredictionURL=server.URL+"/prediction"
+    if err=cfg.Validate();err!=nil {return output,err}
+    client:=NewClient("","");client.BaseURL=server.URL
+    engine:=Engine{Config:cfg,Client:client}
+    if input.Before==nil {err=engine.Initialize()} else {
+        if input.Before.Pending!=nil || input.Before.AccountBacked {return output,errors.New("unexpected pending or account-backed state")}
+        err=Save(engine.path(),input.Before)
+    }
+    if err!=nil {return output,err}
+    cycleErr:=engine.Cycle(context.Background())
+    if cycleErr!=nil {
+        output.CycleError=cycleErr.Error();output.Paused=errors.Is(cycleErr,ErrEntriesPaused)
+    }
+    output.State,err=engine.Status()
+    if err!=nil {return output,err}
+    output.Report=Summarize(output.State)
+    for len(requests)>0 {output.Paths=append(output.Paths,<-requests)}
+    return output,nil
+}
+
+func TestObservedCycleDriver(t *testing.T) {
+    log.SetOutput(io.Discard)
+    dec:=json.NewDecoder(os.Stdin);enc:=json.NewEncoder(os.Stdout)
+    for {
+        var input observedRequest
+        if err:=dec.Decode(&input);err==io.EOF {return} else if err!=nil {t.Fatal(err)}
+        output,err:=observedCycle(input)
+        if err!=nil {t.Fatal(fmt.Errorf("request %s: %w",input.ID,err))}
+        if err=enc.Encode(output);err!=nil {t.Fatal(err)}
+    }
+}

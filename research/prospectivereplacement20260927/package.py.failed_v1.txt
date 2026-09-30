@@ -1,0 +1,58 @@
+"""Authenticate a public-only research package; no remote operation."""
+import hashlib
+import io
+import json
+from pathlib import Path
+import shutil
+import subprocess
+import sys
+import tarfile
+import time
+
+HERE = Path(__file__).resolve().parent
+REPO = HERE.parents[1]
+BASE = Path('/vfast/data/trading_research_20260924')
+OUT = BASE / 'poloniex_prospective_replacement_20260927_v1'
+OLD = BASE / 'poloniex_completed_cycle_worker_v1'
+DOC = REPO / 'docs/2026-09-27-prospective-replacement-protocol.md'
+sha = lambda p: hashlib.sha256(Path(p).read_bytes()).hexdigest()
+
+
+def main():
+    OUT.mkdir(); bound = {}
+    completed = json.loads((OLD / 'completion.json').read_text()); assert completed['verified']
+    bound.update(completed['hashes'])
+    proof = json.loads((OLD / 'verification.json').read_text()); assert proof['verified']
+    assert proof['test_counts'] == dict(outcomes=5, candidate_inherited=12)
+    bound.update(proof['hashes'])
+    bound.update({str(OLD / name):digest for name, digest in proof['artifacts'].items()})
+    bound.update({str(OLD / 'worker' / name):digest for name, digest in proof['worker_files'].items()})
+    integration = json.loads((OLD / 'integration/verification.json').read_text()); assert integration['verified']
+    bound.update({str(OLD / 'integration' / name):digest for name, digest in integration['retained_files'].items()})
+    for p, digest in bound.items(): assert sha(p) == digest, p
+    recorder = REPO / 'research/prospective20260924/recorder.py'
+    assert sha(recorder) == '36231ab8b6fbce60167174e46c230ab1b69d9ce173bd15c29496180de0f76608'
+    with (OUT / 'recorder_tests.log').open('x') as log:
+        r = subprocess.run([sys.executable, '-m', 'unittest', 'discover', '-s', str(recorder.parent), '-v'],
+                           stdout=log, stderr=subprocess.STDOUT, timeout=120)
+    assert r.returncode == 0 and 'Ran 11 tests' in (OUT / 'recorder_tests.log').read_text()
+    files = {'collector/recorder.py':recorder, 'PROTOCOL.md':DOC}
+    files.update({'worker/' + name:OLD / 'worker' / name for name in ('shadow.py', 'native.py', 'receipt_rules.py', 'outcomes.py')})
+    staging = OUT / 'package'; staging.mkdir()
+    for relative, source in files.items():
+        target = staging / relative; target.parent.mkdir(exist_ok=True); shutil.copyfile(source, target)
+    manifest = {name:sha(source) for name, source in files.items()}
+    (staging / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
+    with tarfile.open(OUT / 'package.tar', 'x') as archive:
+        for relative in [*files, 'manifest.json']:
+            raw = (staging / relative).read_bytes(); info = tarfile.TarInfo(relative); info.size = len(raw); info.mode = 0o600
+            archive.addfile(info, io.BytesIO(raw))
+    bound.update({str(p):sha(p) for p in [Path(__file__), DOC, recorder, recorder.parent / 'test_recorder.py', OLD / 'completion.json']})
+    artifacts = {str(p):sha(p) for p in OUT.rglob('*') if p.is_file()}
+    (OUT / 'package_verification.json').write_text(json.dumps(dict(verified=True, at_ns=time.time_ns(), hashes=bound,
+          artifacts=artifacts, manifest=manifest, public_source_only=True, credentials_included=False,
+          external_orders=False, original_studies_changed=False), indent=2) + '\n')
+    print('PUBLIC_PACKAGE_VERIFIED', sha(OUT / 'package.tar'), flush=True)
+
+
+if __name__ == '__main__': main()

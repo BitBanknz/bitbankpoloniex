@@ -1,0 +1,24 @@
+[Unit]
+Description=BitBank Poloniex paper A/B (control: min hold 72h; paper only, no orders)
+Wants=network-online.target
+After=network-online.target bitbankgo.service
+StartLimitIntervalSec=3600
+StartLimitBurst=3
+
+[Service]
+Type=simple
+User=administrator
+Group=administrator
+WorkingDirectory=/nvme0n1-disk/code/bitbank-poloniex
+ExecStartPre=/usr/bin/test -s /nvme0n1-disk/code/bitbank-poloniex/data/paper-ab-control/state.json
+ExecStart=/nvme0n1-disk/code/bitbank-poloniex/bin/bitbankpoloniex-ab --command run --mode paper --state data/paper-ab-control --budget 495 --max-order 49 --slots 3 --cooldown-hours 120 --min-hold-hours 72 --slot-top-up --cash-reserve 0.4 --halt-peak-dd 0.25 --halt-daily-loss 0.08 --predictions http://127.0.0.1:8745/api/trading-bot/rotation-signals
+Restart=on-failure
+RestartSec=300
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/nvme0n1-disk/code/bitbank-poloniex/data
+
+[Install]
+WantedBy=multi-user.target

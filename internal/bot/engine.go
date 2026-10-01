@@ -30,6 +30,7 @@ type Config struct {
 	MaxOrdersDay         int
 	Slots                int
 	CooldownHours        int           // post-sale re-entry delay; zero retains the legacy 72h default
+	MinHoldHours         int           // hours before a holding outside the target set may be rotated out; zero retains the legacy 72h
 	CashReserve          float64       // fraction of budget kept in USDT; entries never spend below it
 	SlotTopUp            bool          // add to held rotation holdings until each reaches its slot target
 	HaltPeakDD           float64       // latch a risk halt below this fraction under the equity high-water mark (0 = legacy 10%)
@@ -45,6 +46,9 @@ func DefaultConfig() Config {
 func (c Config) Validate() error {
 	if c.CooldownHours < 0 || c.CooldownHours > 14*24 {
 		return errors.New("post-sale cooldown must be between 0 (legacy default) and 336 hours")
+	}
+	if c.MinHoldHours < 0 || c.MinHoldHours > 14*24 {
+		return errors.New("minimum hold must be between 0 (legacy default) and 336 hours")
 	}
 	if !finite(c.HaltPeakDD) || c.HaltPeakDD < 0 || c.HaltPeakDD > .5 || !finite(c.HaltDailyLoss) || c.HaltDailyLoss < 0 || c.HaltDailyLoss > .2 {
 		return errors.New("halt limits must be within 0-0.5 (peak) and 0-0.2 (daily)")
@@ -118,6 +122,14 @@ func (c Config) stopFraction() float64 {
 		return .7
 	}
 	return 1 - c.MirrorStop
+}
+
+func (c Config) minHold() time.Duration {
+	hours := c.MinHoldHours
+	if hours == 0 {
+		hours = 72
+	}
+	return time.Duration(hours) * time.Hour
 }
 
 func (c Config) postSaleCooldown() time.Duration {
@@ -704,7 +716,7 @@ func (e *Engine) Cycle(ctx context.Context) error {
 		stop := stops[symbol]
 		riskOff := e.Config.ExperimentalFallback && len(desired) == 0
 		fundingExit := (needsCash || riskOff) && s.AccountBacked && p.Imported && ready && !desired[symbol] && (riskOff || s.Cash.LessThan(fundingFloor))
-		exit := ready && observed[symbol] && !desired[symbol] && now.Sub(p.Entered) >= 72*time.Hour
+		exit := ready && observed[symbol] && !desired[symbol] && now.Sub(p.Entered) >= e.Config.minHold()
 		if e.Config.mirror() {
 			// The mirrored ledger already enforces its own minimum hold.
 			exit = ready && !desired[symbol] && !p.Imported

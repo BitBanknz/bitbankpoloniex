@@ -37,6 +37,7 @@ func run() error {
 	interval := flag.Duration("interval", time.Minute, "cycle interval")
 	slots := flag.Int("slots", cfg.Slots, "maximum simultaneous rotation holdings (1-4)")
 	cooldown := flag.Int("cooldown-hours", cfg.CooldownHours, "post-sale re-entry cooldown in hours (0 keeps the 72h legacy default)")
+	minHold := flag.Int("min-hold-hours", cfg.MinHoldHours, "hours before a non-target holding may be rotated out (0 keeps the 72h legacy default)")
 	cashReserve := flag.Float64("cash-reserve", cfg.CashReserve, "fraction of budget kept in USDT (0-0.9)")
 	haltPeak := flag.Float64("halt-peak-dd", cfg.HaltPeakDD, "latch a risk halt this far below the equity high-water mark (0 keeps the legacy 0.10)")
 	haltDaily := flag.Float64("halt-daily-loss", cfg.HaltDailyLoss, "latch a risk halt this far below the UTC day-start equity (0 keeps the legacy 0.03)")
@@ -65,6 +66,7 @@ func run() error {
 	cfg.PredictionURL = *endpoint
 	cfg.Slots = *slots
 	cfg.CooldownHours = *cooldown
+	cfg.MinHoldHours = *minHold
 	cfg.CashReserve = *cashReserve
 	cfg.SlotTopUp = *slotTopUp
 	cfg.HaltPeakDD = *haltPeak

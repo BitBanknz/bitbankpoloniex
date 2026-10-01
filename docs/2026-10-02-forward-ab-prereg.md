@@ -35,3 +35,8 @@ replaces `rank_scores` with an EMA(0.25) of the production `raw_scores`, startin
 `research/forward/test_ema_sidecar.py`. Arm: `bitbankpoloniex-paper-ab-ema25` (state `data/paper-ab-ema25`, hold 72h, otherwise identical to control).
 Same decision rule as above, evaluated against control after >= 56 days: higher return, no-higher max drawdown, and ahead on >= 60% of weekly windows. If it passed, the
 live route is the same sidecar (change the live unit's `--predictions` URL) with no new trading binary. Stop: `systemctl disable --now bitbankpoloniex-paper-ab-ema25 bitbankpoloniex-ema25-signal`.
+
+Prepared, not executed: `research/forward/switch_live_to_sidecar.py` (run on the remote) changes only the live unit's `--predictions` URL to the sidecar. Dry run by default; with
+`--execute` it requires an unchanged unit hash, the running binary `4cc91224…` with the exact expected arguments, no pending intent, and a sidecar state file for the current forecast
+day (proof it served an in-window request); it backs up the unit and the live state, restarts the service, requires two completed cycles with state continuity, and on any failure restores the
+old unit and re-verifies. It is run only on an explicit instruction from the user or after the registered forward rule is met.

@@ -723,6 +723,11 @@ func (e *Engine) Cycle(ctx context.Context) error {
 	}
 	if ready {
 		for _, symbol := range ranked {
+			// Do not undo a capped or blocked protective reduction by buying
+			// this holding while its observed price is below the stop.
+			if stops[symbol] {
+				continue
+			}
 			if p, held := s.Holdings[symbol]; held {
 				// Top up a tracked rotation holding toward its slot target with
 				// further capped orders; imported inventory is never grown.

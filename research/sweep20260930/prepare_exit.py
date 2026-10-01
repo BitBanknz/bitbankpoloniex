@@ -55,6 +55,8 @@ def main():
             assert text.count(a) == 1
             text = text.replace(a, '\tif !c.mirror() {\n\t\treturn %s\n\t}' % args.stop)
             a = 'exit := ready && observed[symbol] && !desired[symbol] && now.Sub(p.Entered) >= 72*time.Hour'
+            if text.count(a) == 0:
+                a = 'exit := ready && observed[symbol] && !desired[symbol] && now.Sub(p.Entered) >= e.Config.minHold()'
             assert text.count(a) == 1
             text = text.replace(a, 'exit := ready && observed[symbol] && !desired[symbol] && (now.Sub(p.Entered) >= %d*time.Hour || replayRegimeOff(now))' % args.minhold)
             a = '\tranked := Targets(scores, markets, e.Config.Slots)\n'

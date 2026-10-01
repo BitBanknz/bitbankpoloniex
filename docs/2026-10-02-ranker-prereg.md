@@ -26,3 +26,14 @@ profile (slots 3, 120h, reserve 0.4, halts 25/8), fees 30/40 bps, geometries con
 Promotion: same five-rule test as `2026-09-30-config-sweep-prereg.md` against the production-score
 baseline, plus window-A IC > 0.03 for the selected model (otherwise no replay). Deployment would
 additionally need a safe path to feed the scores to the live bot; otherwise recommendation only.
+
+## Amendment (before any replay result was read)
+
+Third replay candidate (R3): the same selected model (no refit or retune) scoring a wider static
+universe. Universe fixed using information at 2026-01-13 only: pairs in the archive and in
+`markets.json` with trailing-30d mean daily quote volume >= 1,000,000 USDT on 2026-01-13 and complete
+hourly coverage through 2026-09-06 (this survivorship filter is a stated limitation). Pair-days with no
+model score get -99 so they are never selected. Fixture fields are rebuilt from the archive
+(Open = bar open, PriorTurnover = previous-hour quote volume, Volume24 = sum of previous 24h quote
+volume; verified identical to the existing fixture for ETH on three dates). Same engine, profile and
+promotion rule; R3 is compared to the production baseline on the 8-pair fixture.

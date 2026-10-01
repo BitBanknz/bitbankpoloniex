@@ -30,6 +30,7 @@ def main():
     parser.add_argument('--stop', type=float, default=0.9, help='trailing stop fraction of peak bid')
     parser.add_argument('--minhold', type=int, default=72, help='hours before a non-target holding may be rotated out')
     parser.add_argument('--regime', type=int, default=0, help='1: go to cash and block entries when BTC is not above its 50d and 200d SMA')
+    parser.add_argument('--fees', default='.003,.004')
     parser.add_argument('--window-cycles', type=int, default=12, help='engine cycles simulated inside the 01:00 execution hour (live runs one per minute)')
     args = parser.parse_args()
     budget, max_order, reserve = Decimal(args.budget), Decimal(args.max_order), Decimal(args.reserve)
@@ -82,11 +83,11 @@ def main():
     text = text.replace(old, new)
     old = 'range []int{0,28}'
     assert text.count(old) == 1
-    if any(d not in (0, 28, 56, 84) for d in args.geometries):
+    if any(d not in (0, 14, 28, 42, 56, 84) for d in args.geometries):
         raise ValueError('geometry was not preregistered')
     text = text.replace(old, 'range []int{'+','.join(map(str, args.geometries))+'}')
     assert text.count('[]float64{.003,.006}') == 1
-    text = text.replace('[]float64{.003,.006}', '[]float64{.003,.004}')
+    text = text.replace('[]float64{.003,.006}', '[]float64{%s}' % args.fees)
     assert text.count('[]float64{0,1}') == 1
     text = text.replace('[]float64{0,1}', '[]float64{1}')
     target = out/'replay_test.go.txt'

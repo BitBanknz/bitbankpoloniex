@@ -1,0 +1,10 @@
+days=14 fee=0.003 folds=17 mean +1.13 -> +0.95  worst -6.5 -> -6.5  dd 8.6 -> 8.6  paired wins 4/17  [mean False dd True worst True]
+days=14 fee=0.005 folds=17 mean +0.84 -> +0.69  worst -6.9 -> -6.9  dd 8.9 -> 8.8  paired wins 4/17  [mean False dd True worst True]
+days=42 fee=0.003 folds=6 mean +3.93 -> +4.17  worst -5.4 -> -5.9  dd 12.9 -> 13.4  paired wins 3/6  [mean True dd False worst True]
+days=42 fee=0.005 folds=6 mean +3.28 -> +3.59  worst -6.1 -> -6.6  dd 13.5 -> 14.0  paired wins 3/6  [mean True dd False worst True]
+days=84 fee=0.003 folds=3 mean +7.45 -> +9.36  worst -2.6 -> -1.7  dd 12.4 -> 12.0  paired wins 3/3  [mean True dd True worst True]
+days=84 fee=0.005 folds=3 mean +6.16 -> +8.11  worst -4.1 -> -2.9  dd 12.9 -> 12.6  paired wins 3/3  [mean True dd True worst True]
+pooled paired wins at 50bps: 10/26 = 38% (need >=60%)
+NOT CONFIRMED
+
+[exited with code 0]

@@ -24,3 +24,14 @@ descriptive only. Paper fills use visible quotes, so this tests the rule, not ex
 units `deploy/remote/bitbankpoloniex-paper-ab-{control,mh24}.service` installed to /etc/systemd/system and started. Both
 completed cycles in paper mode with no pending intent; the live service and binary (`4cc91224…`) were not touched. Stop and
 remove: `systemctl disable --now bitbankpoloniex-paper-ab-{control,mh24}`; their state dirs can be deleted freely.
+
+## Third arm: EMA 0.25 (added 2026-10-01 15:05Z)
+
+Motivation: the 21 unseen days (`2026-10-02-oos-weeks-prereg.md`) favoured EMA 0.25 (+2.2 points, lower drawdown, fewer fills) and counted against the
+24h hold, while the 14/42/84-day confirmation of 0.25 had been negative, so the evidence is mixed and needs forward data.
+Implementation without touching the production forecast job or the bot: `research/forward/ema_sidecar.py`, a read-only localhost sidecar
+(`bitbankpoloniex-ema25-signal.service`, port 18746; 8746 is taken by another service) that proxies the real rank endpoint's availability and shape and
+replaces `rank_scores` with an EMA(0.25) of the production `raw_scores`, starting from the production smoothed scores on its first day. Offline test:
+`research/forward/test_ema_sidecar.py`. Arm: `bitbankpoloniex-paper-ab-ema25` (state `data/paper-ab-ema25`, hold 72h, otherwise identical to control).
+Same decision rule as above, evaluated against control after >= 56 days: higher return, no-higher max drawdown, and ahead on >= 60% of weekly windows. If it passed, the
+live route is the same sidecar (change the live unit's `--predictions` URL) with no new trading binary. Stop: `systemctl disable --now bitbankpoloniex-paper-ab-ema25 bitbankpoloniex-ema25-signal`.

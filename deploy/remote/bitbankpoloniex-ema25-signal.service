@@ -1,0 +1,20 @@
+[Unit]
+Description=Paper-only rank-signal sidecar (EMA 0.25 re-smoothing of the production raw scores; read-only on forecast state)
+After=network-online.target bitbankgo.service
+
+[Service]
+Type=simple
+User=administrator
+Group=administrator
+WorkingDirectory=/nvme0n1-disk/code/bitbank-poloniex
+ExecStart=/usr/bin/python3 /nvme0n1-disk/code/bitbank-poloniex/bin/ema_sidecar.py --port 18746 --alpha 0.25 --state /nvme0n1-disk/code/bitbank-poloniex/data/ema25-signal-state.json
+Restart=on-failure
+RestartSec=30
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/nvme0n1-disk/code/bitbank-poloniex/data
+
+[Install]
+WantedBy=multi-user.target

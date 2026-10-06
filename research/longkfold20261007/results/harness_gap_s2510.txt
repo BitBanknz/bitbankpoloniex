@@ -1,0 +1,2 @@
+fee=0.003 folds=11 py mean +1.99 go mean +3.29 gap -1.30pp mean|gap| 3.57pp corr 0.90 py maxdd 9.2 go maxdd 12.9
+fee=0.004 folds=11 py mean +1.82 go mean +3.01 gap -1.20pp mean|gap| 3.56pp corr 0.90 py maxdd 9.4 go maxdd 13.2

@@ -38,6 +38,9 @@ func run() error {
 	slots := flag.Int("slots", cfg.Slots, "maximum simultaneous rotation holdings (1-4)")
 	cooldown := flag.Int("cooldown-hours", cfg.CooldownHours, "post-sale re-entry cooldown in hours (0 keeps the 72h legacy default)")
 	minHold := flag.Int("min-hold-hours", cfg.MinHoldHours, "hours before a non-target holding may be rotated out (0 keeps the 72h legacy default)")
+	takeProfit := flag.Float64("take-profit", cfg.TakeProfit, "sell a holding once its bid is this fraction above its average entry, inside the minimum hold (0 off)")
+	trailArm := flag.Float64("trail-arm", cfg.TrailArm, "once a holding's peak bid is this fraction above entry, stop at -trail-arm-stop below the peak (0 off)")
+	trailArmStop := flag.Float64("trail-arm-stop", cfg.TrailArmStop, "armed trail distance below the peak bid (with -trail-arm)")
 	cashReserve := flag.Float64("cash-reserve", cfg.CashReserve, "fraction of budget kept in USDT (0-0.9)")
 	haltPeak := flag.Float64("halt-peak-dd", cfg.HaltPeakDD, "latch a risk halt this far below the equity high-water mark (0 keeps the legacy 0.10)")
 	haltDaily := flag.Float64("halt-daily-loss", cfg.HaltDailyLoss, "latch a risk halt this far below the UTC day-start equity (0 keeps the legacy 0.03)")
@@ -67,6 +70,7 @@ func run() error {
 	cfg.Slots = *slots
 	cfg.CooldownHours = *cooldown
 	cfg.MinHoldHours = *minHold
+	cfg.TakeProfit, cfg.TrailArm, cfg.TrailArmStop = *takeProfit, *trailArm, *trailArmStop
 	cfg.CashReserve = *cashReserve
 	cfg.SlotTopUp = *slotTopUp
 	cfg.HaltPeakDD = *haltPeak

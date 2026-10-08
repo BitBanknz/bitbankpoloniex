@@ -38,6 +38,9 @@ type Config struct {
 	MirrorState          string        // bitbankkucoin paper ledger to mirror hourly instead of BitBank daily ranks
 	MirrorMaxAge         time.Duration // reject a mirror ledger whose last bar closed longer ago (0 = 3h)
 	MirrorStop           float64       // mirror mode: protective exit this far below a holding's peak bid (0 = 0.30)
+	TakeProfit           float64       // sell a holding once its bid is this fraction above its average entry (0 off); see exits.go
+	TrailArm             float64       // once the peak bid is this fraction above entry, stop at TrailArmStop below the peak (0 off)
+	TrailArmStop         float64
 }
 
 func DefaultConfig() Config {
@@ -58,6 +61,9 @@ func (c Config) Validate() error {
 	}
 	if c.MirrorStop < 0 || c.MirrorStop > .9 || !finite(c.MirrorStop) || c.MirrorMaxAge < 0 {
 		return errors.New("mirror stop must be within 0-0.9 and max age non-negative")
+	}
+	if err := c.validateExits(); err != nil {
+		return err
 	}
 	if c.ExperimentalFallback && c.mirror() {
 		return errors.New("mirror mode and the experimental fallback are exclusive")
@@ -145,6 +151,8 @@ type Position struct {
 	Quantity decimal.Decimal
 	Peak     decimal.Decimal
 	Entered  time.Time
+	Entry    *decimal.Decimal `json:",omitempty"` // average buy price, tracked only while a profit exit is configured
+	Exiting  string           `json:",omitempty"` // latched protective exit (take_profit) retried until flat
 }
 type Pending struct {
 	Source   string
@@ -457,6 +465,7 @@ func (e *Engine) apply(s *State, o Order, qty, amount, fee decimal.Decimal) {
 	price, _ := decimal.NewFromString(o.Price)
 	if o.Side == "BUY" {
 		s.Cash = s.Cash.Sub(amount).Sub(fee)
+		p = e.Config.noteBuy(p, qty, amount)
 		p.Quantity = p.Quantity.Add(qty)
 		if p.Entered.IsZero() {
 			p.Entered = time.Now().UTC()
@@ -688,7 +697,7 @@ func (e *Engine) Cycle(ctx context.Context) error {
 		}
 		symbols = append(symbols, symbol)
 		bid, _ := decimal.NewFromString(books[symbol].Bids[0])
-		stops[symbol] = bid.LessThanOrEqual(p.Peak.Mul(decimal.NewFromFloat(e.Config.stopFraction())))
+		stops[symbol], s.Holdings[symbol] = e.Config.protectiveExit(p, bid, e.Config.stopFraction())
 	}
 	// Spend scarce daily order allowances on protective reductions before
 	// discretionary rotation/funding exits. Keep the existing cap and a

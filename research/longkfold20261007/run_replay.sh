@@ -7,5 +7,5 @@ mkdir -p "$2"; echo "$CFG" > "$2/config.json"
 export TMPDIR=$(mktemp -d -p /dev/shm lkreplay.XXXXXX); trap 'rm -rf "$TMPDIR"' EXIT  # engine fsyncs state every cycle
 BIN=${BIN:-$ROOT/data/longkfold20261007/gobuild/replay.test}
 MARKETS=${MARKETS:-$ROOT/data/frontier_20260912/ledger/markets.json}
-GOMAXPROCS=${GOMAXPROCS:-2} LK_FIXTURE="$1" LK_MARKETS="$MARKETS" LK_CONFIG="$CFG" LK_OUT="$2/results.jsonl" LK_CURVES="$2/curves.csv" \
+GOMAXPROCS=${GOMAXPROCS:-2} GOGC=${GOGC:-400} LK_FIXTURE="$1" LK_MARKETS="$MARKETS" LK_CONFIG="$CFG" LK_OUT="$2/results.jsonl" LK_CURVES="$2/curves.csv" \
   "$BIN" -test.run TestLongKFoldReplay -test.count=1 -test.timeout 6h -test.v 2>&1 | grep -E '^(fee=|---|ok|FAIL|panic|PASS)' > "$2/run.log"

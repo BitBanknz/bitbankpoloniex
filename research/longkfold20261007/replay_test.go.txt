@@ -27,6 +27,9 @@ type lkConfig struct { Slots, Cooldown, WindowCycles int; Reserve, HaltPeak, Hal
 var replayClock atomic.Int64
 func replayNow() time.Time { return time.Unix(replayClock.Load(),0).UTC() }
 
+type lkTransport struct{h http.Handler}
+func (t lkTransport) RoundTrip(r *http.Request) (*http.Response,error) {w:=httptest.NewRecorder();t.h.ServeHTTP(w,r);return w.Result(),nil}
+
 func lkRead(t *testing.T,path string,v any) {t.Helper();raw,err:=os.ReadFile(path);if err!=nil {t.Fatal(err)};if err=json.Unmarshal(raw,v);err!=nil {t.Fatal(err)}}
 
 func TestLongKFoldReplay(t *testing.T) {
@@ -41,7 +44,7 @@ func TestLongKFoldReplay(t *testing.T) {
   if !found {t.Fatalf("missing market contract %s",symbol)};lookup[symbol]=i
  }
  first:=f.Hours[0].TS
- srv:=httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter,r *http.Request) {
+ handler:=http.HandlerFunc(func(w http.ResponseWriter,r *http.Request) {
   if r.Method!="GET" {t.Error("research attempted a write");http.Error(w,"no writes",403);return}
   tick:=int((replayClock.Load()-45-first)/3600)
   if tick<0 || tick>=len(f.Hours) {t.Errorf("invalid research clock %d",tick);http.Error(w,"clock",500);return}
@@ -63,8 +66,9 @@ func TestLongKFoldReplay(t *testing.T) {
     enc.Encode(Book{Bids:[]string{num(px*.9995),num(depth)},Asks:[]string{num(px*1.0005),num(depth)},TS:now.UnixMilli()})
    } else {t.Errorf("unexpected nonpublic endpoint %s",r.URL.Path);http.Error(w,"unexpected",400)}
   }
- }))
- defer srv.Close()
+ })
+ // In-process loopback transport: same handler, no sockets.
+ srvURL:="http://127.0.0.1:1";predClient.Transport=lkTransport{handler};defer func(){predClient.Transport=nil}()
  out,err:=os.Create(os.Getenv("LK_OUT"));if err!=nil {t.Fatal(err)};defer out.Close();enc:=json.NewEncoder(out)
  curves,err:=os.Create(os.Getenv("LK_CURVES"));if err!=nil {t.Fatal(err)};defer curves.Close()
  fmt.Fprintln(curves,"fee,fold,ts,equity")
@@ -72,8 +76,8 @@ func TestLongKFoldReplay(t *testing.T) {
   for fi,fold:=range f.Folds {
    a,b:=fold[0],fold[1]
    cfg:=DefaultConfig();cfg.SlotTopUp=c.TopUp;cfg.CashReserve=c.Reserve;cfg.HaltPeakDD=c.HaltPeak;cfg.HaltDailyLoss=c.HaltDaily;cfg.Slots=c.Slots;cfg.CooldownHours=c.Cooldown
-   cfg.Budget=decimal.RequireFromString(c.Budget);cfg.MaxOrder=decimal.RequireFromString(c.MaxOrder);cfg.StateDir=t.TempDir();cfg.PredictionURL=srv.URL+"/prediction";cfg.FeeRate=decimal.NewFromFloat(fee)
-   client:=NewClient("","");client.BaseURL=srv.URL;e:=&Engine{Client:client,Config:cfg}
+   cfg.Budget=decimal.RequireFromString(c.Budget);cfg.MaxOrder=decimal.RequireFromString(c.MaxOrder);cfg.StateDir=t.TempDir();cfg.PredictionURL=srvURL+"/prediction";cfg.FeeRate=decimal.NewFromFloat(fee)
+   client:=NewClient("","");client.BaseURL=srvURL;client.HTTP.Transport=lkTransport{handler};e:=&Engine{Client:client,Config:cfg}
    replayClock.Store(f.Hours[a].TS+45);if err:=e.Initialize();err!=nil {t.Fatal(err)}
    paused,halts:=0,0
    for k:=a;k<b;k++ {

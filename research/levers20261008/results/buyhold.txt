@@ -1,0 +1,4 @@
+e2306.json cost 19bps folds 42: EW B&H mean +7.51 median +4.87 worst -37.13 pos 24; at 60% invested mean +4.51
+e2306.json cost 35bps folds 42: EW B&H mean +7.17 median +4.53 worst -37.33 pos 24; at 60% invested mean +4.30
+e2306_xzec.json cost 19bps folds 42: EW B&H mean +5.27 median +1.08 worst -36.26 pos 22; at 60% invested mean +3.16
+e2306_xzec.json cost 35bps folds 42: EW B&H mean +4.93 median +0.76 worst -36.46 pos 22; at 60% invested mean +2.96

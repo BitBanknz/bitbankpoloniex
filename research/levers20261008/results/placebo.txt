@@ -1,0 +1,4 @@
+fee 14+5 bps | inc_e2306: mean +2.60 worst -10.06 goodness -15.31 | placebo n=20: mean +0.24 (sd 0.56, min -0.94, max +1.43) worst -18.45 goodness -25.21 (max -21.25) | real rank: mean beats 20/20, goodness beats 20/20, z +4.24
+fee 30+5 bps | inc_e2306: mean +2.02 worst -10.87 goodness -16.87 | placebo n=20: mean -0.83 (sd 0.60, min -2.23, max +0.43) worst -19.31 goodness -27.55 (max -23.58) | real rank: mean beats 20/20, goodness beats 20/20, z +4.77
+fee 14+5 bps | inc_e2306_xzec: mean +0.52 worst -14.66 goodness -21.40 | placebo n=20: mean -0.15 (sd 0.54, min -1.29, max +0.63) worst -17.61 goodness -24.88 (max -22.85) | real rank: mean beats 18/20, goodness beats 20/20, z +1.22
+fee 30+5 bps | inc_e2306_xzec: mean -0.04 worst -15.30 goodness -22.75 | placebo n=20: mean -1.08 (sd 0.54, min -2.24, max -0.34) worst -18.47 goodness -27.03 (max -24.55) | real rank: mean beats 20/20, goodness beats 20/20, z +1.93

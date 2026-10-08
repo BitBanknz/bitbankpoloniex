@@ -102,3 +102,9 @@ tr '\0' ' ' < /proc/$(systemctl show -p MainPID --value bitbankpoloniex-live.ser
 # standard paper (same binary) picks up 14 bps on restart: sudo systemctl restart bitbankpoloniex-paper.service
 # rollback: stop; check Pending null; install $R/bitbankpoloniex.before and $R/unit.before; daemon-reload; start (keep the current data/live, never restore the old ledger)
 ```
+
+## Deployed 2026-10-08 14:50Z (prod leaf-gpu-dedicated-server)
+Binary sha256 6b10fdb6... (CGO_ENABLED=0 -trimpath build of f3aa665) replaced 4cc91224; unit adds
+`--fee-rate 0.0014 --min-exit-usdt 24.5 --exit-ramp-minutes 20`. Pre-checks: Pending null before and after stop,
+no resting orders (IOC-only); state.json unchanged by the swap. Backups in
+data/release-fidelity-20261009/{live.before,bitbankpoloniex.before,unit.before}.

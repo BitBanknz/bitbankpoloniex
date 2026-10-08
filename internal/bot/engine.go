@@ -41,11 +41,19 @@ type Config struct {
 	TakeProfit           float64       // sell a holding once its bid is this fraction above its average entry (0 off); see exits.go
 	TrailArm             float64       // once the peak bid is this fraction above entry, stop at TrailArmStop below the peak (0 off)
 	TrailArmStop         float64
+	MinExitUSDT          decimal.Decimal // sells below this notional are raised to it (or the whole holding); IOC still caps fills at the in-band book (0 off)
+	ExitRampMinutes      int             // latch triggered stops and keep working them every cycle, widening band/participation over this many minutes (0 off)
 }
 
 func DefaultConfig() Config {
-	return Config{Mode: "paper", StateDir: "data/paper", PredictionURL: "https://bitbank.nz/api/trading-bot/rotation-signals", Budget: decimal.NewFromInt(1000), MaxOrder: decimal.NewFromInt(25), MinVolume: 100000, MaxSpread: .003, FeeRate: decimal.NewFromFloat(.003), MaxOrdersDay: 12, Slots: 3, CooldownHours: 72, CashReserve: .4}
+	return Config{Mode: "paper", StateDir: "data/paper", PredictionURL: "https://bitbank.nz/api/trading-bot/rotation-signals", Budget: decimal.NewFromInt(1000), MaxOrder: decimal.NewFromInt(25), MinVolume: 100000, MaxSpread: .003, FeeRate: decimal.NewFromFloat(MeasuredFeeRate), MaxOrdersDay: 12, Slots: 3, CooldownHours: 72, CashReserve: .4}
 }
+
+// MeasuredFeeRate is the live Poloniex taker fee with the TRX discount
+// (2026-09-10..10-07 live fills: 14.0 bps median, 15.1 bps notional-weighted).
+// Paper fills already pay the visible spread because they price at the touch.
+const MeasuredFeeRate = .0014
+
 func (c Config) Validate() error {
 	if c.CooldownHours < 0 || c.CooldownHours > 14*24 {
 		return errors.New("post-sale cooldown must be between 0 (legacy default) and 336 hours")
@@ -74,7 +82,7 @@ func (c Config) Validate() error {
 	if c.Mode != "paper" && c.Mode != "live" {
 		return errors.New("mode must be paper or live")
 	}
-	if !c.Budget.IsPositive() || !c.MaxOrder.IsPositive() || c.MaxOrder.GreaterThan(c.Budget.Mul(decimal.NewFromFloat(.1))) || c.Slots < 1 || c.Slots > 4 || c.MaxOrdersDay < 1 || c.MaxOrdersDay > 50 || !finite(c.MaxSpread) || c.MaxSpread <= 0 || c.MaxSpread > .01 || !finite(c.MinVolume) || c.MinVolume < 10000 || c.FeeRate.LessThan(decimal.NewFromFloat(.003)) || c.FeeRate.GreaterThan(decimal.NewFromFloat(.02)) {
+	if !c.Budget.IsPositive() || !c.MaxOrder.IsPositive() || c.MaxOrder.GreaterThan(c.Budget.Mul(decimal.NewFromFloat(.1))) || c.Slots < 1 || c.Slots > 4 || c.MaxOrdersDay < 1 || c.MaxOrdersDay > 50 || !finite(c.MaxSpread) || c.MaxSpread <= 0 || c.MaxSpread > .01 || !finite(c.MinVolume) || c.MinVolume < 10000 || c.FeeRate.LessThan(decimal.NewFromFloat(.0005)) || c.FeeRate.GreaterThan(decimal.NewFromFloat(.02)) {
 		return errors.New("invalid budget or risk limits")
 	}
 	return nil
@@ -147,18 +155,20 @@ func (c Config) postSaleCooldown() time.Duration {
 }
 
 type Position struct {
-	Imported bool
-	Quantity decimal.Decimal
-	Peak     decimal.Decimal
-	Entered  time.Time
-	Entry    *decimal.Decimal `json:",omitempty"` // average buy price, tracked only while a profit exit is configured
-	Exiting  string           `json:",omitempty"` // latched protective exit (take_profit) retried until flat
+	Imported  bool
+	Quantity  decimal.Decimal
+	Peak      decimal.Decimal
+	Entered   time.Time
+	Entry     *decimal.Decimal `json:",omitempty"` // average buy price, tracked only while a profit exit is configured
+	Exiting   string           `json:",omitempty"` // latched protective exit (take_profit, stop) retried until flat
+	ExitSince *time.Time       `json:",omitempty"` // when the latch was set; drives the exit ramp
 }
 type Pending struct {
 	Source   string
 	Order    Order
 	Decision string
 	Created  time.Time
+	Fillable *decimal.Decimal `json:",omitempty"` // paper only: visible in-band depth an IOC could take
 }
 type Fill struct {
 	Source                string
@@ -442,6 +452,10 @@ func (e *Engine) submit(ctx context.Context, s *State, o Order, decision, source
 	s.Processed[decision] = true
 	s.OrdersToday++
 	s.Pending = &Pending{Order: o, Decision: decision, Created: time.Now().UTC(), Source: source}
+	if e.Config.Mode == "paper" && o.fillable.IsPositive() {
+		f := o.fillable
+		s.Pending.Fillable = &f
+	}
 	if err := Save(e.path(), s); err != nil {
 		return err
 	}
@@ -454,6 +468,9 @@ func (e *Engine) submit(ctx context.Context, s *State, o Order, decision, source
 	}
 	qty, _ := decimal.NewFromString(o.Quantity)
 	price, _ := decimal.NewFromString(o.Price)
+	if o.fillable.IsPositive() && qty.GreaterThan(o.fillable) {
+		qty = o.fillable // IOC: the unfilled remainder is canceled
+	}
 	amount := qty.Mul(price)
 	fee := amount.Mul(e.Config.FeeRate)
 	e.apply(s, o, qty, amount, fee)
@@ -512,6 +529,9 @@ func (e *Engine) Cycle(ctx context.Context) error {
 			p := s.Pending
 			qty, _ := decimal.NewFromString(p.Order.Quantity)
 			price, _ := decimal.NewFromString(p.Order.Price)
+			if p.Fillable != nil && qty.GreaterThan(*p.Fillable) {
+				qty = *p.Fillable
+			}
 			amount := qty.Mul(price)
 			e.apply(&s, p.Order, qty, amount, amount.Mul(e.Config.FeeRate))
 			s.Pending = nil
@@ -699,7 +719,7 @@ func (e *Engine) Cycle(ctx context.Context) error {
 		symbols = append(symbols, symbol)
 		bid, _ := decimal.NewFromString(books[symbol].Bids[0])
 		var stop bool
-		stop, profits[symbol], s.Holdings[symbol] = e.Config.protectiveExit(p, bid, e.Config.stopFraction())
+		stop, profits[symbol], s.Holdings[symbol] = e.Config.protectiveExit(p, bid, e.Config.stopFraction(), now)
 		stops[symbol] = stop || profits[symbol]
 	}
 	// Spend scarce daily order allowances on protective reductions before
@@ -744,7 +764,13 @@ func (e *Engine) Cycle(ctx context.Context) error {
 			// Slot-sized holdings need several capped sells; allow repeats within the hour.
 			suffix = fmt.Sprintf("|exit-%d", s.OrdersToday)
 		}
-		if err = e.tradeCapped(ctx, &s, bySymbol[symbol], b, "SELL", decisionHour, source, decimal.Zero, suffix); err != nil {
+		opts, follow := e.Config.exitOpts(p, now)
+		if follow {
+			// A latched exit keeps working its remainder every cycle until flat:
+			// exactly one decision per symbol and minute (no order-count suffix).
+			suffix = fmt.Sprintf("|protect-%d", now.UTC().Truncate(time.Minute).Unix())
+		}
+		if err = e.tradeSized(ctx, &s, bySymbol[symbol], b, "SELL", decisionHour, source, decimal.Zero, suffix, opts, follow); err != nil {
 			return err
 		}
 	}
@@ -843,6 +869,13 @@ func (e *Engine) trade(ctx context.Context, s *State, m Market, b Book, side str
 // below the ordinary per-order limit; suffix distinguishes repeated decisions
 // (top-ups) for the same symbol and hour.
 func (e *Engine) tradeCapped(ctx context.Context, s *State, m Market, b Book, side string, hour time.Time, source string, cap decimal.Decimal, suffix string) error {
+	return e.tradeSized(ctx, s, m, b, side, hour, source, cap, suffix, OrderOpts{MaxSpread: e.Config.MaxSpread}, false)
+}
+
+// tradeSized is tradeCapped with explicit order sizing. A protective follow-up
+// may use protectiveExtraDay orders beyond the daily cap so a thin-book stop
+// does not stall once discretionary trading has spent the allowance.
+func (e *Engine) tradeSized(ctx context.Context, s *State, m Market, b Book, side string, hour time.Time, source string, cap decimal.Decimal, suffix string, opts OrderOpts, follow bool) error {
 	if side == "BUY" && s.Halted != "" {
 		return fmt.Errorf("entries halted: %s", s.Halted)
 	}
@@ -850,10 +883,14 @@ func (e *Engine) tradeCapped(ctx context.Context, s *State, m Market, b Book, si
 		return errors.New("entries paused pending complete daily valuation")
 	}
 	key := fmt.Sprintf("%s|%s|%s", hour.Format(time.RFC3339), m.Symbol, side) + suffix
-	if s.AccountBacked && s.Holdings[m.Symbol].Imported && side == "SELL" {
+	if s.AccountBacked && s.Holdings[m.Symbol].Imported && side == "SELL" && !follow {
 		key += fmt.Sprintf("|allocation-%d", s.OrdersToday)
 	}
-	if s.Processed[key] || s.OrdersToday >= e.Config.MaxOrdersDay {
+	maxOrders := e.Config.MaxOrdersDay
+	if follow && side == "SELL" {
+		maxOrders += protectiveExtraDay
+	}
+	if s.Processed[key] || s.OrdersToday >= maxOrders {
 		return nil
 	}
 	if _, err := os.Stat(filepath.Join(e.Config.StateDir, "STOP")); err == nil {
@@ -873,7 +910,7 @@ func (e *Engine) tradeCapped(ctx context.Context, s *State, m Market, b Book, si
 		return nil
 	}
 	owned := s.Holdings[m.Symbol].Quantity
-	o, err := BuildOrder(m, b, side, id, spend, owned, e.Config.MaxSpread)
+	o, err := BuildOrderOpts(m, b, side, id, spend, owned, opts)
 	if err != nil {
 		return nil
 	}
@@ -882,7 +919,7 @@ func (e *Engine) tradeCapped(ctx context.Context, s *State, m Market, b Book, si
 		price, _ := decimal.NewFromString(o.Price)
 		maxQ := limit.Div(price).RoundFloor(int32(m.Limits.QuantityScale))
 		if q.GreaterThan(maxQ) {
-			o, err = BuildOrder(m, b, side, id, spend, maxQ, e.Config.MaxSpread)
+			o, err = BuildOrderOpts(m, b, side, id, spend, maxQ, opts)
 			if err != nil {
 				return nil
 			}

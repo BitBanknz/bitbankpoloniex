@@ -16,6 +16,8 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/shopspring/decimal"
 )
 
 const ExchangeURL = "https://api.poloniex.com"
@@ -180,15 +182,16 @@ func (c *Client) Borrowing(ctx context.Context) ([]Borrow, error) {
 }
 
 type Order struct {
-	Symbol      string `json:"symbol"`
-	Side        string `json:"side"`
-	Type        string `json:"type"`
-	TimeInForce string `json:"timeInForce"`
-	AccountType string `json:"accountType"`
-	Price       string `json:"price"`
-	Quantity    string `json:"quantity"`
-	ClientID    string `json:"clientOrderId"`
-	AllowBorrow bool   `json:"allowBorrow"`
+	Symbol      string          `json:"symbol"`
+	Side        string          `json:"side"`
+	Type        string          `json:"type"`
+	TimeInForce string          `json:"timeInForce"`
+	AccountType string          `json:"accountType"`
+	Price       string          `json:"price"`
+	Quantity    string          `json:"quantity"`
+	ClientID    string          `json:"clientOrderId"`
+	AllowBorrow bool            `json:"allowBorrow"`
+	fillable    decimal.Decimal // visible in-band depth; paper fills are capped here (not sent, not persisted)
 }
 type OrderResult struct {
 	ID             string `json:"id"`

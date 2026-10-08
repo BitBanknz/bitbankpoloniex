@@ -48,6 +48,9 @@ func run() error {
 	mirrorState := flag.String("mirror-state", "", "bitbankkucoin paper ledger (state.json) to mirror hourly instead of BitBank daily ranks")
 	mirrorMaxAge := flag.Duration("mirror-max-age", 3*time.Hour, "reject a mirror ledger whose last bar closed longer ago")
 	mirrorStop := flag.Float64("mirror-stop", .3, "mirror mode: protective exit this far below a holding's peak bid")
+	feeRate := flag.Float64("fee-rate", bot.MeasuredFeeRate, "simulated fee per side for paper fills and order sizing (live pays the exchange fee; 0.0014 = measured TRX-discounted taker)")
+	minExit := flag.String("min-exit-usdt", "0", "raise every sell below this notional to it (or the whole holding); IOC limit still fills only what the book has (0 off)")
+	exitRamp := flag.Int("exit-ramp-minutes", 0, "latch triggered stops and re-send them every cycle, widening the limit band to 1% and participation to 100% over this many minutes (0 off)")
 	maxOrdersDay := flag.Int("max-orders-day", cfg.MaxOrdersDay, "daily order cap (1-50)")
 	symbol := flag.String("symbol", "ETH_USDT", "market for funding plan")
 	funding := flag.String("funding", "convert", "convert or margin for read-only plan")
@@ -79,6 +82,12 @@ func run() error {
 	cfg.MirrorMaxAge = *mirrorMaxAge
 	cfg.MirrorStop = *mirrorStop
 	cfg.MaxOrdersDay = *maxOrdersDay
+	cfg.FeeRate = decimal.NewFromFloat(*feeRate)
+	cfg.ExitRampMinutes = *exitRamp
+	cfg.MinExitUSDT, err = decimal.NewFromString(*minExit)
+	if err != nil {
+		return errors.New("invalid minimum exit notional")
+	}
 	cfg.Budget, err = decimal.NewFromString(*budget)
 	if err != nil {
 		return errors.New("invalid budget")

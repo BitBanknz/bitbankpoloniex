@@ -108,7 +108,24 @@ func (c *Client) Book(ctx context.Context, symbol string) (Book, error) {
 	}
 	return b, nil
 }
+
+// OrderOpts widens a sell beyond the legacy entry/exit sizing. The zero value is
+// the legacy rule: depth within 0.1% of the touch, 10% participation, no floor.
+type OrderOpts struct {
+	MaxSpread     float64
+	Band          float64         // price band below the bid (sell) or above the ask (buy); 0 = 0.001
+	Participation float64         // fraction of in-band depth; 0 = 0.1
+	MinQuote      decimal.Decimal // sells only: raise the quantity to this notional (or all owned); IOC still caps the fill at the in-band book
+}
+
 func BuildOrder(m Market, b Book, side, id string, quote, owned decimal.Decimal, maxSpread float64) (Order, error) {
+	return BuildOrderOpts(m, b, side, id, quote, owned, OrderOpts{MaxSpread: maxSpread})
+}
+
+// BuildOrderOpts builds one LIMIT IOC order. Order.fillable records the visible
+// in-band depth so paper fills cannot exceed what an IOC could take.
+func BuildOrderOpts(m Market, b Book, side, id string, quote, owned decimal.Decimal, opts OrderOpts) (Order, error) {
+	maxSpread := opts.MaxSpread
 	o := Order{Symbol: m.Symbol, Side: side, ClientID: id, Type: "LIMIT", TimeInForce: "IOC", AccountType: "SPOT"}
 	now := time.Now()
 	if m.State != "NORMAL" || m.Quote != "USDT" || m.Limits.PriceScale < 0 || m.Limits.PriceScale > 18 || m.Limits.QuantityScale < 0 || m.Limits.QuantityScale > 18 || len(b.Asks) < 2 || len(b.Bids) < 2 || !freshMS(b.TS, now, 30*time.Second) {
@@ -139,6 +156,14 @@ func BuildOrder(m Market, b Book, side, id string, quote, owned decimal.Decimal,
 	depth := decimal.Zero
 	buyBound := anchor.Mul(decimal.NewFromFloat(1.001))
 	sellBound := anchor.Mul(decimal.NewFromFloat(.999))
+	if opts.Band > 0 {
+		buyBound = anchor.Mul(decimal.NewFromFloat(1 + opts.Band))
+		sellBound = anchor.Mul(decimal.NewFromFloat(1 - opts.Band))
+	}
+	participation := decimal.NewFromFloat(.1)
+	if opts.Participation > 0 {
+		participation = decimal.NewFromFloat(opts.Participation)
+	}
 	for i := 0; i+1 < len(levels); i += 2 {
 		levelPrice, e := decimal.NewFromString(levels[i])
 		levelQty, qe := decimal.NewFromString(levels[i+1])
@@ -162,14 +187,18 @@ func BuildOrder(m Market, b Book, side, id string, quote, owned decimal.Decimal,
 	if side == "SELL" {
 		price = worst.RoundFloor(int32(m.Limits.PriceScale))
 	}
-	if !price.IsPositive() || !depth.IsPositive() {
+	fillable := depth.RoundFloor(int32(m.Limits.QuantityScale))
+	if !price.IsPositive() || !fillable.IsPositive() {
 		return o, errors.New("empty executable depth")
 	}
 	qty := quote.Div(price)
 	if side == "SELL" {
 		qty = owned
 	}
-	qty = decimal.Min(qty, depth.Mul(decimal.NewFromFloat(.1))).RoundFloor(int32(m.Limits.QuantityScale))
+	qty = decimal.Min(qty, depth.Mul(participation)).RoundFloor(int32(m.Limits.QuantityScale))
+	if side == "SELL" && opts.MinQuote.IsPositive() {
+		qty = decimal.Max(qty, decimal.Min(owned, opts.MinQuote.Div(price)).RoundFloor(int32(m.Limits.QuantityScale)))
+	}
 	if !qty.IsPositive() {
 		return o, errors.New("zero size")
 	}
@@ -189,6 +218,7 @@ func BuildOrder(m Market, b Book, side, id string, quote, owned decimal.Decimal,
 	}
 	o.Price = price.String()
 	o.Quantity = qty.String()
+	o.fillable = fillable
 	return o, nil
 }
 

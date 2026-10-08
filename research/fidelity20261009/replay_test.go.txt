@@ -1,0 +1,132 @@
+package bot
+
+// 2026-10-09 fidelity k-fold replay of this checkout's engine (research only; loopback GETs, no orders).
+// Book "proxy" = the 10-07 hourly proxy (one level at open -/+5 bps, depth 10% of prior-hour turnover).
+// Book "archive" = a real archived Poloniex 5-level book shape per symbol, drawn deterministically per
+// (minute, symbol, seed) and scaled by the mean hourly quote turnover of the prior 24 h, centred on the hour open.
+// FollowCycles adds minute cycles inside an hour while any holding has a latched exit or sits at/below its
+// 10% stop at the hour open (live runs every minute, so legacy stops also retry rejected sizing each minute).
+// Fold-end liquidation marks holdings at the hour open times the symbol's median archived best-bid offset.
+
+import (
+ "compress/gzip"
+ "context"
+ "encoding/json"
+ "errors"
+ "fmt"
+ "net/http"
+ "net/http/httptest"
+ "os"
+ "sort"
+ "strconv"
+ "strings"
+ "sync/atomic"
+ "testing"
+ "time"
+
+ "github.com/shopspring/decimal"
+)
+
+type fdHour struct { TS int64; Open, PriorTurnover, Volume24 []float64 }
+type fdFixture struct { Pairs []string; Hours []fdHour; Ranks map[string][]float64; Folds [][2]int }
+type fdConfig struct { Slots, Cooldown, WindowCycles, MinHoldH, ExitRamp, FollowCycles int; Reserve, HaltPeak, HaltDaily float64; TopUp bool; Budget, MaxOrder, MinExit, Book string; BookSeed uint64; Fees []float64 }
+type fdSnap struct { TS int64 `json:"ts"`; B, A [][2]float64 }
+var replayClock atomic.Int64
+func replayNow() time.Time { return time.Unix(replayClock.Load(),0).UTC() }
+
+type fdTransport struct{h http.Handler}
+func (t fdTransport) RoundTrip(r *http.Request) (*http.Response,error) {w:=httptest.NewRecorder();t.h.ServeHTTP(w,r);return w.Result(),nil}
+
+func fdRead(t *testing.T,path string,v any) {t.Helper();raw,err:=os.ReadFile(path);if err!=nil {t.Fatal(err)};if err=json.Unmarshal(raw,v);err!=nil {t.Fatal(err)}}
+func fdMix(x uint64) uint64 {x+=0x9e3779b97f4a7c15;x=(x^(x>>30))*0xbf58476d1ce4e5b9;x=(x^(x>>27))*0x94d049bb133111eb;return x^(x>>31)}
+
+func TestFidelityKFoldReplay(t *testing.T) {
+ fixturePath:=os.Getenv("LK_FIXTURE");if fixturePath=="" {t.Skip("explicit fixture required")}
+ var f fdFixture;fdRead(t,fixturePath,&f)
+ var c fdConfig;if err:=json.Unmarshal([]byte(os.Getenv("LK_CONFIG")),&c);err!=nil {t.Fatal(err)}
+ if c.Book=="" {c.Book="proxy"};if c.MinExit=="" {c.MinExit="0"}
+ var all []Market;fdRead(t,os.Getenv("LK_MARKETS"),&all)
+ var markets []Market;lookup:=map[string]int{}
+ for i,pair:=range f.Pairs {
+  symbol:=strings.TrimSuffix(pair,"USDT")+"_USDT";found:=false
+  for _,m:=range all {if m.Symbol==symbol {markets=append(markets,m);found=true;break}}
+  if !found {t.Fatalf("missing market contract %s",symbol)};lookup[symbol]=i
+ }
+ snaps:=make([][]fdSnap,len(f.Pairs));liqBid:=make([]float64,len(f.Pairs));for i:=range liqBid {liqBid[i]=.9995}
+ if c.Book=="archive" {
+  fh,err:=os.Open(os.Getenv("LK_BOOKS"));if err!=nil {t.Fatal(err)};gz,err:=gzip.NewReader(fh);if err!=nil {t.Fatal(err)}
+  var bs struct{Snapshots map[string][]fdSnap};if err=json.NewDecoder(gz).Decode(&bs);err!=nil {t.Fatal(err)};fh.Close()
+  for i,pair:=range f.Pairs {snaps[i]=bs.Snapshots[strings.TrimSuffix(pair,"USDT")];if len(snaps[i])==0 {t.Fatalf("no archived books for %s",pair)}
+   var offs []float64;for _,sn:=range snaps[i] {offs=append(offs,sn.B[0][0])};sort.Float64s(offs);liqBid[i]=1+offs[len(offs)/2]}
+ } else if c.Book!="proxy" {t.Fatalf("unknown book model %q",c.Book)}
+ num:=func(x float64)string {return strconv.FormatFloat(x,'f',14,64)}
+ first:=f.Hours[0].TS
+ handler:=http.HandlerFunc(func(w http.ResponseWriter,r *http.Request) {
+  if r.Method!="GET" {t.Error("research attempted a write");http.Error(w,"no writes",403);return}
+  tick:=int((replayClock.Load()-45-first)/3600)
+  if tick<0 || tick>=len(f.Hours) {t.Errorf("invalid research clock %d",tick);http.Error(w,"clock",500);return}
+  h:=f.Hours[tick];now:=replayNow();enc:=json.NewEncoder(w)
+  switch r.URL.Path {
+  case "/markets":enc.Encode(markets)
+  case "/markets/ticker24h":
+   ts:=make([]Ticker,len(markets));for i,m:=range markets {ts[i]=Ticker{Symbol:m.Symbol,Amount:strconv.FormatFloat(h.Volume24[i],'g',-1,64),TS:now.UnixMilli()}};enc.Encode(ts)
+  case "/prediction":
+   issued:=now.Truncate(24*time.Hour);rs,ok:=f.Ranks[strconv.FormatInt(issued.Unix(),10)]
+   if !ok || now.Hour()>1 {http.Error(w,"outside daily issue window",503);return}
+   ranks:=map[string]float64{};for i,p:=range f.Pairs {ranks[p]=rs[i]}
+   enc.Encode(Prediction{Available:true,Venue:"POLONIEX",Mode:"research_rank_forecast",Issued:issued,Execution:issued.Add(time.Hour),Ranks:ranks})
+  default:
+   if strings.HasPrefix(r.URL.Path,"/markets/") && strings.HasSuffix(r.URL.Path,"/orderBook") {
+    symbol:=strings.TrimSuffix(strings.TrimPrefix(r.URL.Path,"/markets/"),"/orderBook");i,ok:=lookup[symbol];if !ok {t.Error("unknown symbol");http.Error(w,"symbol",400);return}
+    px:=h.Open[i]
+    if c.Book=="proxy" {
+     depth:=h.PriorTurnover[i]/px*.1
+     enc.Encode(Book{Bids:[]string{num(px*.9995),num(depth)},Asks:[]string{num(px*1.0005),num(depth)},TS:now.UnixMilli()});return
+    }
+    sn:=snaps[i][fdMix(c.BookSeed^fdMix(uint64(now.Unix()/60))^uint64(i+1)*0x9e3779b97f4a7c15)%uint64(len(snaps[i]))]
+    scale:=h.Volume24[i]/24;var bids,asks []string
+    for _,l:=range sn.B {p:=px*(1+l[0]);bids=append(bids,num(p),num(l[1]*scale/p))}
+    for _,l:=range sn.A {p:=px*(1+l[0]);asks=append(asks,num(p),num(l[1]*scale/p))}
+    enc.Encode(Book{Bids:bids,Asks:asks,TS:now.UnixMilli()})
+   } else {t.Errorf("unexpected nonpublic endpoint %s",r.URL.Path);http.Error(w,"unexpected",400)}
+  }
+ })
+ srvURL:="http://127.0.0.1:1";predClient.Transport=fdTransport{handler};defer func(){predClient.Transport=nil}()
+ out,err:=os.Create(os.Getenv("LK_OUT"));if err!=nil {t.Fatal(err)};defer out.Close();enc:=json.NewEncoder(out)
+ curves,err:=os.Create(os.Getenv("LK_CURVES"));if err!=nil {t.Fatal(err)};defer curves.Close()
+ fmt.Fprintln(curves,"fee,fold,ts,equity")
+ for _,fee:=range c.Fees {
+  for fi,fold:=range f.Folds {
+   a,b:=fold[0],fold[1]
+   cfg:=DefaultConfig();cfg.SlotTopUp=c.TopUp;cfg.CashReserve=c.Reserve;cfg.HaltPeakDD=c.HaltPeak;cfg.HaltDailyLoss=c.HaltDaily;cfg.Slots=c.Slots;cfg.CooldownHours=c.Cooldown;cfg.MinHoldHours=c.MinHoldH
+   cfg.Budget=decimal.RequireFromString(c.Budget);cfg.MaxOrder=decimal.RequireFromString(c.MaxOrder);cfg.StateDir=t.TempDir();cfg.PredictionURL=srvURL+"/prediction";cfg.FeeRate=decimal.NewFromFloat(fee)
+   cfg.MinExitUSDT=decimal.RequireFromString(c.MinExit);cfg.ExitRampMinutes=c.ExitRamp
+   client:=NewClient("","");client.BaseURL=srvURL;client.HTTP.Transport=fdTransport{handler};e:=&Engine{Client:client,Config:cfg}
+   replayClock.Store(f.Hours[a].TS+45);if err:=e.Initialize();err!=nil {t.Fatal(err)}
+   paused,halts,follows:=0,0,0
+   run:=func(k,cy int) {replayClock.Store(f.Hours[k].TS+45+int64(cy)*60)
+    if err:=e.Cycle(context.Background());err!=nil {if errors.Is(err,ErrEntriesPaused) || strings.Contains(err.Error(),"held books unavailable"){paused++} else if strings.Contains(err.Error(),"ledger halted:"){halts++} else {t.Fatalf("hour=%d: %v",k,err)}}}
+   latched:=func(k int) bool {s,err:=e.read();if err!=nil {t.Fatal(err)}
+    for sym,p:=range s.Holdings {if p.Exiting!="" {return true};pk,_:=p.Peak.Float64();if pk*.9>=f.Hours[k].Open[lookup[sym]] {return true}};return false}
+   for k:=a;k<b;k++ {
+    cycles:=1;if time.Unix(f.Hours[k].TS,0).UTC().Hour()==1 {cycles=c.WindowCycles}
+    for cy:=0;cy<cycles;cy++ {run(k,cy)}
+    for cy:=cycles;c.FollowCycles>0 && cy<cycles+c.FollowCycles && cy<60 && latched(k);cy++ {run(k,cy);follows++}
+   }
+   _=e.Cycle(context.Background())
+   s,err:=e.read();if err!=nil {t.Fatal(err)};report:=Summarize(s)
+   last:=f.Hours[b-1];liq:=s.Cash
+   for symbol,pos:=range s.Holdings {i:=lookup[symbol];liq=liq.Add(pos.Quantity.Mul(decimal.NewFromFloat(last.Open[i]*liqBid[i]*(1-fee))))}
+   fmt.Fprintf(curves,"%g,%d,%d,%s\n",fee,fi,f.Hours[a].TS-3600,c.Budget)
+   for _,p:=range s.Equity {fmt.Fprintf(curves,"%g,%d,%d,%s\n",fee,fi,p.At.Unix(),p.Value.String())}
+   fmt.Fprintf(curves,"%g,%d,%d,%s\n",fee,fi,last.TS+3600,liq.String())
+   liqf,_:=liq.Float64();budget,_:=decimal.RequireFromString(c.Budget).Float64()
+   partial:=0;var clips []float64
+   for _,fl:=range s.Fills {q,_:=decimal.NewFromString(fl.Order.Quantity);if fl.Quantity.LessThan(q) {partial++};v,_:=fl.Amount.Float64();clips=append(clips,v)}
+   sort.Float64s(clips);med:=0.0;if len(clips)>0 {med=clips[len(clips)/2]}
+   row:=struct{Fee float64; Fold int; Start,End int64; Report Report; LiqReturnPct float64; Paused,HaltCycles,FollowCycles,PartialFills int; MedianClip float64; Halted string}{fee,fi,f.Hours[a].TS,last.TS,report,100*(liqf/budget-1),paused,halts,follows,partial,med,s.Halted}
+   if err:=enc.Encode(row);err!=nil {t.Fatal(err)}
+   fmt.Printf("fee=%g fold=%d return=%.4f liq=%.4f dd=%.4f fills=%d partial=%d clip=%.1f follow=%d holdings=%d halted=%q\n",fee,fi,report.ReturnPct,row.LiqReturnPct,report.MaxDrawdownPct,report.Fills,partial,med,follows,report.Holdings,s.Halted)
+  }
+ }
+}

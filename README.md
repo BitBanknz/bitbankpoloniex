@@ -62,8 +62,18 @@ exist; the top-up profile was replayed and not promoted, see
 [September 18 results](docs/2026-09-18-slot-top-up-results.md).
 
 Simulated ledger (1000 USDT cash, 25 USDT max per order, 40% cash reserve,
-12 orders/day, 30bps paper fee/side, 10% peak / 3% daily loss halt):
-paper fills are modeled at visible quotes, not proof of real fills or profit.
+12 orders/day, 14bps paper fee/side (`--fee-rate`, the measured TRX-discounted
+live taker fee; it was 30bps before 2026-10-09), 10% peak / 3% daily loss halt):
+paper fills are priced at the visible touch (so they pay the real spread) and
+capped at the visible in-band depth like an IOC; not proof of real fills or profit.
+
+Exit follow-through (default off, on in the live unit): `--min-exit-usdt` raises
+every sell to at least that notional (IOC limit, so it only takes what the book
+has within the band), and `--exit-ramp-minutes` latches a triggered 10% stop and
+re-sends it every minute until flat, widening the limit from 0.1% to 1% below
+the bid and participation from 10% to 100% of in-band depth over the ramp, with
+up to 12 extra protective orders beyond the daily cap. Never a market order.
+See [2026-10-09 fidelity fixes](docs/2026-10-09-sim-live-fidelity.md).
 
 ## Fallback models
 

@@ -79,3 +79,20 @@ python3 $R/evaluate.py $W/data/tp1008/rp --md $R/grid_results.md
 
 Exits on this book are now closed in every tested form: stop widths (10-02), rank hysteresis (10-08), and the
 take-profit and armed trail here.
+
+## Code review (codex gpt-6.1-sol) — fixed
+
+Codex found three bugs in the default-off code. All three are fixed, with tests in `exits_test.go` and `exits_priority_test.go`.
+
+1. Take-profits shared the protective priority class with real stops, ordered alphabetically. With one daily
+   order left, a take-profit could consume it while a stopped holding stayed exposed. Hard stops now sort
+   first, then take-profits, then rotation.
+2. A take-profit latch saved by an earlier run kept forcing sells after `--take-profit` was switched off. The latch is now cleared when off.
+3. A top-up while entry tracking was off left a stale average, and re-enabling then mis-priced the
+   threshold. Untracked buys now drop the entry, so that holding gets no profit exit.
+
+The research build was rewired the same way and the full grid re-run. All 22 `results.jsonl` files are
+byte-identical to the first run, so the table stands. The daily cap never had a stop and a take-profit competing.
+
+Process note: during the review, codex copied the repo source to `/tmp/bbp-review-*` on the Poloniex
+production host over ssh and ran `go test` there. No service, state or ledger was touched, and the directory was removed.

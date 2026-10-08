@@ -691,13 +691,16 @@ func (e *Engine) Cycle(ctx context.Context) error {
 	}
 	symbols := make([]string, 0, len(s.Holdings))
 	stops := make(map[string]bool, len(s.Holdings))
+	profits := make(map[string]bool, len(s.Holdings)) // take-profit exits: protective, but after real stops
 	for symbol, p := range s.Holdings {
 		if _, ok := books[symbol]; !ok {
 			continue
 		}
 		symbols = append(symbols, symbol)
 		bid, _ := decimal.NewFromString(books[symbol].Bids[0])
-		stops[symbol], s.Holdings[symbol] = e.Config.protectiveExit(p, bid, e.Config.stopFraction())
+		var stop bool
+		stop, profits[symbol], s.Holdings[symbol] = e.Config.protectiveExit(p, bid, e.Config.stopFraction())
+		stops[symbol] = stop || profits[symbol]
 	}
 	// Spend scarce daily order allowances on protective reductions before
 	// discretionary rotation/funding exits. Keep the existing cap and a
@@ -705,6 +708,9 @@ func (e *Engine) Cycle(ctx context.Context) error {
 	sort.Slice(symbols, func(i, j int) bool {
 		if stops[symbols[i]] != stops[symbols[j]] {
 			return stops[symbols[i]]
+		}
+		if profits[symbols[i]] != profits[symbols[j]] {
+			return profits[symbols[j]]
 		}
 		return symbols[i] < symbols[j]
 	})

@@ -42,38 +42,54 @@ func TestNoteBuyAveragesEntryOnlyWhenTracking(t *testing.T) {
 	if legacy.Entry != nil {
 		t.Fatal("pre-tracking holding gained an entry from a top-up")
 	}
+	// a top-up while tracking is off drops the entry instead of leaving a stale average
+	q := on.noteBuy(Position{}, d("1"), d("100"))
+	q.Quantity = d("1")
+	q = off.noteBuy(q, d("1"), d("200"))
+	q.Quantity = d("2")
+	if q = on.noteBuy(q, d("1"), d("300")); q.Entry != nil {
+		t.Fatalf("stale entry after an untracked top-up: %v", q.Entry)
+	}
 }
 
 func TestProtectiveExitTakeProfitLatchAndArmedTrail(t *testing.T) {
 	p := Position{Quantity: d("1"), Peak: d("140"), Entry: dp("100")}
-	if stop, q := (Config{}).protectiveExit(p, d("140"), .9); stop || q.Exiting != "" {
+	if stop, profit, q := (Config{}).protectiveExit(p, d("140"), .9); stop || profit || q.Exiting != "" {
 		t.Fatal("exit fired with profit exits off")
 	}
+	latched := p
+	latched.Exiting = exitTakeProfit
+	if stop, profit, q := (Config{}).protectiveExit(latched, d("140"), .9); stop || profit || q.Exiting != "" {
+		t.Fatal("stale take-profit latch survived switching the take-profit off")
+	}
 	cfg := Config{TakeProfit: .35}
-	if stop, _ := cfg.protectiveExit(p, d("134.99"), .9); stop {
+	if _, profit, _ := cfg.protectiveExit(p, d("134.99"), .9); profit {
 		t.Fatal("take-profit fired below threshold")
 	}
-	stop, q := cfg.protectiveExit(p, d("135"), .9)
-	if !stop || q.Exiting != exitTakeProfit {
+	stop, profit, q := cfg.protectiveExit(p, d("135"), .9)
+	if stop || !profit || q.Exiting != exitTakeProfit {
 		t.Fatal("take-profit did not fire at threshold")
 	}
-	if stop, _ := cfg.protectiveExit(q, d("130"), .9); !stop {
+	if _, profit, _ := cfg.protectiveExit(q, d("130"), .9); !profit {
 		t.Fatal("latched take-profit stopped selling after the bid fell back")
 	}
-	if stop, _ := cfg.protectiveExit(Position{Quantity: d("1"), Peak: d("200")}, d("199"), .9); stop {
+	if stop, profit, _ := cfg.protectiveExit(q, d("120"), .9); !stop || profit {
+		t.Fatal("a latched take-profit that falls through the peak stop must rank as a stop")
+	}
+	if _, profit, _ := cfg.protectiveExit(Position{Quantity: d("1"), Peak: d("200")}, d("199"), .9); profit {
 		t.Fatal("take-profit fired without an entry price")
 	}
 	trail := Config{TrailArm: .2, TrailArmStop: .05}
-	if stop, _ := trail.protectiveExit(Position{Quantity: d("1"), Peak: d("115"), Entry: dp("100")}, d("109"), .9); stop {
+	if stop, _, _ := trail.protectiveExit(Position{Quantity: d("1"), Peak: d("115"), Entry: dp("100")}, d("109"), .9); stop {
 		t.Fatal("trail tightened before the arm")
 	}
-	if stop, _ := trail.protectiveExit(Position{Quantity: d("1"), Peak: d("130"), Entry: dp("100")}, d("123.5"), .9); !stop {
+	if stop, _, _ := trail.protectiveExit(Position{Quantity: d("1"), Peak: d("130"), Entry: dp("100")}, d("123.5"), .9); !stop {
 		t.Fatal("armed trail did not stop at 5% below peak")
 	}
-	if stop, _ := trail.protectiveExit(Position{Quantity: d("1"), Peak: d("130"), Entry: dp("100")}, d("123.6"), .9); stop {
+	if stop, _, _ := trail.protectiveExit(Position{Quantity: d("1"), Peak: d("130"), Entry: dp("100")}, d("123.6"), .9); stop {
 		t.Fatal("armed trail stopped above its level")
 	}
-	if stop, _ := trail.protectiveExit(Position{Quantity: d("1"), Peak: d("130"), Entry: dp("100")}, d("117"), .9); !stop {
+	if stop, _, _ := trail.protectiveExit(Position{Quantity: d("1"), Peak: d("130"), Entry: dp("100")}, d("117"), .9); !stop {
 		t.Fatal("base 10% stop lost under the armed trail")
 	}
 }

@@ -32,9 +32,14 @@ func (c Config) validateExits() error {
 }
 
 // noteBuy folds a buy of qty for amount into the holding's average entry price.
-// A holding that predates entry tracking keeps a nil entry (no profit exits).
+// A holding that predates entry tracking, or was topped up while tracking was
+// off, has a nil entry (no profit exits) rather than a stale average.
 func (c Config) noteBuy(p Position, qty, amount decimal.Decimal) Position {
-	if !c.trackEntry() || !qty.IsPositive() {
+	if !c.trackEntry() {
+		p.Entry = nil
+		return p
+	}
+	if !qty.IsPositive() {
 		return p
 	}
 	if p.Quantity.IsPositive() && p.Entry == nil {
@@ -49,17 +54,22 @@ func (c Config) noteBuy(p Position, qty, amount decimal.Decimal) Position {
 	return p
 }
 
-// protectiveExit reports whether a holding must be protectively sold at bid
-// given the base peak-stop fraction, and returns the holding with any
-// take-profit latch set.
-func (c Config) protectiveExit(p Position, bid decimal.Decimal, stopFraction float64) (bool, Position) {
+// protectiveExit reports whether a holding must be sold at bid by its peak stop
+// (stop) or by a take-profit (profit), and returns the holding with the
+// take-profit latch updated. A latch left by an earlier run is cleared once
+// the take-profit is switched off.
+func (c Config) protectiveExit(p Position, bid decimal.Decimal, stopFraction float64) (stop, profit bool, _ Position) {
 	level := p.Peak.Mul(decimal.NewFromFloat(stopFraction))
 	if c.TrailArm > 0 && p.Entry != nil && p.Peak.GreaterThanOrEqual(p.Entry.Mul(decimal.NewFromFloat(1+c.TrailArm))) {
 		level = decimal.Max(level, p.Peak.Mul(decimal.NewFromFloat(1-c.TrailArmStop)))
 	}
-	stop := bid.LessThanOrEqual(level)
-	if c.TakeProfit > 0 && p.Entry != nil && p.Exiting == "" && bid.GreaterThanOrEqual(p.Entry.Mul(decimal.NewFromFloat(1+c.TakeProfit))) {
+	stop = bid.LessThanOrEqual(level)
+	if c.TakeProfit <= 0 {
+		p.Exiting = ""
+		return stop, false, p
+	}
+	if p.Entry != nil && p.Exiting == "" && bid.GreaterThanOrEqual(p.Entry.Mul(decimal.NewFromFloat(1+c.TakeProfit))) {
 		p.Exiting = exitTakeProfit
 	}
-	return stop || p.Exiting != "", p
+	return stop, p.Exiting != "" && !stop, p
 }

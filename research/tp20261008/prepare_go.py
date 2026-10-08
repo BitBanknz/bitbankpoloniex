@@ -62,7 +62,21 @@ def main():
 		p.Quantity = p.Quantity.Add(qty)''', '''		s.Cash = s.Cash.Sub(amount).Sub(fee)
 		p = e.Config.noteBuy(p, qty, amount)
 		p.Quantity = p.Quantity.Add(qty)''')
-            text = sub(text, 'stops[symbol] = bid.LessThanOrEqual(p.Peak.Mul(decimal.NewFromFloat(.9)))', 'stops[symbol], s.Holdings[symbol] = e.Config.protectiveExit(p, bid, .9)')
+            text = sub(text, '''	stops := make(map[string]bool, len(s.Holdings))
+''', '''	stops := make(map[string]bool, len(s.Holdings))
+	profits := make(map[string]bool, len(s.Holdings))
+''')
+            text = sub(text, 'stops[symbol] = bid.LessThanOrEqual(p.Peak.Mul(decimal.NewFromFloat(.9)))', '''var stop bool
+		stop, profits[symbol], s.Holdings[symbol] = e.Config.protectiveExit(p, bid, .9)
+		stops[symbol] = stop || profits[symbol]''')
+            text = sub(text, '''		if stops[symbols[i]] != stops[symbols[j]] {
+			return stops[symbols[i]]
+		}''', '''		if stops[symbols[i]] != stops[symbols[j]] {
+			return stops[symbols[i]]
+		}
+		if profits[symbols[i]] != profits[symbols[j]] {
+			return profits[symbols[j]]
+		}''')
         p.write_text(text)
     t = HERE/'replay_test.go.txt'; shutil.copy(t, bot/'longkfold_replay_test.go')
     hashes['replay_test.go.txt'] = hashlib.sha256(t.read_bytes()).hexdigest()

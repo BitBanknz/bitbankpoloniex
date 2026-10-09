@@ -43,6 +43,11 @@ type Config struct {
 	TrailArmStop         float64
 	MinExitUSDT          decimal.Decimal // sells below this notional are raised to it (or the whole holding); IOC still caps fills at the in-band book (0 off)
 	ExitRampMinutes      int             // latch triggered stops and keep working them every cycle, widening band/participation over this many minutes (0 off)
+	VolTarget            float64         // annualized vol target per slot: slot target *= min(VolMaxWeight, VolTarget/vol) (0 off); see volsize.go
+	VolMaxWeight         float64         // cap on the vol multiplier (0 = 1)
+	VolMode              string          // sizing vol: rms (default) = sqrt((v24^2+v168^2)/2), 24, 168
+	DDThrottle           float64         // slot target *= max(DDFloor, 1-dd/DDThrottle), dd below the high-water mark (0 off)
+	DDFloor              float64
 }
 
 func DefaultConfig() Config {
@@ -71,6 +76,9 @@ func (c Config) Validate() error {
 		return errors.New("mirror stop must be within 0-0.9 and max age non-negative")
 	}
 	if err := c.validateExits(); err != nil {
+		return err
+	}
+	if err := c.validateSizing(); err != nil {
 		return err
 	}
 	if c.ExperimentalFallback && c.mirror() {
@@ -251,6 +259,7 @@ func (s *State) markEquity(now time.Time, equity decimal.Decimal) {
 type Engine struct {
 	Client *Client
 	Config Config
+	vol    map[string]volEntry // per-hour sizing-vol cache (volsize.go)
 }
 
 func (e *Engine) path() string { return filepath.Join(e.Config.StateDir, "state.json") }
@@ -781,6 +790,14 @@ func (e *Engine) Cycle(ctx context.Context) error {
 			if stops[symbol] {
 				continue
 			}
+			scale := 1.
+			if e.Config.sizeScaled() {
+				// Fail closed: no buy for a symbol whose sizing vol is unavailable.
+				if scale, err = e.sizeScale(ctx, s, equity, symbol, now); err != nil {
+					log.Printf("sizing skipped %s: %v", symbol, err)
+					continue
+				}
+			}
 			if p, held := s.Holdings[symbol]; held {
 				// Top up a tracked rotation holding toward its slot target with
 				// further capped orders; imported inventory is never grown.
@@ -795,7 +812,7 @@ func (e *Engine) Cycle(ctx context.Context) error {
 				if err != nil || !bid.IsPositive() {
 					continue
 				}
-				gap := e.mirrorTarget(s, scores[symbol]).Sub(p.Quantity.Mul(bid))
+				gap := e.mirrorTarget(s, scores[symbol]).Mul(decimal.NewFromFloat(scale)).Sub(p.Quantity.Mul(bid))
 				if gap.LessThan(e.Config.MaxOrder.Mul(decimal.NewFromFloat(.25))) {
 					continue
 				}
@@ -820,6 +837,11 @@ func (e *Engine) Cycle(ctx context.Context) error {
 			cap := decimal.Zero
 			if e.Config.mirror() {
 				cap = e.mirrorTarget(s, scores[symbol])
+			} else if e.Config.sizeScaled() {
+				cap = e.Config.slotTarget(s.Budget).Mul(decimal.NewFromFloat(scale))
+				if cap.LessThan(e.Config.MaxOrder.Mul(decimal.NewFromFloat(.25))) {
+					continue
+				}
 			}
 			if err = e.tradeCapped(ctx, &s, bySymbol[symbol], b, "BUY", decisionHour, source, cap, ""); err != nil {
 				return err

@@ -75,6 +75,13 @@ the bid and participation from 10% to 100% of in-band depth over the ramp, with
 up to 12 extra protective orders beyond the daily cap. Never a market order.
 See [2026-10-09 fidelity fixes](docs/2026-10-09-sim-live-fidelity.md).
 
+Research sizing (default off, rejected 2026-10-10, not in any unit): `--vol-target`
+/ `--vol-max-weight` / `--size-vol` scale each slot target by
+min(max-weight, target/realized vol) from hourly candles (fail closed: no buy
+without candles), and `--dd-throttle` / `--dd-floor` scale it by
+max(floor, 1-dd/throttle) below the high-water mark. Buys only; holdings are never
+trimmed. See [2026-10-10 vol sizing](docs/2026-10-10-vol-sizing.md).
+
 ## Fallback models
 
 The fallback is 32 native Go gradient-boosted stumps (not XGBoost/LightGBM),

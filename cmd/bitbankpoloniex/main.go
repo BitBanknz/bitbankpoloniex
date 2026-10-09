@@ -51,6 +51,11 @@ func run() error {
 	feeRate := flag.Float64("fee-rate", bot.MeasuredFeeRate, "simulated fee per side for paper fills and order sizing (live pays the exchange fee; 0.0014 = measured TRX-discounted taker)")
 	minExit := flag.String("min-exit-usdt", "0", "raise every sell below this notional to it (or the whole holding); IOC limit still fills only what the book has (0 off)")
 	exitRamp := flag.Int("exit-ramp-minutes", 0, "latch triggered stops and re-send them every cycle, widening the limit band to 1% and participation to 100% over this many minutes (0 off)")
+	volTarget := flag.Float64("vol-target", 0, "annualized vol target: each slot target is scaled by min(vol-max-weight, vol-target/vol) from hourly candles (0 off)")
+	volMaxWeight := flag.Float64("vol-max-weight", 1, "cap on the vol-target slot multiplier (0.1-2)")
+	volMode := flag.String("size-vol", "rms", "sizing vol estimator: rms (sqrt((v24^2+v168^2)/2)), 24 or 168 hourly bars")
+	ddThrottle := flag.Float64("dd-throttle", 0, "scale slot targets by max(dd-floor, 1-dd/dd-throttle) below the high-water mark (0 off)")
+	ddFloor := flag.Float64("dd-floor", .25, "minimum dd-throttle multiplier")
 	maxOrdersDay := flag.Int("max-orders-day", cfg.MaxOrdersDay, "daily order cap (1-50)")
 	symbol := flag.String("symbol", "ETH_USDT", "market for funding plan")
 	funding := flag.String("funding", "convert", "convert or margin for read-only plan")
@@ -84,6 +89,7 @@ func run() error {
 	cfg.MaxOrdersDay = *maxOrdersDay
 	cfg.FeeRate = decimal.NewFromFloat(*feeRate)
 	cfg.ExitRampMinutes = *exitRamp
+	cfg.VolTarget, cfg.VolMaxWeight, cfg.VolMode, cfg.DDThrottle, cfg.DDFloor = *volTarget, *volMaxWeight, *volMode, *ddThrottle, *ddFloor
 	cfg.MinExitUSDT, err = decimal.NewFromString(*minExit)
 	if err != nil {
 		return errors.New("invalid minimum exit notional")

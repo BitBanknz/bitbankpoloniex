@@ -1,0 +1,133 @@
+package bot
+
+import (
+ "compress/gzip"
+ "context"
+ "encoding/json"
+ "errors"
+ "fmt"
+ "net/http"
+ "net/http/httptest"
+ "os"
+ "path/filepath"
+ "strconv"
+ "strings"
+ "sync/atomic"
+ "testing"
+ "time"
+
+ "github.com/shopspring/decimal"
+)
+
+type shHour struct { TS int64; Open, PriorTurnover, Volume24 []float64; Minute [][]float64 }
+type shFixture struct { Pairs []string; Hours []shHour; Ranks map[string][]float64 }
+type shConfig struct { Slots, Cooldown, MinHoldH, ExitRamp, MaxOrdersDay, WindowCycles, FollowCycles int; Reserve, HaltPeak, HaltDaily float64; TopUp bool; Budget, MaxOrder, MinExit, Book, Clock string; BookSeed uint64; Fees []float64 }
+type shSnap struct { TS int64 `json:"ts"`; B, A [][2]float64 }
+type shCycle struct { At int64; Err string }
+type shRec struct { Books map[string]map[string][]json.RawMessage; Ticker map[string]map[string]string `json:"ticker24h_amount"` }
+var replayClock atomic.Int64
+func replayNow() time.Time { return time.Unix(replayClock.Load(),0).UTC() }
+
+type shTransport struct{h http.Handler}
+func (t shTransport) RoundTrip(r *http.Request) (*http.Response,error) {w:=httptest.NewRecorder();t.h.ServeHTTP(w,r);return w.Result(),nil}
+
+func shRead(t *testing.T,path string,v any) {t.Helper();raw,err:=os.ReadFile(path);if err!=nil {t.Fatal(err)};if err=json.Unmarshal(raw,v);err!=nil {t.Fatal(err)}}
+func shMix(x uint64) uint64 {x+=0x9e3779b97f4a7c15;x=(x^(x>>30))*0xbf58476d1ce4e5b9;x=(x^(x>>27))*0x94d049bb133111eb;return x^(x>>31)}
+
+func TestShadowReplay(t *testing.T) {
+ fixturePath:=os.Getenv("SH_FIXTURE");if fixturePath=="" {t.Skip("explicit fixture required")}
+ var f shFixture;shRead(t,fixturePath,&f)
+ var c shConfig;if err:=json.Unmarshal([]byte(os.Getenv("SH_CONFIG")),&c);err!=nil {t.Fatal(err)}
+ if c.MinExit=="" {c.MinExit="0"};if c.Clock!="hourly" && c.Clock!="minute" {t.Fatalf("clock %q",c.Clock)}
+ var all []Market;shRead(t,os.Getenv("SH_MARKETS"),&all)
+ var markets []Market;lookup:=map[string]int{}
+ for i,pair:=range f.Pairs {
+  symbol:=strings.TrimSuffix(pair,"USDT")+"_USDT";found:=false
+  for _,m:=range all {if m.Symbol==symbol {markets=append(markets,m);found=true;break}}
+  if !found {t.Fatalf("missing market contract %s",symbol)};lookup[symbol]=i
+ }
+ snaps:=make([][]shSnap,len(f.Pairs))
+ if c.Book=="archive" {
+  fh,err:=os.Open(os.Getenv("SH_BOOKS"));if err!=nil {t.Fatal(err)};gz,err:=gzip.NewReader(fh);if err!=nil {t.Fatal(err)}
+  var bs struct{Snapshots map[string][]shSnap};if err=json.NewDecoder(gz).Decode(&bs);err!=nil {t.Fatal(err)};fh.Close()
+  for i,pair:=range f.Pairs {snaps[i]=bs.Snapshots[strings.TrimSuffix(pair,"USDT")];if len(snaps[i])==0 {t.Fatalf("no archived books for %s",pair)}}
+ } else if c.Book!="proxy" {t.Fatalf("unknown book model %q",c.Book)}
+ var rec shRec;var recHit,recMiss atomic.Int64
+ if p:=os.Getenv("SH_RECORDED");p!="" {
+  if c.Book!="archive" {t.Fatal("recorded books fall back to the archive model")}
+  fh,err:=os.Open(p);if err!=nil {t.Fatal(err)};gz,err:=gzip.NewReader(fh);if err!=nil {t.Fatal(err)};if err=json.NewDecoder(gz).Decode(&rec);err!=nil {t.Fatal(err)};fh.Close()
+ }
+ num:=func(x float64)string {return strconv.FormatFloat(x,'f',14,64)}
+ first:=f.Hours[0].TS
+ price:=func(i int)float64 {
+  off:=replayClock.Load()-first;h:=f.Hours[off/3600]
+  if c.Clock=="minute" && h.Minute!=nil && h.Minute[i]!=nil {if p:=h.Minute[i][(off%3600)/60];p>0 {return p}}
+  return h.Open[i]
+ }
+ handler:=http.HandlerFunc(func(w http.ResponseWriter,r *http.Request) {
+  if r.Method!="GET" {t.Error("research attempted a write");http.Error(w,"no writes",403);return}
+  tick:=int((replayClock.Load()-first)/3600)
+  if tick<0 || tick>=len(f.Hours) {t.Errorf("invalid research clock %d",tick);http.Error(w,"clock",500);return}
+  h:=f.Hours[tick];now:=replayNow();enc:=json.NewEncoder(w)
+  switch r.URL.Path {
+  case "/markets":enc.Encode(markets)
+  case "/markets/ticker24h":
+   rt:=rec.Ticker[strconv.FormatInt(now.Unix()/60*60,10)]
+   ts:=make([]Ticker,len(markets));for i,m:=range markets {a:=strconv.FormatFloat(h.Volume24[i],'g',-1,64);if v,ok:=rt[m.Symbol];ok {a=v};ts[i]=Ticker{Symbol:m.Symbol,Amount:a,TS:now.UnixMilli()}};enc.Encode(ts)
+  case "/prediction":
+   issued:=now.Truncate(24*time.Hour);rs,ok:=f.Ranks[strconv.FormatInt(issued.Unix(),10)]
+   if !ok || now.Hour()>1 {http.Error(w,"outside daily issue window",503);return}
+   ranks:=map[string]float64{};for i,p:=range f.Pairs {ranks[p]=rs[i]}
+   enc.Encode(Prediction{Available:true,Venue:"POLONIEX",Mode:"research_rank_forecast",Issued:issued,Execution:issued.Add(time.Hour),Ranks:ranks})
+  default:
+   if strings.HasPrefix(r.URL.Path,"/markets/") && strings.HasSuffix(r.URL.Path,"/orderBook") {
+    symbol:=strings.TrimSuffix(strings.TrimPrefix(r.URL.Path,"/markets/"),"/orderBook");i,ok:=lookup[symbol];if !ok {t.Error("unknown symbol");http.Error(w,"symbol",400);return}
+    px:=price(i)
+    if c.Book=="proxy" {
+     depth:=h.PriorTurnover[i]/px*.1
+     enc.Encode(Book{Bids:[]string{num(px*.9995),num(depth)},Asks:[]string{num(px*1.0005),num(depth)},TS:now.UnixMilli()});return
+    }
+    if rb,ok:=rec.Books[symbol][strconv.FormatInt(now.Unix()/60*60,10)];ok {
+     var bids,asks []string;if json.Unmarshal(rb[0],&bids)!=nil || json.Unmarshal(rb[1],&asks)!=nil {t.Fatal("recorded book")}
+     recHit.Add(1);enc.Encode(Book{Bids:bids,Asks:asks,TS:now.UnixMilli()});return
+    }
+    if rec.Books!=nil {recMiss.Add(1)}
+    sn:=snaps[i][shMix(c.BookSeed^shMix(uint64(now.Unix()/60))^uint64(i+1)*0x9e3779b97f4a7c15)%uint64(len(snaps[i]))]
+    scale:=h.Volume24[i]/24;var bids,asks []string
+    for _,l:=range sn.B {p:=px*(1+l[0]);bids=append(bids,num(p),num(l[1]*scale/p))}
+    for _,l:=range sn.A {p:=px*(1+l[0]);asks=append(asks,num(p),num(l[1]*scale/p))}
+    enc.Encode(Book{Bids:bids,Asks:asks,TS:now.UnixMilli()})
+   } else {t.Errorf("unexpected nonpublic endpoint %s",r.URL.Path);http.Error(w,"unexpected",400)}
+  }
+ })
+ srvURL:="http://127.0.0.1:1";predClient.Transport=shTransport{handler};defer func(){predClient.Transport=nil}()
+ outDir:=os.Getenv("SH_OUT");if err:=os.MkdirAll(outDir,0o755);err!=nil {t.Fatal(err)}
+ for _,fee:=range c.Fees {
+  cfg:=DefaultConfig();cfg.SlotTopUp=c.TopUp;cfg.CashReserve=c.Reserve;cfg.HaltPeakDD=c.HaltPeak;cfg.HaltDailyLoss=c.HaltDaily;cfg.Slots=c.Slots;cfg.CooldownHours=c.Cooldown
+  if c.MaxOrdersDay>0 {cfg.MaxOrdersDay=c.MaxOrdersDay}
+  cfg.Budget=decimal.RequireFromString(c.Budget);cfg.MaxOrder=decimal.RequireFromString(c.MaxOrder);cfg.StateDir=t.TempDir();cfg.PredictionURL=srvURL+"/prediction";cfg.FeeRate=decimal.NewFromFloat(fee)
+  if err:=shadowApply(&cfg,c.MinHoldH,c.ExitRamp,c.MinExit);err!=nil {t.Fatal(err)}
+  if err:=cfg.Validate();err!=nil {t.Fatal(err)}
+  client:=NewClient("","");client.BaseURL=srvURL;client.HTTP.Transport=shTransport{handler};e:=&Engine{Client:client,Config:cfg}
+  var s State;shRead(t,os.Getenv("SH_STATE"),&s)
+  s.Mode=cfg.Mode;s.Fills=nil;s.Equity=nil;s.Pending=nil
+  if err:=Save(filepath.Join(cfg.StateDir,"state.json"),s);err!=nil {t.Fatal(err)}
+  shadowSkips=nil;var cycles []shCycle
+  run:=func(at int64) {replayClock.Store(at);err:=e.Cycle(context.Background());msg:=""
+   if err!=nil {msg=err.Error();if !(errors.Is(err,ErrEntriesPaused) || strings.Contains(msg,"held books unavailable") || strings.Contains(msg,"ledger halted:")) {t.Fatalf("at=%d: %v",at,err)}}
+   cycles=append(cycles,shCycle{at,msg})}
+  latched:=func(k int) bool {s,err:=e.read();if err!=nil {t.Fatal(err)}
+   for sym,p:=range s.Holdings {if shadowExiting(p) {return true};pk,_:=p.Peak.Float64();if pk*.9>=f.Hours[k].Open[lookup[sym]] {return true}};return false}
+  for k,h:=range f.Hours {
+   if c.Clock=="minute" {for m:=int64(0);m<60;m++ {run(h.TS+45+m*60)};continue}
+   n:=1;if time.Unix(h.TS,0).UTC().Hour()==1 {n=c.WindowCycles}
+   for cy:=0;cy<n;cy++ {run(h.TS+45+int64(cy)*60)}
+   for cy:=n;c.FollowCycles>0 && cy<n+c.FollowCycles && cy<60 && latched(k);cy++ {run(h.TS+45+int64(cy)*60)}
+  }
+  fin,err:=e.read();if err!=nil {t.Fatal(err)}
+  dump:=func(name string,v any) {raw,_:=json.MarshalIndent(v,""," ");if err:=os.WriteFile(filepath.Join(outDir,fmt.Sprintf("%s_fee%g.json",name,fee)),raw,0o644);err!=nil {t.Fatal(err)}}
+  dump("state",fin);dump("skips",shadowSkips);dump("cycles",cycles)
+  fmt.Printf("recorded_hits=%d recorded_misses=%d\n",recHit.Load(),recMiss.Load())
+  fmt.Printf("fee=%g fills=%d holdings=%d cash=%s cycles=%d skips=%d halted=%q\n",fee,len(fin.Fills),len(fin.Holdings),fin.Cash,len(cycles),len(shadowSkips),fin.Halted)
+ }
+}

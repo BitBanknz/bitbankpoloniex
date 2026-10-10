@@ -1,0 +1,8727 @@
+{
+ "w0": {
+  "window": "2026-09-14T11:00Z..2026-09-23T15:00Z",
+  "live_binaries": "c5d03648 (09-14 10:21), 2c2c81c4 (09-15 03:16, 698c9b5), eb9a2d10 (09-18)",
+  "argv_config": {
+   "Slots": 3,
+   "Cooldown": 120,
+   "MinHoldH": 0,
+   "ExitRamp": 0,
+   "MaxOrdersDay": 12,
+   "Reserve": 0.4,
+   "HaltPeak": 0,
+   "HaltDaily": 0,
+   "TopUp": false,
+   "Budget": "495",
+   "MaxOrder": "49",
+   "MinExit": "0",
+   "fee": 0.003
+  },
+  "live": {
+   "fills": 4,
+   "decision_keys": 4,
+   "groups": 3,
+   "ret_pct": 1.0907634428052093,
+   "groups_detail": {
+    "2026-09-15|XRP|SELL": {
+     "amt": 51.3,
+     "n": 2,
+     "t": [
+      "01:00",
+      "18:40"
+     ],
+     "partial": 0
+    },
+    "2026-09-18|TRX|BUY": {
+     "amt": 48.89,
+     "n": 1,
+     "t": [
+      "01:00"
+     ],
+     "partial": 1
+    },
+    "2026-09-19|BNB|BUY": {
+     "amt": 48.88,
+     "n": 1,
+     "t": [
+      "01:18"
+     ],
+     "partial": 0
+    }
+   }
+  },
+  "arms": {
+   "hourly_archive_new_s1_fee0.0014": {
+    "fills": 3,
+    "groups": 2,
+    "group_agreement_pct": 25.0,
+    "agree": 1,
+    "live_only": 2,
+    "sim_only": 1,
+    "size": 0,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 16.666666666666668,
+    "sim_ret_pct": 1.3087168383722148,
+    "gap_pct": 0.2179533955670001,
+    "gap_bps_month": 72.37043430076982,
+    "max_abs_div_pct": 0.3446097885182594,
+    "median_clip": 26.23375392,
+    "skips": {},
+    "mismatches": [
+     [
+      "sim_only",
+      [
+       "2026-09-16",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      26.23,
+      null,
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-18",
+       "TRX",
+       "BUY"
+      ],
+      48.89,
+      null,
+      [
+       "01:00"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-19",
+       "BNB",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:18"
+      ],
+      null
+     ]
+    ]
+   },
+   "hourly_archive_new_s1_fee0.003": {
+    "fills": 3,
+    "groups": 2,
+    "group_agreement_pct": 25.0,
+    "agree": 1,
+    "live_only": 2,
+    "sim_only": 1,
+    "size": 0,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 16.666666666666668,
+    "sim_ret_pct": 1.2836387001021743,
+    "gap_pct": 0.1928752572969755,
+    "gap_bps_month": 64.04335247974574,
+    "max_abs_div_pct": 0.3195316502482233,
+    "median_clip": 26.23375392,
+    "skips": {},
+    "mismatches": [
+     [
+      "sim_only",
+      [
+       "2026-09-16",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      26.23,
+      null,
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-18",
+       "TRX",
+       "BUY"
+      ],
+      48.89,
+      null,
+      [
+       "01:00"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-19",
+       "BNB",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:18"
+      ],
+      null
+     ]
+    ]
+   },
+   "hourly_archive_new_s2_fee0.0014": {
+    "fills": 3,
+    "groups": 2,
+    "group_agreement_pct": 25.0,
+    "agree": 1,
+    "live_only": 2,
+    "sim_only": 1,
+    "size": 0,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 16.666666666666668,
+    "sim_ret_pct": 1.6340627000063002,
+    "gap_pct": 0.5432992572010849,
+    "gap_bps_month": 180.40004881154206,
+    "max_abs_div_pct": 0.6090020479568038,
+    "median_clip": 48.91253055,
+    "skips": {
+     "exchange size limit": 1
+    },
+    "mismatches": [
+     [
+      "sim_only",
+      [
+       "2026-09-16",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-18",
+       "TRX",
+       "BUY"
+      ],
+      48.89,
+      null,
+      [
+       "01:00"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-19",
+       "BNB",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:18"
+      ],
+      null
+     ]
+    ]
+   },
+   "hourly_archive_new_s2_fee0.003": {
+    "fills": 3,
+    "groups": 2,
+    "group_agreement_pct": 25.0,
+    "agree": 1,
+    "live_only": 2,
+    "sim_only": 1,
+    "size": 0,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 16.666666666666668,
+    "sim_ret_pct": 1.6016307252012085,
+    "gap_pct": 0.5108672823959934,
+    "gap_bps_month": 169.63115899557874,
+    "max_abs_div_pct": 0.5765700731517124,
+    "median_clip": 48.91253055,
+    "skips": {
+     "exchange size limit": 1
+    },
+    "mismatches": [
+     [
+      "sim_only",
+      [
+       "2026-09-16",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-18",
+       "TRX",
+       "BUY"
+      ],
+      48.89,
+      null,
+      [
+       "01:00"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-19",
+       "BNB",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:18"
+      ],
+      null
+     ]
+    ]
+   },
+   "hourly_archive_new_s3_fee0.0014": {
+    "fills": 3,
+    "groups": 2,
+    "group_agreement_pct": 25.0,
+    "agree": 1,
+    "live_only": 2,
+    "sim_only": 1,
+    "size": 0,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 16.666666666666668,
+    "sim_ret_pct": 1.6394952273753205,
+    "gap_pct": 0.5487317845701206,
+    "gap_bps_month": 182.20389483112413,
+    "max_abs_div_pct": 0.6144411133300451,
+    "median_clip": 48.9128964,
+    "skips": {
+     "spread exceeds limit": 2
+    },
+    "mismatches": [
+     [
+      "sim_only",
+      [
+       "2026-09-16",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:02"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-18",
+       "TRX",
+       "BUY"
+      ],
+      48.89,
+      null,
+      [
+       "01:00"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-19",
+       "BNB",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:18"
+      ],
+      null
+     ]
+    ]
+   },
+   "hourly_archive_new_s3_fee0.003": {
+    "fills": 3,
+    "groups": 2,
+    "group_agreement_pct": 25.0,
+    "agree": 1,
+    "live_only": 2,
+    "sim_only": 1,
+    "size": 0,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 16.666666666666668,
+    "sim_ret_pct": 1.6070734326903535,
+    "gap_pct": 0.5163099898851475,
+    "gap_bps_month": 171.43838527777285,
+    "max_abs_div_pct": 0.582019318645072,
+    "median_clip": 48.9128964,
+    "skips": {
+     "spread exceeds limit": 2
+    },
+    "mismatches": [
+     [
+      "sim_only",
+      [
+       "2026-09-16",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:02"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-18",
+       "TRX",
+       "BUY"
+      ],
+      48.89,
+      null,
+      [
+       "01:00"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-19",
+       "BNB",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:18"
+      ],
+      null
+     ]
+    ]
+   },
+   "hourly_proxy_new_s0_fee0.0014": {
+    "fills": 3,
+    "groups": 2,
+    "group_agreement_pct": 25.0,
+    "agree": 1,
+    "live_only": 2,
+    "sim_only": 1,
+    "size": 0,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 16.666666666666668,
+    "sim_ret_pct": 1.6530939786616017,
+    "gap_pct": 0.5623305358563968,
+    "gap_bps_month": 186.71929838322632,
+    "max_abs_div_pct": 0.6280438553461724,
+    "median_clip": 48.91294356,
+    "skips": {},
+    "mismatches": [
+     [
+      "sim_only",
+      [
+       "2026-09-16",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-18",
+       "TRX",
+       "BUY"
+      ],
+      48.89,
+      null,
+      [
+       "01:00"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-19",
+       "BNB",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:18"
+      ],
+      null
+     ]
+    ]
+   },
+   "hourly_proxy_new_s0_fee0.003": {
+    "fills": 3,
+    "groups": 2,
+    "group_agreement_pct": 25.0,
+    "agree": 1,
+    "live_only": 2,
+    "sim_only": 1,
+    "size": 0,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 16.666666666666668,
+    "sim_ret_pct": 1.6206620364552782,
+    "gap_pct": 0.5298985936500807,
+    "gap_bps_month": 175.9504193915382,
+    "max_abs_div_pct": 0.5956119131398563,
+    "median_clip": 48.91294356,
+    "skips": {},
+    "mismatches": [
+     [
+      "sim_only",
+      [
+       "2026-09-16",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-18",
+       "TRX",
+       "BUY"
+      ],
+      48.89,
+      null,
+      [
+       "01:00"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-19",
+       "BNB",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:18"
+      ],
+      null
+     ]
+    ]
+   },
+   "minute_archive_new_s1_fee0.0014": {
+    "fills": 5,
+    "groups": 4,
+    "group_agreement_pct": 16.666666666666668,
+    "agree": 1,
+    "live_only": 2,
+    "sim_only": 3,
+    "size": 0,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 28.571428571428573,
+    "sim_ret_pct": 0.4643943521013716,
+    "gap_pct": -0.6263690907038296,
+    "gap_bps_month": -207.98300943597616,
+    "max_abs_div_pct": 0.9547769858243732,
+    "median_clip": 10.5137648,
+    "skips": {
+     "spread exceeds limit": 12
+    },
+    "mismatches": [
+     [
+      "sim_only",
+      [
+       "2026-09-15",
+       "ZEC",
+       "SELL"
+      ],
+      null,
+      9.93,
+      null,
+      [
+       "18:48"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-16",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      26.23,
+      null,
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-18",
+       "TRX",
+       "BUY"
+      ],
+      48.89,
+      null,
+      [
+       "01:00"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-19",
+       "BNB",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:18"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-21",
+       "ZEC",
+       "BUY"
+      ],
+      null,
+      10.51,
+      null,
+      [
+       "01:08"
+      ]
+     ]
+    ]
+   },
+   "minute_archive_new_s1_fee0.003": {
+    "fills": 5,
+    "groups": 4,
+    "group_agreement_pct": 16.666666666666668,
+    "agree": 1,
+    "live_only": 2,
+    "sim_only": 3,
+    "size": 0,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 28.571428571428573,
+    "sim_ret_pct": 0.4326914256491232,
+    "gap_pct": -0.6580720171560769,
+    "gap_bps_month": -218.50982206023374,
+    "max_abs_div_pct": 0.9864799122766208,
+    "median_clip": 10.5137648,
+    "skips": {
+     "spread exceeds limit": 12
+    },
+    "mismatches": [
+     [
+      "sim_only",
+      [
+       "2026-09-15",
+       "ZEC",
+       "SELL"
+      ],
+      null,
+      9.93,
+      null,
+      [
+       "18:48"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-16",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      26.23,
+      null,
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-18",
+       "TRX",
+       "BUY"
+      ],
+      48.89,
+      null,
+      [
+       "01:00"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-19",
+       "BNB",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:18"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-21",
+       "ZEC",
+       "BUY"
+      ],
+      null,
+      10.51,
+      null,
+      [
+       "01:08"
+      ]
+     ]
+    ]
+   },
+   "minute_archive_new_s2_fee0.0014": {
+    "fills": 5,
+    "groups": 4,
+    "group_agreement_pct": 16.666666666666668,
+    "agree": 1,
+    "live_only": 2,
+    "sim_only": 3,
+    "size": 0,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 28.571428571428573,
+    "sim_ret_pct": 0.8029271976934149,
+    "gap_pct": -0.28783624511179173,
+    "gap_bps_month": -95.57471684280176,
+    "max_abs_div_pct": 0.5469273345428864,
+    "median_clip": 10.90381962,
+    "skips": {
+     "exchange size limit": 4,
+     "spread exceeds limit": 12
+    },
+    "mismatches": [
+     [
+      "sim_only",
+      [
+       "2026-09-15",
+       "ZEC",
+       "SELL"
+      ],
+      null,
+      9.95,
+      null,
+      [
+       "22:23"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-16",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-18",
+       "TRX",
+       "BUY"
+      ],
+      48.89,
+      null,
+      [
+       "01:00"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-19",
+       "BNB",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:18"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-21",
+       "ZEC",
+       "BUY"
+      ],
+      null,
+      10.9,
+      null,
+      [
+       "01:03"
+      ]
+     ]
+    ]
+   },
+   "minute_archive_new_s2_fee0.003": {
+    "fills": 5,
+    "groups": 4,
+    "group_agreement_pct": 16.666666666666668,
+    "agree": 1,
+    "live_only": 2,
+    "sim_only": 3,
+    "size": 0,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 28.571428571428573,
+    "sim_ret_pct": 0.7637537098189595,
+    "gap_pct": -0.32700973298623703,
+    "gap_bps_month": -108.5820954302028,
+    "max_abs_div_pct": 0.582572071342441,
+    "median_clip": 10.90381962,
+    "skips": {
+     "exchange size limit": 4,
+     "spread exceeds limit": 12
+    },
+    "mismatches": [
+     [
+      "sim_only",
+      [
+       "2026-09-15",
+       "ZEC",
+       "SELL"
+      ],
+      null,
+      9.95,
+      null,
+      [
+       "22:23"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-16",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-18",
+       "TRX",
+       "BUY"
+      ],
+      48.89,
+      null,
+      [
+       "01:00"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-19",
+       "BNB",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:18"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-21",
+       "ZEC",
+       "BUY"
+      ],
+      null,
+      10.9,
+      null,
+      [
+       "01:03"
+      ]
+     ]
+    ]
+   },
+   "minute_archive_new_s3_fee0.0014": {
+    "fills": 3,
+    "groups": 2,
+    "group_agreement_pct": 25.0,
+    "agree": 1,
+    "live_only": 2,
+    "sim_only": 1,
+    "size": 0,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 40.0,
+    "sim_ret_pct": 1.6389727625206518,
+    "gap_pct": 0.5482093197154538,
+    "gap_bps_month": 182.03041275097232,
+    "max_abs_div_pct": 0.6139156766552828,
+    "median_clip": 48.91249669,
+    "skips": {
+     "spread exceeds limit": 17,
+     "exchange size limit": 1
+    },
+    "mismatches": [
+     [
+      "sim_only",
+      [
+       "2026-09-16",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:02"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-18",
+       "TRX",
+       "BUY"
+      ],
+      48.89,
+      null,
+      [
+       "01:00"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-19",
+       "BNB",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:18"
+      ],
+      null
+     ]
+    ]
+   },
+   "minute_archive_new_s3_fee0.003": {
+    "fills": 3,
+    "groups": 2,
+    "group_agreement_pct": 25.0,
+    "agree": 1,
+    "live_only": 2,
+    "sim_only": 1,
+    "size": 0,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 40.0,
+    "sim_ret_pct": 1.6065433724455014,
+    "gap_pct": 0.5157799296403027,
+    "gap_bps_month": 171.2623811828369,
+    "max_abs_div_pct": 0.5814862865801317,
+    "median_clip": 48.91249669,
+    "skips": {
+     "spread exceeds limit": 17,
+     "exchange size limit": 1
+    },
+    "mismatches": [
+     [
+      "sim_only",
+      [
+       "2026-09-16",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:02"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-18",
+       "TRX",
+       "BUY"
+      ],
+      48.89,
+      null,
+      [
+       "01:00"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-19",
+       "BNB",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:18"
+      ],
+      null
+     ]
+    ]
+   }
+  }
+ },
+ "w2": {
+  "window": "2026-09-23T16:00Z..2026-10-08T14:00Z",
+  "live_binaries": "eb9a2d10 (to 09-30 10:13), 4cc91224 release-stop-guard-20260930_v3 (09-30 10:13)",
+  "argv_config": {
+   "Slots": 3,
+   "Cooldown": 120,
+   "MinHoldH": 0,
+   "ExitRamp": 0,
+   "MaxOrdersDay": 12,
+   "Reserve": 0.4,
+   "HaltPeak": 0.25,
+   "HaltDaily": 0.08,
+   "TopUp": true,
+   "Budget": "495",
+   "MaxOrder": "49",
+   "MinExit": "0",
+   "fee": 0.003
+  },
+  "live": {
+   "fills": 34,
+   "decision_keys": 36,
+   "groups": 20,
+   "ret_pct": -1.7225837831320812,
+   "groups_detail": {
+    "2026-09-24|BNB|SELL": {
+     "amt": 48.91,
+     "n": 1,
+     "t": [
+      "01:00"
+     ],
+     "partial": 0
+    },
+    "2026-09-24|PEPE|BUY": {
+     "amt": 48.91,
+     "n": 1,
+     "t": [
+      "01:21"
+     ],
+     "partial": 0
+    },
+    "2026-09-24|ZEC|BUY": {
+     "amt": 84.33,
+     "n": 2,
+     "t": [
+      "01:02",
+      "01:03"
+     ],
+     "partial": 0
+    },
+    "2026-09-24|ZEC|SELL": {
+     "amt": 1.14,
+     "n": 1,
+     "t": [
+      "10:38"
+     ],
+     "partial": 0
+    },
+    "2026-09-25|PEPE|BUY": {
+     "amt": 47.48,
+     "n": 4,
+     "t": [
+      "01:15",
+      "01:16",
+      "01:18",
+      "01:20"
+     ],
+     "partial": 0
+    },
+    "2026-09-25|ZEC|SELL": {
+     "amt": 48.96,
+     "n": 1,
+     "t": [
+      "01:06"
+     ],
+     "partial": 0
+    },
+    "2026-09-27|ZEC|SELL": {
+     "amt": 14.08,
+     "n": 1,
+     "t": [
+      "01:05"
+     ],
+     "partial": 0
+    },
+    "2026-09-28|ETH|BUY": {
+     "amt": 97.77,
+     "n": 2,
+     "t": [
+      "01:04",
+      "01:05"
+     ],
+     "partial": 0
+    },
+    "2026-09-28|PEPE|SELL": {
+     "amt": 22.9,
+     "n": 1,
+     "t": [
+      "01:06"
+     ],
+     "partial": 0
+    },
+    "2026-09-28|ZEC|SELL": {
+     "amt": 37.23,
+     "n": 1,
+     "t": [
+      "01:04"
+     ],
+     "partial": 0
+    },
+    "2026-09-29|PEPE|SELL": {
+     "amt": 59.84,
+     "n": 2,
+     "t": [
+      "02:20",
+      "03:00"
+     ],
+     "partial": 0
+    },
+    "2026-09-30|BNB|BUY": {
+     "amt": 97.98,
+     "n": 5,
+     "t": [
+      "01:15",
+      "01:15",
+      "01:16",
+      "01:18",
+      "01:19"
+     ],
+     "partial": 0
+    },
+    "2026-09-30|PEPE|SELL": {
+     "amt": 9.16,
+     "n": 1,
+     "t": [
+      "01:14"
+     ],
+     "partial": 0
+    },
+    "2026-10-01|ETH|SELL": {
+     "amt": 48.94,
+     "n": 1,
+     "t": [
+      "01:04"
+     ],
+     "partial": 0
+    },
+    "2026-10-02|ETH|SELL": {
+     "amt": 48.93,
+     "n": 1,
+     "t": [
+      "01:00"
+     ],
+     "partial": 0
+    },
+    "2026-10-02|SUI|BUY": {
+     "amt": 48.88,
+     "n": 1,
+     "t": [
+      "01:54"
+     ],
+     "partial": 0
+    },
+    "2026-10-03|SUI|BUY": {
+     "amt": 48.32,
+     "n": 1,
+     "t": [
+      "01:14"
+     ],
+     "partial": 0
+    },
+    "2026-10-06|BNB|SELL": {
+     "amt": 48.92,
+     "n": 1,
+     "t": [
+      "01:09"
+     ],
+     "partial": 0
+    },
+    "2026-10-07|BNB|BUY": {
+     "amt": 46.18,
+     "n": 1,
+     "t": [
+      "01:00"
+     ],
+     "partial": 0
+    },
+    "2026-10-07|SUI|SELL": {
+     "amt": 91.93,
+     "n": 5,
+     "t": [
+      "11:33",
+      "12:18",
+      "13:00",
+      "14:49",
+      "15:05"
+     ],
+     "partial": 0
+    }
+   }
+  },
+  "arms": {
+   "hourly_archive_new_s1_fee0.0014": {
+    "fills": 27,
+    "groups": 15,
+    "group_agreement_pct": 11.538461538461538,
+    "agree": 3,
+    "live_only": 11,
+    "sim_only": 6,
+    "size": 6,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 21.153846153846153,
+    "sim_ret_pct": -3.646321636723382,
+    "gap_pct": -1.923737853591305,
+    "gap_bps_month": -392.5392463822481,
+    "max_abs_div_pct": 2.4713229517110182,
+    "median_clip": 27.7916064,
+    "skips": {
+     "spread exceeds limit": 96,
+     "exchange size limit": 6
+    },
+    "mismatches": [
+     [
+      "size",
+      [
+       "2026-09-24",
+       "BNB",
+       "SELL"
+      ],
+      48.91,
+      27.79,
+      [
+       "01:00"
+      ],
+      [
+       "01:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-24",
+       "PEPE",
+       "BUY"
+      ],
+      48.91,
+      null,
+      [
+       "01:21"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-24",
+       "ZEC",
+       "SELL"
+      ],
+      1.14,
+      95.14,
+      [
+       "10:38"
+      ],
+      [
+       "10:04",
+       "11:06"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-25",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      76.32,
+      null,
+      [
+       "01:00",
+       "01:01",
+       "01:05"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-25",
+       "PEPE",
+       "BUY"
+      ],
+      47.48,
+      98.07,
+      [
+       "01:15",
+       "01:16",
+       "01:18"
+      ],
+      [
+       "01:03",
+       "01:08",
+       "01:12"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-25",
+       "ZEC",
+       "SELL"
+      ],
+      48.96,
+      null,
+      [
+       "01:06"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-27",
+       "BNB",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:02"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-27",
+       "ZEC",
+       "SELL"
+      ],
+      14.08,
+      null,
+      [
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-28",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:02"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ETH",
+       "BUY"
+      ],
+      97.77,
+      null,
+      [
+       "01:04",
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-28",
+       "PEPE",
+       "SELL"
+      ],
+      22.9,
+      10.37,
+      [
+       "01:06"
+      ],
+      [
+       "01:03"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ZEC",
+       "SELL"
+      ],
+      37.23,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-29",
+       "PEPE",
+       "SELL"
+      ],
+      59.84,
+      18.43,
+      [
+       "02:20",
+       "03:00"
+      ],
+      [
+       "01:03"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "BNB",
+       "BUY"
+      ],
+      97.98,
+      null,
+      [
+       "01:15",
+       "01:15",
+       "01:16"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-30",
+       "PEPE",
+       "SELL"
+      ],
+      9.16,
+      42.71,
+      [
+       "01:14"
+      ],
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-01",
+       "ETH",
+       "SELL"
+      ],
+      48.94,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-01",
+       "PEPE",
+       "SELL"
+      ],
+      null,
+      21.83,
+      null,
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-01",
+       "SUI",
+       "BUY"
+      ],
+      null,
+      89.03,
+      null,
+      [
+       "01:02",
+       "01:10",
+       "01:13"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-02",
+       "ETH",
+       "SELL"
+      ],
+      48.93,
+      null,
+      [
+       "01:00"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-02",
+       "SUI",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:54"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-03",
+       "SUI",
+       "BUY"
+      ],
+      48.32,
+      null,
+      [
+       "01:14"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-07",
+       "SUI",
+       "SELL"
+      ],
+      91.93,
+      null,
+      [
+       "11:33",
+       "12:18",
+       "13:00"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-08",
+       "SUI",
+       "SELL"
+      ],
+      null,
+      23.31,
+      null,
+      [
+       "13:08"
+      ]
+     ]
+    ]
+   },
+   "hourly_archive_new_s1_fee0.003": {
+    "fills": 27,
+    "groups": 15,
+    "group_agreement_pct": 11.538461538461538,
+    "agree": 3,
+    "live_only": 11,
+    "sim_only": 6,
+    "size": 6,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 21.153846153846153,
+    "sim_ret_pct": -3.897313863251528,
+    "gap_pct": -2.174730080119446,
+    "gap_bps_month": -443.75428031487587,
+    "max_abs_div_pct": 2.6834871392566413,
+    "median_clip": 27.7916064,
+    "skips": {
+     "spread exceeds limit": 96,
+     "exchange size limit": 6
+    },
+    "mismatches": [
+     [
+      "size",
+      [
+       "2026-09-24",
+       "BNB",
+       "SELL"
+      ],
+      48.91,
+      27.79,
+      [
+       "01:00"
+      ],
+      [
+       "01:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-24",
+       "PEPE",
+       "BUY"
+      ],
+      48.91,
+      null,
+      [
+       "01:21"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-24",
+       "ZEC",
+       "SELL"
+      ],
+      1.14,
+      95.14,
+      [
+       "10:38"
+      ],
+      [
+       "10:04",
+       "11:06"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-25",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      76.32,
+      null,
+      [
+       "01:00",
+       "01:01",
+       "01:05"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-25",
+       "PEPE",
+       "BUY"
+      ],
+      47.48,
+      98.07,
+      [
+       "01:15",
+       "01:16",
+       "01:18"
+      ],
+      [
+       "01:03",
+       "01:08",
+       "01:12"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-25",
+       "ZEC",
+       "SELL"
+      ],
+      48.96,
+      null,
+      [
+       "01:06"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-27",
+       "BNB",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:02"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-27",
+       "ZEC",
+       "SELL"
+      ],
+      14.08,
+      null,
+      [
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-28",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:02"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ETH",
+       "BUY"
+      ],
+      97.77,
+      null,
+      [
+       "01:04",
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-28",
+       "PEPE",
+       "SELL"
+      ],
+      22.9,
+      10.37,
+      [
+       "01:06"
+      ],
+      [
+       "01:03"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ZEC",
+       "SELL"
+      ],
+      37.23,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-29",
+       "PEPE",
+       "SELL"
+      ],
+      59.84,
+      18.43,
+      [
+       "02:20",
+       "03:00"
+      ],
+      [
+       "01:03"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "BNB",
+       "BUY"
+      ],
+      97.98,
+      null,
+      [
+       "01:15",
+       "01:15",
+       "01:16"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-30",
+       "PEPE",
+       "SELL"
+      ],
+      9.16,
+      42.71,
+      [
+       "01:14"
+      ],
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-01",
+       "ETH",
+       "SELL"
+      ],
+      48.94,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-01",
+       "PEPE",
+       "SELL"
+      ],
+      null,
+      21.83,
+      null,
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-01",
+       "SUI",
+       "BUY"
+      ],
+      null,
+      89.03,
+      null,
+      [
+       "01:02",
+       "01:10",
+       "01:13"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-02",
+       "ETH",
+       "SELL"
+      ],
+      48.93,
+      null,
+      [
+       "01:00"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-02",
+       "SUI",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:54"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-03",
+       "SUI",
+       "BUY"
+      ],
+      48.32,
+      null,
+      [
+       "01:14"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-07",
+       "SUI",
+       "SELL"
+      ],
+      91.93,
+      null,
+      [
+       "11:33",
+       "12:18",
+       "13:00"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-08",
+       "SUI",
+       "SELL"
+      ],
+      null,
+      23.31,
+      null,
+      [
+       "13:08"
+      ]
+     ]
+    ]
+   },
+   "hourly_archive_new_s2_fee0.0014": {
+    "fills": 35,
+    "groups": 19,
+    "group_agreement_pct": 10.714285714285714,
+    "agree": 3,
+    "live_only": 9,
+    "sim_only": 8,
+    "size": 8,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 22.413793103448278,
+    "sim_ret_pct": -3.6121289006377566,
+    "gap_pct": -1.889545117505675,
+    "gap_bps_month": -385.5622090329317,
+    "max_abs_div_pct": 2.1309706736916185,
+    "median_clip": 13.53636752,
+    "skips": {
+     "spread exceeds limit": 254,
+     "exchange size limit": 16
+    },
+    "mismatches": [
+     [
+      "size",
+      [
+       "2026-09-24",
+       "BNB",
+       "SELL"
+      ],
+      48.91,
+      14.12,
+      [
+       "01:00"
+      ],
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-24",
+       "PEPE",
+       "BUY"
+      ],
+      48.91,
+      null,
+      [
+       "01:21"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-24",
+       "ZEC",
+       "SELL"
+      ],
+      1.14,
+      91.28,
+      [
+       "10:38"
+      ],
+      [
+       "10:13",
+       "11:02"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-25",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      62.45,
+      null,
+      [
+       "01:01",
+       "01:02"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-25",
+       "PEPE",
+       "BUY"
+      ],
+      47.48,
+      59.27,
+      [
+       "01:15",
+       "01:16",
+       "01:18"
+      ],
+      [
+       "01:45",
+       "01:47",
+       "01:52"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-25",
+       "ZEC",
+       "SELL"
+      ],
+      48.96,
+      4.08,
+      [
+       "01:06"
+      ],
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-26",
+       "PEPE",
+       "BUY"
+      ],
+      null,
+      22.99,
+      null,
+      [
+       "01:00",
+       "01:50",
+       "01:52"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-27",
+       "BNB",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:05"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-27",
+       "PEPE",
+       "BUY"
+      ],
+      null,
+      18.23,
+      null,
+      [
+       "01:17"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-27",
+       "ZEC",
+       "SELL"
+      ],
+      14.08,
+      null,
+      [
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-28",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:02"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ETH",
+       "BUY"
+      ],
+      97.77,
+      null,
+      [
+       "01:04",
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-28",
+       "PEPE",
+       "SELL"
+      ],
+      22.9,
+      9.9,
+      [
+       "01:06"
+      ],
+      [
+       "01:51"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ZEC",
+       "SELL"
+      ],
+      37.23,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-29",
+       "PEPE",
+       "SELL"
+      ],
+      59.84,
+      48.91,
+      [
+       "02:20",
+       "03:00"
+      ],
+      [
+       "01:30"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "BNB",
+       "BUY"
+      ],
+      97.98,
+      null,
+      [
+       "01:15",
+       "01:15",
+       "01:16"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-30",
+       "PEPE",
+       "SELL"
+      ],
+      9.16,
+      3.97,
+      [
+       "01:14"
+      ],
+      [
+       "01:05"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-01",
+       "ETH",
+       "SELL"
+      ],
+      48.94,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-01",
+       "PEPE",
+       "SELL"
+      ],
+      null,
+      8.14,
+      null,
+      [
+       "01:02"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-02",
+       "ETH",
+       "SELL"
+      ],
+      48.93,
+      null,
+      [
+       "01:00"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-02",
+       "PEPE",
+       "SELL"
+      ],
+      null,
+      25.47,
+      null,
+      [
+       "01:05"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-10-02",
+       "SUI",
+       "BUY"
+      ],
+      48.88,
+      97.98,
+      [
+       "01:54"
+      ],
+      [
+       "01:14",
+       "01:18",
+       "01:25"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-03",
+       "SUI",
+       "BUY"
+      ],
+      48.32,
+      null,
+      [
+       "01:14"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-07",
+       "SUI",
+       "SELL"
+      ],
+      91.93,
+      null,
+      [
+       "11:33",
+       "12:18",
+       "13:00"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-08",
+       "SUI",
+       "SELL"
+      ],
+      null,
+      2.16,
+      null,
+      [
+       "13:03"
+      ]
+     ]
+    ]
+   },
+   "hourly_archive_new_s2_fee0.003": {
+    "fills": 35,
+    "groups": 19,
+    "group_agreement_pct": 10.714285714285714,
+    "agree": 3,
+    "live_only": 9,
+    "sim_only": 8,
+    "size": 8,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 22.413793103448278,
+    "sim_ret_pct": -3.8522742676036725,
+    "gap_pct": -2.129690484471599,
+    "gap_bps_month": -434.5639382420399,
+    "max_abs_div_pct": 2.339041594077632,
+    "median_clip": 13.53636752,
+    "skips": {
+     "spread exceeds limit": 254,
+     "exchange size limit": 16
+    },
+    "mismatches": [
+     [
+      "size",
+      [
+       "2026-09-24",
+       "BNB",
+       "SELL"
+      ],
+      48.91,
+      14.12,
+      [
+       "01:00"
+      ],
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-24",
+       "PEPE",
+       "BUY"
+      ],
+      48.91,
+      null,
+      [
+       "01:21"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-24",
+       "ZEC",
+       "SELL"
+      ],
+      1.14,
+      91.28,
+      [
+       "10:38"
+      ],
+      [
+       "10:13",
+       "11:02"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-25",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      62.45,
+      null,
+      [
+       "01:01",
+       "01:02"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-25",
+       "PEPE",
+       "BUY"
+      ],
+      47.48,
+      59.27,
+      [
+       "01:15",
+       "01:16",
+       "01:18"
+      ],
+      [
+       "01:45",
+       "01:47",
+       "01:52"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-25",
+       "ZEC",
+       "SELL"
+      ],
+      48.96,
+      4.08,
+      [
+       "01:06"
+      ],
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-26",
+       "PEPE",
+       "BUY"
+      ],
+      null,
+      22.99,
+      null,
+      [
+       "01:00",
+       "01:50",
+       "01:52"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-27",
+       "BNB",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:05"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-27",
+       "PEPE",
+       "BUY"
+      ],
+      null,
+      18.23,
+      null,
+      [
+       "01:17"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-27",
+       "ZEC",
+       "SELL"
+      ],
+      14.08,
+      null,
+      [
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-28",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:02"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ETH",
+       "BUY"
+      ],
+      97.77,
+      null,
+      [
+       "01:04",
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-28",
+       "PEPE",
+       "SELL"
+      ],
+      22.9,
+      9.9,
+      [
+       "01:06"
+      ],
+      [
+       "01:51"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ZEC",
+       "SELL"
+      ],
+      37.23,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-29",
+       "PEPE",
+       "SELL"
+      ],
+      59.84,
+      48.91,
+      [
+       "02:20",
+       "03:00"
+      ],
+      [
+       "01:30"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "BNB",
+       "BUY"
+      ],
+      97.98,
+      null,
+      [
+       "01:15",
+       "01:15",
+       "01:16"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-30",
+       "PEPE",
+       "SELL"
+      ],
+      9.16,
+      3.97,
+      [
+       "01:14"
+      ],
+      [
+       "01:05"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-01",
+       "ETH",
+       "SELL"
+      ],
+      48.94,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-01",
+       "PEPE",
+       "SELL"
+      ],
+      null,
+      8.14,
+      null,
+      [
+       "01:02"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-02",
+       "ETH",
+       "SELL"
+      ],
+      48.93,
+      null,
+      [
+       "01:00"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-02",
+       "PEPE",
+       "SELL"
+      ],
+      null,
+      25.47,
+      null,
+      [
+       "01:05"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-10-02",
+       "SUI",
+       "BUY"
+      ],
+      48.88,
+      97.98,
+      [
+       "01:54"
+      ],
+      [
+       "01:14",
+       "01:18",
+       "01:25"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-03",
+       "SUI",
+       "BUY"
+      ],
+      48.32,
+      null,
+      [
+       "01:14"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-07",
+       "SUI",
+       "SELL"
+      ],
+      91.93,
+      null,
+      [
+       "11:33",
+       "12:18",
+       "13:00"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-08",
+       "SUI",
+       "SELL"
+      ],
+      null,
+      2.16,
+      null,
+      [
+       "13:03"
+      ]
+     ]
+    ]
+   },
+   "hourly_archive_new_s3_fee0.0014": {
+    "fills": 25,
+    "groups": 14,
+    "group_agreement_pct": 16.666666666666668,
+    "agree": 4,
+    "live_only": 10,
+    "sim_only": 4,
+    "size": 6,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 19.607843137254903,
+    "sim_ret_pct": -3.259691772765594,
+    "gap_pct": -1.5371079896335138,
+    "gap_bps_month": -313.64731464449216,
+    "max_abs_div_pct": 1.848142683163524,
+    "median_clip": 25.37353639689,
+    "skips": {
+     "spread exceeds limit": 157,
+     "exchange size limit": 9
+    },
+    "mismatches": [
+     [
+      "size",
+      [
+       "2026-09-24",
+       "PEPE",
+       "BUY"
+      ],
+      48.91,
+      97.92,
+      [
+       "01:21"
+      ],
+      [
+       "01:03",
+       "01:10",
+       "01:19"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-24",
+       "ZEC",
+       "SELL"
+      ],
+      1.14,
+      95.16,
+      [
+       "10:38"
+      ],
+      [
+       "10:02",
+       "11:12"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-25",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      95.33,
+      null,
+      [
+       "01:02",
+       "01:03",
+       "01:04"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-25",
+       "PEPE",
+       "BUY"
+      ],
+      47.48,
+      null,
+      [
+       "01:15",
+       "01:16",
+       "01:18"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-25",
+       "ZEC",
+       "SELL"
+      ],
+      48.96,
+      null,
+      [
+       "01:06"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-27",
+       "ZEC",
+       "SELL"
+      ],
+      14.08,
+      null,
+      [
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ETH",
+       "BUY"
+      ],
+      97.77,
+      null,
+      [
+       "01:04",
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-28",
+       "PEPE",
+       "SELL"
+      ],
+      22.9,
+      4.09,
+      [
+       "01:06"
+      ],
+      [
+       "01:05"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ZEC",
+       "SELL"
+      ],
+      37.23,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-29",
+       "PEPE",
+       "SELL"
+      ],
+      59.84,
+      48.91,
+      [
+       "02:20",
+       "03:00"
+      ],
+      [
+       "01:17"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "BNB",
+       "BUY"
+      ],
+      97.98,
+      null,
+      [
+       "01:15",
+       "01:15",
+       "01:16"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-30",
+       "PEPE",
+       "SELL"
+      ],
+      9.16,
+      16.99,
+      [
+       "01:14"
+      ],
+      [
+       "01:04"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-01",
+       "ETH",
+       "SELL"
+      ],
+      48.94,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-01",
+       "PEPE",
+       "SELL"
+      ],
+      null,
+      25.37,
+      null,
+      [
+       "01:10"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-01",
+       "SUI",
+       "BUY"
+      ],
+      null,
+      3.77,
+      null,
+      [
+       "01:41"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-02",
+       "ETH",
+       "SELL"
+      ],
+      48.93,
+      null,
+      [
+       "01:00"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-10-02",
+       "SUI",
+       "BUY"
+      ],
+      48.88,
+      94.24,
+      [
+       "01:54"
+      ],
+      [
+       "01:03",
+       "01:13",
+       "01:35"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-03",
+       "SUI",
+       "BUY"
+      ],
+      48.32,
+      null,
+      [
+       "01:14"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-07",
+       "SUI",
+       "SELL"
+      ],
+      91.93,
+      null,
+      [
+       "11:33",
+       "12:18",
+       "13:00"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-08",
+       "SUI",
+       "SELL"
+      ],
+      null,
+      31.11,
+      null,
+      [
+       "13:04"
+      ]
+     ]
+    ]
+   },
+   "hourly_archive_new_s3_fee0.003": {
+    "fills": 25,
+    "groups": 14,
+    "group_agreement_pct": 16.666666666666668,
+    "agree": 4,
+    "live_only": 10,
+    "sim_only": 4,
+    "size": 6,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 19.607843137254903,
+    "sim_ret_pct": -3.4982038681390937,
+    "gap_pct": -1.775620085007015,
+    "gap_bps_month": -362.3157743289454,
+    "max_abs_div_pct": 2.045314915580043,
+    "median_clip": 25.37353639689,
+    "skips": {
+     "spread exceeds limit": 157,
+     "exchange size limit": 9
+    },
+    "mismatches": [
+     [
+      "size",
+      [
+       "2026-09-24",
+       "PEPE",
+       "BUY"
+      ],
+      48.91,
+      97.92,
+      [
+       "01:21"
+      ],
+      [
+       "01:03",
+       "01:10",
+       "01:19"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-24",
+       "ZEC",
+       "SELL"
+      ],
+      1.14,
+      95.16,
+      [
+       "10:38"
+      ],
+      [
+       "10:02",
+       "11:12"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-25",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      95.33,
+      null,
+      [
+       "01:02",
+       "01:03",
+       "01:04"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-25",
+       "PEPE",
+       "BUY"
+      ],
+      47.48,
+      null,
+      [
+       "01:15",
+       "01:16",
+       "01:18"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-25",
+       "ZEC",
+       "SELL"
+      ],
+      48.96,
+      null,
+      [
+       "01:06"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-27",
+       "ZEC",
+       "SELL"
+      ],
+      14.08,
+      null,
+      [
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ETH",
+       "BUY"
+      ],
+      97.77,
+      null,
+      [
+       "01:04",
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-28",
+       "PEPE",
+       "SELL"
+      ],
+      22.9,
+      4.09,
+      [
+       "01:06"
+      ],
+      [
+       "01:05"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ZEC",
+       "SELL"
+      ],
+      37.23,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-29",
+       "PEPE",
+       "SELL"
+      ],
+      59.84,
+      48.91,
+      [
+       "02:20",
+       "03:00"
+      ],
+      [
+       "01:17"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "BNB",
+       "BUY"
+      ],
+      97.98,
+      null,
+      [
+       "01:15",
+       "01:15",
+       "01:16"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-30",
+       "PEPE",
+       "SELL"
+      ],
+      9.16,
+      16.99,
+      [
+       "01:14"
+      ],
+      [
+       "01:04"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-01",
+       "ETH",
+       "SELL"
+      ],
+      48.94,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-01",
+       "PEPE",
+       "SELL"
+      ],
+      null,
+      25.37,
+      null,
+      [
+       "01:10"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-01",
+       "SUI",
+       "BUY"
+      ],
+      null,
+      3.77,
+      null,
+      [
+       "01:41"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-02",
+       "ETH",
+       "SELL"
+      ],
+      48.93,
+      null,
+      [
+       "01:00"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-10-02",
+       "SUI",
+       "BUY"
+      ],
+      48.88,
+      94.24,
+      [
+       "01:54"
+      ],
+      [
+       "01:03",
+       "01:13",
+       "01:35"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-03",
+       "SUI",
+       "BUY"
+      ],
+      48.32,
+      null,
+      [
+       "01:14"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-07",
+       "SUI",
+       "SELL"
+      ],
+      91.93,
+      null,
+      [
+       "11:33",
+       "12:18",
+       "13:00"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-08",
+       "SUI",
+       "SELL"
+      ],
+      null,
+      31.11,
+      null,
+      [
+       "13:04"
+      ]
+     ]
+    ]
+   },
+   "hourly_proxy_new_s0_fee0.0014": {
+    "fills": 21,
+    "groups": 14,
+    "group_agreement_pct": 26.08695652173913,
+    "agree": 6,
+    "live_only": 9,
+    "sim_only": 3,
+    "size": 5,
+    "hour_timing_diff_in_agreed": 1,
+    "exact_key_agreement_pct": 26.666666666666668,
+    "sim_ret_pct": -2.8458156973298454,
+    "gap_pct": -1.1232319141977667,
+    "gap_bps_month": -229.19578584398562,
+    "max_abs_div_pct": 1.7052495433850277,
+    "median_clip": 48.91250947,
+    "skips": {},
+    "mismatches": [
+     [
+      "size",
+      [
+       "2026-09-24",
+       "PEPE",
+       "BUY"
+      ],
+      48.91,
+      97.83,
+      [
+       "01:21"
+      ],
+      [
+       "01:01",
+       "01:02"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-24",
+       "ZEC",
+       "SELL"
+      ],
+      1.14,
+      95.22,
+      [
+       "10:38"
+      ],
+      [
+       "10:00",
+       "11:00"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-25",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      97.83,
+      null,
+      [
+       "01:00",
+       "01:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-25",
+       "PEPE",
+       "BUY"
+      ],
+      47.48,
+      null,
+      [
+       "01:15",
+       "01:16",
+       "01:18"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-25",
+       "ZEC",
+       "SELL"
+      ],
+      48.96,
+      null,
+      [
+       "01:06"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-27",
+       "ZEC",
+       "SELL"
+      ],
+      14.08,
+      null,
+      [
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ETH",
+       "BUY"
+      ],
+      97.77,
+      null,
+      [
+       "01:04",
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-28",
+       "PEPE",
+       "SELL"
+      ],
+      22.9,
+      48.91,
+      [
+       "01:06"
+      ],
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ZEC",
+       "SELL"
+      ],
+      37.23,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-29",
+       "ETH",
+       "BUY"
+      ],
+      null,
+      97.82,
+      null,
+      [
+       "01:00",
+       "01:01"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-29",
+       "PEPE",
+       "SELL"
+      ],
+      59.84,
+      47.27,
+      [
+       "02:20",
+       "03:00"
+      ],
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "BNB",
+       "BUY"
+      ],
+      97.98,
+      null,
+      [
+       "01:15",
+       "01:15",
+       "01:16"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "PEPE",
+       "SELL"
+      ],
+      9.16,
+      null,
+      [
+       "01:14"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-01",
+       "ETH",
+       "SELL"
+      ],
+      48.94,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-02",
+       "SUI",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:54"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-03",
+       "ETH",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-10-03",
+       "SUI",
+       "BUY"
+      ],
+      48.32,
+      97.83,
+      [
+       "01:14"
+      ],
+      [
+       "01:01",
+       "01:02"
+      ]
+     ]
+    ]
+   },
+   "hourly_proxy_new_s0_fee0.003": {
+    "fills": 21,
+    "groups": 14,
+    "group_agreement_pct": 26.08695652173913,
+    "agree": 6,
+    "live_only": 9,
+    "sim_only": 3,
+    "size": 5,
+    "hour_timing_diff_in_agreed": 1,
+    "exact_key_agreement_pct": 26.666666666666668,
+    "sim_ret_pct": -3.1675448745728807,
+    "gap_pct": -1.444961091440803,
+    "gap_bps_month": -294.84471432891246,
+    "max_abs_div_pct": 1.841193238025969,
+    "median_clip": 48.91250947,
+    "skips": {},
+    "mismatches": [
+     [
+      "size",
+      [
+       "2026-09-24",
+       "PEPE",
+       "BUY"
+      ],
+      48.91,
+      97.83,
+      [
+       "01:21"
+      ],
+      [
+       "01:01",
+       "01:02"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-24",
+       "ZEC",
+       "SELL"
+      ],
+      1.14,
+      95.22,
+      [
+       "10:38"
+      ],
+      [
+       "10:00",
+       "11:00"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-25",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      97.83,
+      null,
+      [
+       "01:00",
+       "01:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-25",
+       "PEPE",
+       "BUY"
+      ],
+      47.48,
+      null,
+      [
+       "01:15",
+       "01:16",
+       "01:18"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-25",
+       "ZEC",
+       "SELL"
+      ],
+      48.96,
+      null,
+      [
+       "01:06"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-27",
+       "ZEC",
+       "SELL"
+      ],
+      14.08,
+      null,
+      [
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ETH",
+       "BUY"
+      ],
+      97.77,
+      null,
+      [
+       "01:04",
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-28",
+       "PEPE",
+       "SELL"
+      ],
+      22.9,
+      48.91,
+      [
+       "01:06"
+      ],
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ZEC",
+       "SELL"
+      ],
+      37.23,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-29",
+       "ETH",
+       "BUY"
+      ],
+      null,
+      97.82,
+      null,
+      [
+       "01:00",
+       "01:01"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-29",
+       "PEPE",
+       "SELL"
+      ],
+      59.84,
+      47.27,
+      [
+       "02:20",
+       "03:00"
+      ],
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "BNB",
+       "BUY"
+      ],
+      97.98,
+      null,
+      [
+       "01:15",
+       "01:15",
+       "01:16"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "PEPE",
+       "SELL"
+      ],
+      9.16,
+      null,
+      [
+       "01:14"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-01",
+       "ETH",
+       "SELL"
+      ],
+      48.94,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-02",
+       "SUI",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:54"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-03",
+       "ETH",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-10-03",
+       "SUI",
+       "BUY"
+      ],
+      48.32,
+      97.83,
+      [
+       "01:14"
+      ],
+      [
+       "01:01",
+       "01:02"
+      ]
+     ]
+    ]
+   },
+   "hourly_proxy_old_s0_fee0.0014": {
+    "fills": 21,
+    "groups": 14,
+    "group_agreement_pct": 26.08695652173913,
+    "agree": 6,
+    "live_only": 9,
+    "sim_only": 3,
+    "size": 5,
+    "hour_timing_diff_in_agreed": 1,
+    "exact_key_agreement_pct": 26.666666666666668,
+    "sim_ret_pct": -2.8458156973298454,
+    "gap_pct": -1.1232319141977667,
+    "gap_bps_month": -229.19578584398562,
+    "max_abs_div_pct": 1.7052495433850277,
+    "median_clip": 48.91250947,
+    "skips": {},
+    "mismatches": [
+     [
+      "size",
+      [
+       "2026-09-24",
+       "PEPE",
+       "BUY"
+      ],
+      48.91,
+      97.83,
+      [
+       "01:21"
+      ],
+      [
+       "01:01",
+       "01:02"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-24",
+       "ZEC",
+       "SELL"
+      ],
+      1.14,
+      95.22,
+      [
+       "10:38"
+      ],
+      [
+       "10:00",
+       "11:00"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-25",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      97.83,
+      null,
+      [
+       "01:00",
+       "01:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-25",
+       "PEPE",
+       "BUY"
+      ],
+      47.48,
+      null,
+      [
+       "01:15",
+       "01:16",
+       "01:18"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-25",
+       "ZEC",
+       "SELL"
+      ],
+      48.96,
+      null,
+      [
+       "01:06"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-27",
+       "ZEC",
+       "SELL"
+      ],
+      14.08,
+      null,
+      [
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ETH",
+       "BUY"
+      ],
+      97.77,
+      null,
+      [
+       "01:04",
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-28",
+       "PEPE",
+       "SELL"
+      ],
+      22.9,
+      48.91,
+      [
+       "01:06"
+      ],
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ZEC",
+       "SELL"
+      ],
+      37.23,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-29",
+       "ETH",
+       "BUY"
+      ],
+      null,
+      97.82,
+      null,
+      [
+       "01:00",
+       "01:01"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-29",
+       "PEPE",
+       "SELL"
+      ],
+      59.84,
+      47.27,
+      [
+       "02:20",
+       "03:00"
+      ],
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "BNB",
+       "BUY"
+      ],
+      97.98,
+      null,
+      [
+       "01:15",
+       "01:15",
+       "01:16"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "PEPE",
+       "SELL"
+      ],
+      9.16,
+      null,
+      [
+       "01:14"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-01",
+       "ETH",
+       "SELL"
+      ],
+      48.94,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-02",
+       "SUI",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:54"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-03",
+       "ETH",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-10-03",
+       "SUI",
+       "BUY"
+      ],
+      48.32,
+      97.83,
+      [
+       "01:14"
+      ],
+      [
+       "01:01",
+       "01:02"
+      ]
+     ]
+    ]
+   },
+   "hourly_proxy_old_s0_fee0.003": {
+    "fills": 21,
+    "groups": 14,
+    "group_agreement_pct": 26.08695652173913,
+    "agree": 6,
+    "live_only": 9,
+    "sim_only": 3,
+    "size": 5,
+    "hour_timing_diff_in_agreed": 1,
+    "exact_key_agreement_pct": 26.666666666666668,
+    "sim_ret_pct": -3.1675448745728807,
+    "gap_pct": -1.444961091440803,
+    "gap_bps_month": -294.84471432891246,
+    "max_abs_div_pct": 1.841193238025969,
+    "median_clip": 48.91250947,
+    "skips": {},
+    "mismatches": [
+     [
+      "size",
+      [
+       "2026-09-24",
+       "PEPE",
+       "BUY"
+      ],
+      48.91,
+      97.83,
+      [
+       "01:21"
+      ],
+      [
+       "01:01",
+       "01:02"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-24",
+       "ZEC",
+       "SELL"
+      ],
+      1.14,
+      95.22,
+      [
+       "10:38"
+      ],
+      [
+       "10:00",
+       "11:00"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-25",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      97.83,
+      null,
+      [
+       "01:00",
+       "01:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-25",
+       "PEPE",
+       "BUY"
+      ],
+      47.48,
+      null,
+      [
+       "01:15",
+       "01:16",
+       "01:18"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-25",
+       "ZEC",
+       "SELL"
+      ],
+      48.96,
+      null,
+      [
+       "01:06"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-27",
+       "ZEC",
+       "SELL"
+      ],
+      14.08,
+      null,
+      [
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ETH",
+       "BUY"
+      ],
+      97.77,
+      null,
+      [
+       "01:04",
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-28",
+       "PEPE",
+       "SELL"
+      ],
+      22.9,
+      48.91,
+      [
+       "01:06"
+      ],
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ZEC",
+       "SELL"
+      ],
+      37.23,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-29",
+       "ETH",
+       "BUY"
+      ],
+      null,
+      97.82,
+      null,
+      [
+       "01:00",
+       "01:01"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-29",
+       "PEPE",
+       "SELL"
+      ],
+      59.84,
+      47.27,
+      [
+       "02:20",
+       "03:00"
+      ],
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "BNB",
+       "BUY"
+      ],
+      97.98,
+      null,
+      [
+       "01:15",
+       "01:15",
+       "01:16"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "PEPE",
+       "SELL"
+      ],
+      9.16,
+      null,
+      [
+       "01:14"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-01",
+       "ETH",
+       "SELL"
+      ],
+      48.94,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-02",
+       "SUI",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:54"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-03",
+       "ETH",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-10-03",
+       "SUI",
+       "BUY"
+      ],
+      48.32,
+      97.83,
+      [
+       "01:14"
+      ],
+      [
+       "01:01",
+       "01:02"
+      ]
+     ]
+    ]
+   },
+   "minute_archive_new_s1_fee0.0014": {
+    "fills": 33,
+    "groups": 16,
+    "group_agreement_pct": 20.0,
+    "agree": 5,
+    "live_only": 9,
+    "sim_only": 5,
+    "size": 6,
+    "hour_timing_diff_in_agreed": 1,
+    "exact_key_agreement_pct": 21.05263157894737,
+    "sim_ret_pct": -3.6868161339406957,
+    "gap_pct": -1.9642323508086177,
+    "gap_bps_month": -400.8021598507529,
+    "max_abs_div_pct": 2.220890638546788,
+    "median_clip": 36.66176376,
+    "skips": {
+     "spread exceeds limit": 244,
+     "exchange size limit": 9
+    },
+    "mismatches": [
+     [
+      "size",
+      [
+       "2026-09-24",
+       "BNB",
+       "SELL"
+      ],
+      48.91,
+      27.79,
+      [
+       "01:00"
+      ],
+      [
+       "01:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-24",
+       "PEPE",
+       "BUY"
+      ],
+      48.91,
+      null,
+      [
+       "01:21"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-24",
+       "ZEC",
+       "SELL"
+      ],
+      1.14,
+      60.26,
+      [
+       "10:38"
+      ],
+      [
+       "09:36",
+       "10:04"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-25",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      76.23,
+      null,
+      [
+       "01:00",
+       "01:01",
+       "01:05"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-25",
+       "PEPE",
+       "BUY"
+      ],
+      47.48,
+      98.52,
+      [
+       "01:15",
+       "01:16",
+       "01:18"
+      ],
+      [
+       "01:03",
+       "01:08",
+       "01:12"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-25",
+       "ZEC",
+       "SELL"
+      ],
+      48.96,
+      36.66,
+      [
+       "01:06"
+      ],
+      [
+       "01:03"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-27",
+       "BNB",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:02"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-27",
+       "ZEC",
+       "SELL"
+      ],
+      14.08,
+      null,
+      [
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-28",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:02"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ETH",
+       "BUY"
+      ],
+      97.77,
+      null,
+      [
+       "01:04",
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-28",
+       "PEPE",
+       "SELL"
+      ],
+      22.9,
+      91.61,
+      [
+       "01:06"
+      ],
+      [
+       "01:03",
+       "07:28",
+       "09:10"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ZEC",
+       "SELL"
+      ],
+      37.23,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-29",
+       "ETH",
+       "BUY"
+      ],
+      null,
+      97.82,
+      null,
+      [
+       "01:00",
+       "01:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-29",
+       "PEPE",
+       "SELL"
+      ],
+      59.84,
+      null,
+      [
+       "02:20",
+       "03:00"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "BNB",
+       "BUY"
+      ],
+      97.98,
+      null,
+      [
+       "01:15",
+       "01:15",
+       "01:16"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "PEPE",
+       "SELL"
+      ],
+      9.16,
+      null,
+      [
+       "01:14"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-01",
+       "ETH",
+       "SELL"
+      ],
+      48.94,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-02",
+       "SUI",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:54"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-03",
+       "ETH",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-10-03",
+       "SUI",
+       "BUY"
+      ],
+      48.32,
+      97.83,
+      [
+       "01:14"
+      ],
+      [
+       "01:13",
+       "01:39"
+      ]
+     ]
+    ]
+   },
+   "minute_archive_new_s1_fee0.003": {
+    "fills": 33,
+    "groups": 16,
+    "group_agreement_pct": 20.0,
+    "agree": 5,
+    "live_only": 9,
+    "sim_only": 5,
+    "size": 6,
+    "hour_timing_diff_in_agreed": 1,
+    "exact_key_agreement_pct": 21.05263157894737,
+    "sim_ret_pct": -4.025439735105085,
+    "gap_pct": -2.3028559519730045,
+    "gap_bps_month": -469.89840025594407,
+    "max_abs_div_pct": 2.5455638592434884,
+    "median_clip": 36.66176376,
+    "skips": {
+     "spread exceeds limit": 244,
+     "exchange size limit": 9
+    },
+    "mismatches": [
+     [
+      "size",
+      [
+       "2026-09-24",
+       "BNB",
+       "SELL"
+      ],
+      48.91,
+      27.79,
+      [
+       "01:00"
+      ],
+      [
+       "01:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-24",
+       "PEPE",
+       "BUY"
+      ],
+      48.91,
+      null,
+      [
+       "01:21"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-24",
+       "ZEC",
+       "SELL"
+      ],
+      1.14,
+      60.26,
+      [
+       "10:38"
+      ],
+      [
+       "09:36",
+       "10:04"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-25",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      76.23,
+      null,
+      [
+       "01:00",
+       "01:01",
+       "01:05"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-25",
+       "PEPE",
+       "BUY"
+      ],
+      47.48,
+      98.52,
+      [
+       "01:15",
+       "01:16",
+       "01:18"
+      ],
+      [
+       "01:03",
+       "01:08",
+       "01:12"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-25",
+       "ZEC",
+       "SELL"
+      ],
+      48.96,
+      36.66,
+      [
+       "01:06"
+      ],
+      [
+       "01:03"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-27",
+       "BNB",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:02"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-27",
+       "ZEC",
+       "SELL"
+      ],
+      14.08,
+      null,
+      [
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-28",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:02"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ETH",
+       "BUY"
+      ],
+      97.77,
+      null,
+      [
+       "01:04",
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-28",
+       "PEPE",
+       "SELL"
+      ],
+      22.9,
+      91.61,
+      [
+       "01:06"
+      ],
+      [
+       "01:03",
+       "07:28",
+       "09:10"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ZEC",
+       "SELL"
+      ],
+      37.23,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-29",
+       "ETH",
+       "BUY"
+      ],
+      null,
+      97.82,
+      null,
+      [
+       "01:00",
+       "01:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-29",
+       "PEPE",
+       "SELL"
+      ],
+      59.84,
+      null,
+      [
+       "02:20",
+       "03:00"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "BNB",
+       "BUY"
+      ],
+      97.98,
+      null,
+      [
+       "01:15",
+       "01:15",
+       "01:16"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "PEPE",
+       "SELL"
+      ],
+      9.16,
+      null,
+      [
+       "01:14"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-01",
+       "ETH",
+       "SELL"
+      ],
+      48.94,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-02",
+       "SUI",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:54"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-03",
+       "ETH",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-10-03",
+       "SUI",
+       "BUY"
+      ],
+      48.32,
+      97.83,
+      [
+       "01:14"
+      ],
+      [
+       "01:13",
+       "01:39"
+      ]
+     ]
+    ]
+   },
+   "minute_archive_new_s2_fee0.0014": {
+    "fills": 41,
+    "groups": 18,
+    "group_agreement_pct": 17.857142857142858,
+    "agree": 5,
+    "live_only": 10,
+    "sim_only": 8,
+    "size": 5,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 26.229508196721312,
+    "sim_ret_pct": -3.665072152997406,
+    "gap_pct": -1.9424883698653286,
+    "gap_bps_month": -396.36529446553703,
+    "max_abs_div_pct": 2.4914890062353074,
+    "median_clip": 18.13034169,
+    "skips": {
+     "spread exceeds limit": 404,
+     "exchange size limit": 23
+    },
+    "mismatches": [
+     [
+      "size",
+      [
+       "2026-09-24",
+       "BNB",
+       "SELL"
+      ],
+      48.91,
+      14.12,
+      [
+       "01:00"
+      ],
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-24",
+       "PEPE",
+       "BUY"
+      ],
+      48.91,
+      null,
+      [
+       "01:21"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-24",
+       "ZEC",
+       "SELL"
+      ],
+      1.14,
+      95.32,
+      [
+       "10:38"
+      ],
+      [
+       "09:36",
+       "10:13",
+       "11:02"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-25",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      62.42,
+      null,
+      [
+       "01:01",
+       "01:02"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-25",
+       "PEPE",
+       "BUY"
+      ],
+      47.48,
+      59.27,
+      [
+       "01:15",
+       "01:16",
+       "01:18"
+      ],
+      [
+       "01:45",
+       "01:47",
+       "01:52"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-25",
+       "ZEC",
+       "SELL"
+      ],
+      48.96,
+      null,
+      [
+       "01:06"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-26",
+       "PEPE",
+       "BUY"
+      ],
+      null,
+      22.99,
+      null,
+      [
+       "01:00",
+       "01:50",
+       "01:52"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-27",
+       "BNB",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:05"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-27",
+       "PEPE",
+       "BUY"
+      ],
+      null,
+      17.76,
+      null,
+      [
+       "01:17"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-27",
+       "ZEC",
+       "SELL"
+      ],
+      14.08,
+      null,
+      [
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-28",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:02"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ETH",
+       "BUY"
+      ],
+      97.77,
+      null,
+      [
+       "01:04",
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-28",
+       "PEPE",
+       "SELL"
+      ],
+      22.9,
+      93.64,
+      [
+       "01:06"
+      ],
+      [
+       "01:51",
+       "05:36",
+       "07:32"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ZEC",
+       "SELL"
+      ],
+      37.23,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-29",
+       "ETH",
+       "BUY"
+      ],
+      null,
+      97.82,
+      null,
+      [
+       "01:00",
+       "01:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-29",
+       "PEPE",
+       "SELL"
+      ],
+      59.84,
+      null,
+      [
+       "02:20",
+       "03:00"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "BNB",
+       "BUY"
+      ],
+      97.98,
+      null,
+      [
+       "01:15",
+       "01:15",
+       "01:16"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "PEPE",
+       "SELL"
+      ],
+      9.16,
+      null,
+      [
+       "01:14"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-01",
+       "ETH",
+       "SELL"
+      ],
+      48.94,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-02",
+       "SUI",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:54"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-03",
+       "ETH",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-10-03",
+       "SUI",
+       "BUY"
+      ],
+      48.32,
+      26.29,
+      [
+       "01:14"
+      ],
+      [
+       "01:30"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-04",
+       "SUI",
+       "BUY"
+      ],
+      null,
+      65.38,
+      null,
+      [
+       "01:13",
+       "01:38",
+       "01:43"
+      ]
+     ]
+    ]
+   },
+   "minute_archive_new_s2_fee0.003": {
+    "fills": 41,
+    "groups": 18,
+    "group_agreement_pct": 17.857142857142858,
+    "agree": 5,
+    "live_only": 10,
+    "sim_only": 8,
+    "size": 5,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 26.229508196721312,
+    "sim_ret_pct": -3.9898095539526057,
+    "gap_pct": -2.2672257708205232,
+    "gap_bps_month": -462.6280518392157,
+    "max_abs_div_pct": 2.667130802174164,
+    "median_clip": 18.13034169,
+    "skips": {
+     "spread exceeds limit": 404,
+     "exchange size limit": 23
+    },
+    "mismatches": [
+     [
+      "size",
+      [
+       "2026-09-24",
+       "BNB",
+       "SELL"
+      ],
+      48.91,
+      14.12,
+      [
+       "01:00"
+      ],
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-24",
+       "PEPE",
+       "BUY"
+      ],
+      48.91,
+      null,
+      [
+       "01:21"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-24",
+       "ZEC",
+       "SELL"
+      ],
+      1.14,
+      95.32,
+      [
+       "10:38"
+      ],
+      [
+       "09:36",
+       "10:13",
+       "11:02"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-25",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      62.42,
+      null,
+      [
+       "01:01",
+       "01:02"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-25",
+       "PEPE",
+       "BUY"
+      ],
+      47.48,
+      59.27,
+      [
+       "01:15",
+       "01:16",
+       "01:18"
+      ],
+      [
+       "01:45",
+       "01:47",
+       "01:52"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-25",
+       "ZEC",
+       "SELL"
+      ],
+      48.96,
+      null,
+      [
+       "01:06"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-26",
+       "PEPE",
+       "BUY"
+      ],
+      null,
+      22.99,
+      null,
+      [
+       "01:00",
+       "01:50",
+       "01:52"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-27",
+       "BNB",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:05"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-27",
+       "PEPE",
+       "BUY"
+      ],
+      null,
+      17.76,
+      null,
+      [
+       "01:17"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-27",
+       "ZEC",
+       "SELL"
+      ],
+      14.08,
+      null,
+      [
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-28",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:02"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ETH",
+       "BUY"
+      ],
+      97.77,
+      null,
+      [
+       "01:04",
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-28",
+       "PEPE",
+       "SELL"
+      ],
+      22.9,
+      93.64,
+      [
+       "01:06"
+      ],
+      [
+       "01:51",
+       "05:36",
+       "07:32"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ZEC",
+       "SELL"
+      ],
+      37.23,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-29",
+       "ETH",
+       "BUY"
+      ],
+      null,
+      97.63,
+      null,
+      [
+       "01:00",
+       "01:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-29",
+       "PEPE",
+       "SELL"
+      ],
+      59.84,
+      null,
+      [
+       "02:20",
+       "03:00"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "BNB",
+       "BUY"
+      ],
+      97.98,
+      null,
+      [
+       "01:15",
+       "01:15",
+       "01:16"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "PEPE",
+       "SELL"
+      ],
+      9.16,
+      null,
+      [
+       "01:14"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-01",
+       "ETH",
+       "SELL"
+      ],
+      48.94,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-02",
+       "SUI",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:54"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-03",
+       "ETH",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-10-03",
+       "SUI",
+       "BUY"
+      ],
+      48.32,
+      26.29,
+      [
+       "01:14"
+      ],
+      [
+       "01:30"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-04",
+       "SUI",
+       "BUY"
+      ],
+      null,
+      65.38,
+      null,
+      [
+       "01:13",
+       "01:38",
+       "01:43"
+      ]
+     ]
+    ]
+   },
+   "minute_archive_new_s3_fee0.0014": {
+    "fills": 39,
+    "groups": 14,
+    "group_agreement_pct": 25.0,
+    "agree": 6,
+    "live_only": 10,
+    "sim_only": 4,
+    "size": 4,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 22.950819672131146,
+    "sim_ret_pct": -3.2208804456151707,
+    "gap_pct": -1.4982966624830925,
+    "gap_bps_month": -305.7278524982959,
+    "max_abs_div_pct": 1.8304722108783134,
+    "median_clip": 19.00459539384,
+    "skips": {
+     "spread exceeds limit": 407,
+     "exchange size limit": 12
+    },
+    "mismatches": [
+     [
+      "size",
+      [
+       "2026-09-24",
+       "PEPE",
+       "BUY"
+      ],
+      48.91,
+      97.76,
+      [
+       "01:21"
+      ],
+      [
+       "01:03",
+       "01:10",
+       "01:19"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-24",
+       "ZEC",
+       "SELL"
+      ],
+      1.14,
+      95.45,
+      [
+       "10:38"
+      ],
+      [
+       "09:46",
+       "10:02"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-25",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      95.33,
+      null,
+      [
+       "01:02",
+       "01:03",
+       "01:04"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-25",
+       "PEPE",
+       "BUY"
+      ],
+      47.48,
+      null,
+      [
+       "01:15",
+       "01:16",
+       "01:18"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-25",
+       "ZEC",
+       "SELL"
+      ],
+      48.96,
+      null,
+      [
+       "01:06"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-27",
+       "ZEC",
+       "SELL"
+      ],
+      14.08,
+      null,
+      [
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ETH",
+       "BUY"
+      ],
+      97.77,
+      null,
+      [
+       "01:04",
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-28",
+       "PEPE",
+       "SELL"
+      ],
+      22.9,
+      93.64,
+      [
+       "01:06"
+      ],
+      [
+       "01:05",
+       "05:40",
+       "07:30"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ZEC",
+       "SELL"
+      ],
+      37.23,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-29",
+       "ETH",
+       "BUY"
+      ],
+      null,
+      97.82,
+      null,
+      [
+       "01:00",
+       "01:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-29",
+       "PEPE",
+       "SELL"
+      ],
+      59.84,
+      null,
+      [
+       "02:20",
+       "03:00"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "BNB",
+       "BUY"
+      ],
+      97.98,
+      null,
+      [
+       "01:15",
+       "01:15",
+       "01:16"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "PEPE",
+       "SELL"
+      ],
+      9.16,
+      null,
+      [
+       "01:14"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-01",
+       "ETH",
+       "SELL"
+      ],
+      48.94,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-02",
+       "SUI",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:54"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-03",
+       "ETH",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-10-03",
+       "SUI",
+       "BUY"
+      ],
+      48.32,
+      28.21,
+      [
+       "01:14"
+      ],
+      [
+       "01:09",
+       "01:15"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-04",
+       "SUI",
+       "BUY"
+      ],
+      null,
+      70.03,
+      null,
+      [
+       "01:06",
+       "01:08",
+       "01:32"
+      ]
+     ]
+    ]
+   },
+   "minute_archive_new_s3_fee0.003": {
+    "fills": 39,
+    "groups": 14,
+    "group_agreement_pct": 25.0,
+    "agree": 6,
+    "live_only": 10,
+    "sim_only": 4,
+    "size": 4,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 22.950819672131146,
+    "sim_ret_pct": -3.5417100974915128,
+    "gap_pct": -1.8191263143594367,
+    "gap_bps_month": -371.1932325808851,
+    "max_abs_div_pct": 2.0270823106380598,
+    "median_clip": 19.00459539384,
+    "skips": {
+     "spread exceeds limit": 407,
+     "exchange size limit": 12
+    },
+    "mismatches": [
+     [
+      "size",
+      [
+       "2026-09-24",
+       "PEPE",
+       "BUY"
+      ],
+      48.91,
+      97.76,
+      [
+       "01:21"
+      ],
+      [
+       "01:03",
+       "01:10",
+       "01:19"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-24",
+       "ZEC",
+       "SELL"
+      ],
+      1.14,
+      95.45,
+      [
+       "10:38"
+      ],
+      [
+       "09:46",
+       "10:02"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-25",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      95.33,
+      null,
+      [
+       "01:02",
+       "01:03",
+       "01:04"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-25",
+       "PEPE",
+       "BUY"
+      ],
+      47.48,
+      null,
+      [
+       "01:15",
+       "01:16",
+       "01:18"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-25",
+       "ZEC",
+       "SELL"
+      ],
+      48.96,
+      null,
+      [
+       "01:06"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-27",
+       "ZEC",
+       "SELL"
+      ],
+      14.08,
+      null,
+      [
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ETH",
+       "BUY"
+      ],
+      97.77,
+      null,
+      [
+       "01:04",
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-28",
+       "PEPE",
+       "SELL"
+      ],
+      22.9,
+      93.64,
+      [
+       "01:06"
+      ],
+      [
+       "01:05",
+       "05:40",
+       "07:30"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ZEC",
+       "SELL"
+      ],
+      37.23,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-29",
+       "ETH",
+       "BUY"
+      ],
+      null,
+      97.82,
+      null,
+      [
+       "01:00",
+       "01:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-29",
+       "PEPE",
+       "SELL"
+      ],
+      59.84,
+      null,
+      [
+       "02:20",
+       "03:00"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "BNB",
+       "BUY"
+      ],
+      97.98,
+      null,
+      [
+       "01:15",
+       "01:15",
+       "01:16"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "PEPE",
+       "SELL"
+      ],
+      9.16,
+      null,
+      [
+       "01:14"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-01",
+       "ETH",
+       "SELL"
+      ],
+      48.94,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-02",
+       "SUI",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:54"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-03",
+       "ETH",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-10-03",
+       "SUI",
+       "BUY"
+      ],
+      48.32,
+      28.21,
+      [
+       "01:14"
+      ],
+      [
+       "01:09",
+       "01:15"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-04",
+       "SUI",
+       "BUY"
+      ],
+      null,
+      70.03,
+      null,
+      [
+       "01:06",
+       "01:08",
+       "01:32"
+      ]
+     ]
+    ]
+   },
+   "minute_recorded_new_s1_fee0.0014": {
+    "fills": 28,
+    "groups": 18,
+    "group_agreement_pct": 17.24137931034483,
+    "agree": 5,
+    "live_only": 11,
+    "sim_only": 9,
+    "size": 4,
+    "hour_timing_diff_in_agreed": 1,
+    "exact_key_agreement_pct": 20.754716981132077,
+    "sim_ret_pct": -2.9420724475615168,
+    "gap_pct": -1.2194886644294354,
+    "gap_bps_month": -248.83700261611807,
+    "max_abs_div_pct": 1.7680854496166774,
+    "median_clip": 48.91167319,
+    "skips": {
+     "spread exceeds limit": 303,
+     "exchange size limit": 34
+    },
+    "mismatches": [
+     [
+      "size",
+      [
+       "2026-09-24",
+       "BNB",
+       "SELL"
+      ],
+      48.91,
+      27.79,
+      [
+       "01:00"
+      ],
+      [
+       "01:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-24",
+       "PEPE",
+       "BUY"
+      ],
+      48.91,
+      null,
+      [
+       "01:21"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-24",
+       "ZEC",
+       "SELL"
+      ],
+      1.14,
+      22.29,
+      [
+       "10:38"
+      ],
+      [
+       "10:38",
+       "11:01"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-25",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      76.28,
+      null,
+      [
+       "01:00",
+       "01:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-25",
+       "PEPE",
+       "BUY"
+      ],
+      47.48,
+      null,
+      [
+       "01:15",
+       "01:16",
+       "01:18"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-26",
+       "PEPE",
+       "BUY"
+      ],
+      null,
+      97.83,
+      null,
+      [
+       "01:12",
+       "01:13"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-26",
+       "ZEC",
+       "SELL"
+      ],
+      null,
+      27.53,
+      null,
+      [
+       "01:12"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-27",
+       "BNB",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:09"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-27",
+       "ZEC",
+       "SELL"
+      ],
+      14.08,
+      null,
+      [
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-28",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ETH",
+       "BUY"
+      ],
+      97.77,
+      null,
+      [
+       "01:04",
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "PEPE",
+       "SELL"
+      ],
+      22.9,
+      null,
+      [
+       "01:06"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ZEC",
+       "SELL"
+      ],
+      37.23,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-29",
+       "PEPE",
+       "SELL"
+      ],
+      59.84,
+      48.91,
+      [
+       "02:20",
+       "03:00"
+      ],
+      [
+       "01:53"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "BNB",
+       "BUY"
+      ],
+      97.98,
+      null,
+      [
+       "01:15",
+       "01:15",
+       "01:16"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-30",
+       "ETH",
+       "BUY"
+      ],
+      null,
+      97.83,
+      null,
+      [
+       "01:25",
+       "01:26"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-30",
+       "PEPE",
+       "SELL"
+      ],
+      9.16,
+      42.74,
+      [
+       "01:14"
+      ],
+      [
+       "01:25"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-01",
+       "ETH",
+       "SELL"
+      ],
+      48.94,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-02",
+       "ETH",
+       "SELL"
+      ],
+      48.93,
+      null,
+      [
+       "01:00"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-02",
+       "SUI",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:54"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-03",
+       "ETH",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:25"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-03",
+       "SUI",
+       "BUY"
+      ],
+      48.32,
+      null,
+      [
+       "01:14"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-04",
+       "ETH",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-04",
+       "SUI",
+       "BUY"
+      ],
+      null,
+      89.95,
+      null,
+      [
+       "01:21",
+       "01:27",
+       "01:34"
+      ]
+     ]
+    ]
+   },
+   "minute_recorded_new_s1_fee0.003": {
+    "fills": 28,
+    "groups": 18,
+    "group_agreement_pct": 17.24137931034483,
+    "agree": 5,
+    "live_only": 11,
+    "sim_only": 9,
+    "size": 4,
+    "hour_timing_diff_in_agreed": 1,
+    "exact_key_agreement_pct": 20.754716981132077,
+    "sim_ret_pct": -3.276729221355612,
+    "gap_pct": -1.5541454382235347,
+    "gap_bps_month": -317.1238107883497,
+    "max_abs_div_pct": 1.9385457071081025,
+    "median_clip": 48.91167319,
+    "skips": {
+     "spread exceeds limit": 303,
+     "exchange size limit": 34
+    },
+    "mismatches": [
+     [
+      "size",
+      [
+       "2026-09-24",
+       "BNB",
+       "SELL"
+      ],
+      48.91,
+      27.79,
+      [
+       "01:00"
+      ],
+      [
+       "01:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-24",
+       "PEPE",
+       "BUY"
+      ],
+      48.91,
+      null,
+      [
+       "01:21"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-24",
+       "ZEC",
+       "SELL"
+      ],
+      1.14,
+      22.29,
+      [
+       "10:38"
+      ],
+      [
+       "10:38",
+       "11:01"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-25",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      76.28,
+      null,
+      [
+       "01:00",
+       "01:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-25",
+       "PEPE",
+       "BUY"
+      ],
+      47.48,
+      null,
+      [
+       "01:15",
+       "01:16",
+       "01:18"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-26",
+       "PEPE",
+       "BUY"
+      ],
+      null,
+      97.83,
+      null,
+      [
+       "01:12",
+       "01:13"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-26",
+       "ZEC",
+       "SELL"
+      ],
+      null,
+      27.53,
+      null,
+      [
+       "01:12"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-27",
+       "BNB",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:09"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-27",
+       "ZEC",
+       "SELL"
+      ],
+      14.08,
+      null,
+      [
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-28",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ETH",
+       "BUY"
+      ],
+      97.77,
+      null,
+      [
+       "01:04",
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "PEPE",
+       "SELL"
+      ],
+      22.9,
+      null,
+      [
+       "01:06"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ZEC",
+       "SELL"
+      ],
+      37.23,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-29",
+       "PEPE",
+       "SELL"
+      ],
+      59.84,
+      48.91,
+      [
+       "02:20",
+       "03:00"
+      ],
+      [
+       "01:53"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "BNB",
+       "BUY"
+      ],
+      97.98,
+      null,
+      [
+       "01:15",
+       "01:15",
+       "01:16"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-30",
+       "ETH",
+       "BUY"
+      ],
+      null,
+      97.83,
+      null,
+      [
+       "01:25",
+       "01:26"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-30",
+       "PEPE",
+       "SELL"
+      ],
+      9.16,
+      42.74,
+      [
+       "01:14"
+      ],
+      [
+       "01:25"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-01",
+       "ETH",
+       "SELL"
+      ],
+      48.94,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-02",
+       "ETH",
+       "SELL"
+      ],
+      48.93,
+      null,
+      [
+       "01:00"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-02",
+       "SUI",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:54"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-03",
+       "ETH",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:25"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-03",
+       "SUI",
+       "BUY"
+      ],
+      48.32,
+      null,
+      [
+       "01:14"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-04",
+       "ETH",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-04",
+       "SUI",
+       "BUY"
+      ],
+      null,
+      89.95,
+      null,
+      [
+       "01:21",
+       "01:27",
+       "01:34"
+      ]
+     ]
+    ]
+   },
+   "minute_recorded_new_s2_fee0.0014": {
+    "fills": 33,
+    "groups": 19,
+    "group_agreement_pct": 16.666666666666668,
+    "agree": 5,
+    "live_only": 11,
+    "sim_only": 10,
+    "size": 4,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 25.454545454545453,
+    "sim_ret_pct": -3.2265130917273233,
+    "gap_pct": -1.5039293085952432,
+    "gap_bps_month": -306.877195510845,
+    "max_abs_div_pct": 1.7374376388942034,
+    "median_clip": 29.81047218,
+    "skips": {
+     "spread exceeds limit": 335,
+     "exchange size limit": 37
+    },
+    "mismatches": [
+     [
+      "size",
+      [
+       "2026-09-24",
+       "BNB",
+       "SELL"
+      ],
+      48.91,
+      14.12,
+      [
+       "01:00"
+      ],
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-24",
+       "PEPE",
+       "BUY"
+      ],
+      48.91,
+      null,
+      [
+       "01:21"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-24",
+       "ZEC",
+       "SELL"
+      ],
+      1.14,
+      22.29,
+      [
+       "10:38"
+      ],
+      [
+       "10:38",
+       "11:01"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-25",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      62.42,
+      null,
+      [
+       "01:00",
+       "01:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-25",
+       "PEPE",
+       "BUY"
+      ],
+      47.48,
+      null,
+      [
+       "01:15",
+       "01:16",
+       "01:18"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-26",
+       "PEPE",
+       "BUY"
+      ],
+      null,
+      97.83,
+      null,
+      [
+       "01:12",
+       "01:13"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-26",
+       "ZEC",
+       "SELL"
+      ],
+      null,
+      27.59,
+      null,
+      [
+       "01:12"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-27",
+       "BNB",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:09"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-27",
+       "ZEC",
+       "SELL"
+      ],
+      14.08,
+      null,
+      [
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-28",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ETH",
+       "BUY"
+      ],
+      97.77,
+      null,
+      [
+       "01:04",
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "PEPE",
+       "SELL"
+      ],
+      22.9,
+      null,
+      [
+       "01:06"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ZEC",
+       "SELL"
+      ],
+      37.23,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-29",
+       "PEPE",
+       "SELL"
+      ],
+      59.84,
+      48.91,
+      [
+       "02:20",
+       "03:00"
+      ],
+      [
+       "01:53"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "BNB",
+       "BUY"
+      ],
+      97.98,
+      null,
+      [
+       "01:15",
+       "01:15",
+       "01:16"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-30",
+       "ETH",
+       "BUY"
+      ],
+      null,
+      97.83,
+      null,
+      [
+       "01:25",
+       "01:26"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-30",
+       "PEPE",
+       "SELL"
+      ],
+      9.16,
+      42.74,
+      [
+       "01:14"
+      ],
+      [
+       "01:25"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-01",
+       "ETH",
+       "SELL"
+      ],
+      48.94,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-02",
+       "ETH",
+       "SELL"
+      ],
+      48.93,
+      null,
+      [
+       "01:00"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-02",
+       "SUI",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:54"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-03",
+       "ETH",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:25"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-03",
+       "SUI",
+       "BUY"
+      ],
+      48.32,
+      null,
+      [
+       "01:14"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-04",
+       "ETH",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-04",
+       "SUI",
+       "BUY"
+      ],
+      null,
+      65.38,
+      null,
+      [
+       "01:13",
+       "01:38",
+       "01:43"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-05",
+       "SUI",
+       "BUY"
+      ],
+      null,
+      29.58,
+      null,
+      [
+       "01:07"
+      ]
+     ]
+    ]
+   },
+   "minute_recorded_new_s2_fee0.003": {
+    "fills": 33,
+    "groups": 19,
+    "group_agreement_pct": 16.666666666666668,
+    "agree": 5,
+    "live_only": 11,
+    "sim_only": 10,
+    "size": 4,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 25.454545454545453,
+    "sim_ret_pct": -3.555207759538981,
+    "gap_pct": -1.8326239764069032,
+    "gap_bps_month": -373.9474342919673,
+    "max_abs_div_pct": 1.935277695361138,
+    "median_clip": 29.81047218,
+    "skips": {
+     "spread exceeds limit": 335,
+     "exchange size limit": 37
+    },
+    "mismatches": [
+     [
+      "size",
+      [
+       "2026-09-24",
+       "BNB",
+       "SELL"
+      ],
+      48.91,
+      14.12,
+      [
+       "01:00"
+      ],
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-24",
+       "PEPE",
+       "BUY"
+      ],
+      48.91,
+      null,
+      [
+       "01:21"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-24",
+       "ZEC",
+       "SELL"
+      ],
+      1.14,
+      22.29,
+      [
+       "10:38"
+      ],
+      [
+       "10:38",
+       "11:01"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-25",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      62.42,
+      null,
+      [
+       "01:00",
+       "01:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-25",
+       "PEPE",
+       "BUY"
+      ],
+      47.48,
+      null,
+      [
+       "01:15",
+       "01:16",
+       "01:18"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-26",
+       "PEPE",
+       "BUY"
+      ],
+      null,
+      97.83,
+      null,
+      [
+       "01:12",
+       "01:13"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-26",
+       "ZEC",
+       "SELL"
+      ],
+      null,
+      27.59,
+      null,
+      [
+       "01:12"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-27",
+       "BNB",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:09"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-27",
+       "ZEC",
+       "SELL"
+      ],
+      14.08,
+      null,
+      [
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-28",
+       "BNB",
+       "BUY"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ETH",
+       "BUY"
+      ],
+      97.77,
+      null,
+      [
+       "01:04",
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "PEPE",
+       "SELL"
+      ],
+      22.9,
+      null,
+      [
+       "01:06"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ZEC",
+       "SELL"
+      ],
+      37.23,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-29",
+       "PEPE",
+       "SELL"
+      ],
+      59.84,
+      48.91,
+      [
+       "02:20",
+       "03:00"
+      ],
+      [
+       "01:53"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "BNB",
+       "BUY"
+      ],
+      97.98,
+      null,
+      [
+       "01:15",
+       "01:15",
+       "01:16"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-30",
+       "ETH",
+       "BUY"
+      ],
+      null,
+      97.83,
+      null,
+      [
+       "01:25",
+       "01:26"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-30",
+       "PEPE",
+       "SELL"
+      ],
+      9.16,
+      42.74,
+      [
+       "01:14"
+      ],
+      [
+       "01:25"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-01",
+       "ETH",
+       "SELL"
+      ],
+      48.94,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-02",
+       "ETH",
+       "SELL"
+      ],
+      48.93,
+      null,
+      [
+       "01:00"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-02",
+       "SUI",
+       "BUY"
+      ],
+      48.88,
+      null,
+      [
+       "01:54"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-03",
+       "ETH",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:25"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-10-03",
+       "SUI",
+       "BUY"
+      ],
+      48.32,
+      null,
+      [
+       "01:14"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-04",
+       "ETH",
+       "SELL"
+      ],
+      null,
+      48.91,
+      null,
+      [
+       "01:00"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-04",
+       "SUI",
+       "BUY"
+      ],
+      null,
+      65.38,
+      null,
+      [
+       "01:13",
+       "01:38",
+       "01:43"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-05",
+       "SUI",
+       "BUY"
+      ],
+      null,
+      29.58,
+      null,
+      [
+       "01:07"
+      ]
+     ]
+    ]
+   },
+   "minute_recorded_new_s3_fee0.0014": {
+    "fills": 35,
+    "groups": 18,
+    "group_agreement_pct": 43.47826086956522,
+    "agree": 10,
+    "live_only": 5,
+    "sim_only": 3,
+    "size": 5,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 44.89795918367347,
+    "sim_ret_pct": -2.080345459730526,
+    "gap_pct": -0.3577616765984464,
+    "gap_bps_month": -73.0013700433422,
+    "max_abs_div_pct": 0.8349625199926602,
+    "median_clip": 27.66718816015,
+    "skips": {
+     "spread exceeds limit": 683,
+     "exchange size limit": 40
+    },
+    "mismatches": [
+     [
+      "size",
+      [
+       "2026-09-24",
+       "PEPE",
+       "BUY"
+      ],
+      48.91,
+      97.76,
+      [
+       "01:21"
+      ],
+      [
+       "01:03",
+       "01:10",
+       "01:19"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-24",
+       "ZEC",
+       "SELL"
+      ],
+      1.14,
+      22.29,
+      [
+       "10:38"
+      ],
+      [
+       "10:38",
+       "11:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-25",
+       "PEPE",
+       "BUY"
+      ],
+      47.48,
+      null,
+      [
+       "01:15",
+       "01:16",
+       "01:18"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-26",
+       "ZEC",
+       "SELL"
+      ],
+      null,
+      27.37,
+      null,
+      [
+       "01:12"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-27",
+       "ETH",
+       "BUY"
+      ],
+      null,
+      97.82,
+      null,
+      [
+       "01:00",
+       "01:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-27",
+       "ZEC",
+       "SELL"
+      ],
+      14.08,
+      null,
+      [
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ETH",
+       "BUY"
+      ],
+      97.77,
+      null,
+      [
+       "01:04",
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-28",
+       "PEPE",
+       "SELL"
+      ],
+      22.9,
+      27.67,
+      [
+       "01:06"
+      ],
+      [
+       "01:37"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ZEC",
+       "SELL"
+      ],
+      37.23,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-29",
+       "PEPE",
+       "SELL"
+      ],
+      59.84,
+      66.68,
+      [
+       "02:20",
+       "03:00"
+      ],
+      [
+       "01:53",
+       "02:16"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "PEPE",
+       "SELL"
+      ],
+      9.16,
+      null,
+      [
+       "01:14"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-10-03",
+       "SUI",
+       "BUY"
+      ],
+      48.32,
+      5.47,
+      [
+       "01:14"
+      ],
+      [
+       "01:38"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-04",
+       "SUI",
+       "BUY"
+      ],
+      null,
+      43.71,
+      null,
+      [
+       "01:06"
+      ]
+     ]
+    ]
+   },
+   "minute_recorded_new_s3_fee0.003": {
+    "fills": 35,
+    "groups": 18,
+    "group_agreement_pct": 43.47826086956522,
+    "agree": 10,
+    "live_only": 5,
+    "sim_only": 3,
+    "size": 5,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 44.89795918367347,
+    "sim_ret_pct": -2.402350723301505,
+    "gap_pct": -0.6797669401694234,
+    "gap_bps_month": -138.70663402060444,
+    "max_abs_div_pct": 0.9406234423679837,
+    "median_clip": 27.66718816015,
+    "skips": {
+     "spread exceeds limit": 683,
+     "exchange size limit": 40
+    },
+    "mismatches": [
+     [
+      "size",
+      [
+       "2026-09-24",
+       "PEPE",
+       "BUY"
+      ],
+      48.91,
+      97.76,
+      [
+       "01:21"
+      ],
+      [
+       "01:03",
+       "01:10",
+       "01:19"
+      ]
+     ],
+     [
+      "size",
+      [
+       "2026-09-24",
+       "ZEC",
+       "SELL"
+      ],
+      1.14,
+      22.29,
+      [
+       "10:38"
+      ],
+      [
+       "10:38",
+       "11:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-25",
+       "PEPE",
+       "BUY"
+      ],
+      47.48,
+      null,
+      [
+       "01:15",
+       "01:16",
+       "01:18"
+      ],
+      null
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-26",
+       "ZEC",
+       "SELL"
+      ],
+      null,
+      27.37,
+      null,
+      [
+       "01:12"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-09-27",
+       "ETH",
+       "BUY"
+      ],
+      null,
+      97.82,
+      null,
+      [
+       "01:00",
+       "01:01"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-27",
+       "ZEC",
+       "SELL"
+      ],
+      14.08,
+      null,
+      [
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ETH",
+       "BUY"
+      ],
+      97.77,
+      null,
+      [
+       "01:04",
+       "01:05"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-28",
+       "PEPE",
+       "SELL"
+      ],
+      22.9,
+      27.67,
+      [
+       "01:06"
+      ],
+      [
+       "01:37"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-28",
+       "ZEC",
+       "SELL"
+      ],
+      37.23,
+      null,
+      [
+       "01:04"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-09-29",
+       "PEPE",
+       "SELL"
+      ],
+      59.84,
+      66.68,
+      [
+       "02:20",
+       "03:00"
+      ],
+      [
+       "01:53",
+       "02:16"
+      ]
+     ],
+     [
+      "live_only",
+      [
+       "2026-09-30",
+       "PEPE",
+       "SELL"
+      ],
+      9.16,
+      null,
+      [
+       "01:14"
+      ],
+      null
+     ],
+     [
+      "size",
+      [
+       "2026-10-03",
+       "SUI",
+       "BUY"
+      ],
+      48.32,
+      5.47,
+      [
+       "01:14"
+      ],
+      [
+       "01:38"
+      ]
+     ],
+     [
+      "sim_only",
+      [
+       "2026-10-04",
+       "SUI",
+       "BUY"
+      ],
+      null,
+      43.71,
+      null,
+      [
+       "01:06"
+      ]
+     ]
+    ]
+   }
+  }
+ },
+ "w1": {
+  "window": "2026-10-08T15:00Z..2026-10-10T11:00Z",
+  "live_binaries": "6b10fdb6 = f3aa665 (10-08 14:50)",
+  "argv_config": {
+   "Slots": 3,
+   "Cooldown": 120,
+   "MinHoldH": 0,
+   "ExitRamp": 20,
+   "MaxOrdersDay": 12,
+   "Reserve": 0.4,
+   "HaltPeak": 0.25,
+   "HaltDaily": 0.08,
+   "TopUp": true,
+   "Budget": "495",
+   "MaxOrder": "49",
+   "MinExit": "24.5",
+   "fee": 0.0014
+  },
+  "live": {
+   "fills": 2,
+   "decision_keys": 2,
+   "groups": 1,
+   "ret_pct": -1.0326170938883217,
+   "groups_detail": {
+    "2026-10-08|BNB|SELL": {
+     "amt": 91.25,
+     "n": 2,
+     "t": [
+      "16:48",
+      "16:49"
+     ],
+     "partial": 0
+    }
+   }
+  },
+  "arms": {
+   "hourly_archive_new_s1_fee0.0014": {
+    "fills": 3,
+    "groups": 1,
+    "group_agreement_pct": 100.0,
+    "agree": 1,
+    "live_only": 0,
+    "sim_only": 0,
+    "size": 0,
+    "hour_timing_diff_in_agreed": 1,
+    "exact_key_agreement_pct": 0.0,
+    "sim_ret_pct": -1.1284117681564898,
+    "gap_pct": -0.09579467426816413,
+    "gap_bps_month": -159.0409308020316,
+    "max_abs_div_pct": 0.09590759465670697,
+    "median_clip": 41.04259445,
+    "skips": {},
+    "mismatches": []
+   },
+   "hourly_archive_new_s2_fee0.0014": {
+    "fills": 2,
+    "groups": 1,
+    "group_agreement_pct": 100.0,
+    "agree": 1,
+    "live_only": 0,
+    "sim_only": 0,
+    "size": 0,
+    "hour_timing_diff_in_agreed": 1,
+    "exact_key_agreement_pct": 0.0,
+    "sim_ret_pct": -1.117142063290133,
+    "gap_pct": -0.08452496940181416,
+    "gap_bps_month": -140.3306594273301,
+    "max_abs_div_pct": 0.08463788979034538,
+    "median_clip": 45.419277255,
+    "skips": {},
+    "mismatches": []
+   },
+   "hourly_archive_new_s3_fee0.0014": {
+    "fills": 3,
+    "groups": 1,
+    "group_agreement_pct": 100.0,
+    "agree": 1,
+    "live_only": 0,
+    "sim_only": 0,
+    "size": 0,
+    "hour_timing_diff_in_agreed": 1,
+    "exact_key_agreement_pct": 0.0,
+    "sim_ret_pct": -1.1077875850066699,
+    "gap_pct": -0.0751704911183432,
+    "gap_bps_month": -124.80009945897663,
+    "max_abs_div_pct": 0.07528341150688604,
+    "median_clip": 24.49978871,
+    "skips": {
+     "spread exceeds limit": 1
+    },
+    "mismatches": []
+   },
+   "hourly_proxy_new_s0_fee0.0014": {
+    "fills": 2,
+    "groups": 1,
+    "group_agreement_pct": 100.0,
+    "agree": 1,
+    "live_only": 0,
+    "sim_only": 0,
+    "size": 0,
+    "hour_timing_diff_in_agreed": 1,
+    "exact_key_agreement_pct": 0.0,
+    "sim_ret_pct": -1.098837858755286,
+    "gap_pct": -0.06622076486696969,
+    "gap_bps_month": -109.94151985300309,
+    "max_abs_div_pct": 0.06633368525550092,
+    "median_clip": 45.46416518,
+    "skips": {},
+    "mismatches": []
+   },
+   "minute_archive_new_s1_fee0.0014": {
+    "fills": 2,
+    "groups": 1,
+    "group_agreement_pct": 100.0,
+    "agree": 1,
+    "live_only": 0,
+    "sim_only": 0,
+    "size": 0,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 0.0,
+    "sim_ret_pct": -0.9709094726592205,
+    "gap_pct": 0.06170762122909697,
+    "gap_bps_month": 102.44867569967121,
+    "max_abs_div_pct": 0.06190386907675157,
+    "median_clip": 45.777887625000005,
+    "skips": {
+     "spread exceeds limit": 6
+    },
+    "mismatches": []
+   },
+   "minute_archive_new_s2_fee0.0014": {
+    "fills": 2,
+    "groups": 1,
+    "group_agreement_pct": 100.0,
+    "agree": 1,
+    "live_only": 0,
+    "sim_only": 0,
+    "size": 0,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 33.333333333333336,
+    "sim_ret_pct": -1.0523184819585585,
+    "gap_pct": -0.019701388070236525,
+    "gap_bps_month": -32.70878178479041,
+    "max_abs_div_pct": 0.019814308458767756,
+    "median_clip": 45.578245980000005,
+    "skips": {
+     "spread exceeds limit": 2
+    },
+    "mismatches": []
+   },
+   "minute_archive_new_s3_fee0.0014": {
+    "fills": 2,
+    "groups": 1,
+    "group_agreement_pct": 100.0,
+    "agree": 1,
+    "live_only": 0,
+    "sim_only": 0,
+    "size": 0,
+    "hour_timing_diff_in_agreed": 0,
+    "exact_key_agreement_pct": 0.0,
+    "sim_ret_pct": -0.9641053377105968,
+    "gap_pct": 0.06851175617772691,
+    "gap_bps_month": 113.74508610870343,
+    "max_abs_div_pct": 0.0687080040253699,
+    "median_clip": 45.7945736,
+    "skips": {
+     "spread exceeds limit": 4
+    },
+    "mismatches": []
+   }
+  }
+ }
+}

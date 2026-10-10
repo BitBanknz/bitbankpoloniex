@@ -1,0 +1,71 @@
+{
+ "BNB": {
+  "kcb_rows": 77432,
+  "kcb_last_hour": 496978,
+  "fetched": 611,
+  "first_hour": 467496,
+  "missing": 0
+ },
+ "ETC": {
+  "kcb_rows": 72244,
+  "kcb_last_hour": 496978,
+  "fetched": 611,
+  "first_hour": 467496,
+  "missing": 0
+ },
+ "ETH": {
+  "kcb_rows": 79368,
+  "kcb_last_hour": 496978,
+  "fetched": 611,
+  "first_hour": 467496,
+  "missing": 0
+ },
+ "PEPE": {
+  "kcb_rows": 29393,
+  "kcb_last_hour": 496978,
+  "fetched": 611,
+  "first_hour": 467586,
+  "missing": 0
+ },
+ "SUI": {
+  "kcb_rows": 29447,
+  "kcb_last_hour": 496978,
+  "fetched": 611,
+  "first_hour": 467532,
+  "missing": 0
+ },
+ "TRX": {
+  "kcb_rows": 72249,
+  "kcb_last_hour": 496978,
+  "fetched": 611,
+  "first_hour": 467496,
+  "missing": 0
+ },
+ "XRP": {
+  "kcb_rows": 73164,
+  "kcb_last_hour": 496978,
+  "fetched": 611,
+  "first_hour": 467496,
+  "missing": 0
+ },
+ "ZEC": {
+  "kcb_rows": 65498,
+  "kcb_last_hour": 496978,
+  "fetched": 611,
+  "first_hour": 467496,
+  "missing": 0
+ },
+ "BTC": {
+  "kcb_rows": 79368,
+  "kcb_last_hour": 496978,
+  "fetched": 611,
+  "first_hour": 467496,
+  "missing": 0
+ },
+ "gate_days": 1194,
+ "gate_on_frac": 0.5469011725293133,
+ "sha256": {
+  "binance.npz": "298b6019543e65744916c7f922ccea834a95909953a98bb596e46bfb2b9ef463",
+  "gate_btc720.json": "67f81ed4f616bacac2b5001b8b363f2d82d01df1e6c1d747982e7378cb442f31"
+ }
+}

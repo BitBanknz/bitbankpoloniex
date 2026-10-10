@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 	"time"
@@ -46,13 +48,36 @@ func TestThirdCurrencyFeeComesFromTrackedHolding(t *testing.T) {
 	}
 }
 
-func TestThirdCurrencyFeeWithoutHoldingBlocks(t *testing.T) {
+func TestThirdCurrencyFeeWithoutHoldingIsRecorded(t *testing.T) {
 	srv := feeAssetServer(t, "BNB")
 	defer srv.Close()
 	e := &Engine{Client: &Client{BaseURL: srv.URL, Key: "k", Secret: "s", HTTP: srv.Client()}, Config: DefaultConfig()}
 	e.Config.Mode, e.Config.StateDir = "live", t.TempDir()
 	s := feeAssetState()
-	if err := e.resolve(context.Background(), &s); err == nil || s.Pending == nil {
-		t.Fatalf("untracked fee asset must block: %v", err)
+	if err := e.resolve(context.Background(), &s); err != nil || s.Pending != nil || s.Halted != "" || !s.Holdings["ETH_USDT"].Quantity.Equal(decimal.NewFromFloat(0.08)) || !s.Holdings["TRX_USDT"].Quantity.Equal(decimal.NewFromInt(140)) {
+		t.Fatalf("untracked fee asset must resolve without blocking: %v %+v", err, s)
+	}
+	b, _ := os.ReadFile(filepath.Join(e.Config.StateDir, "reconcile.jsonl"))
+	if !strings.Contains(string(b), `"asset":"BNB"`) {
+		t.Fatalf("untracked fee not recorded: %s", b)
+	}
+}
+
+func TestPartialThirdCurrencyFeeDrainsTrackedThenRecords(t *testing.T) {
+	srv := feeAssetServer(t, "TRX")
+	defer srv.Close()
+	e := &Engine{Client: &Client{BaseURL: srv.URL, Key: "k", Secret: "s", HTTP: srv.Client()}, Config: DefaultConfig()}
+	e.Config.Mode, e.Config.StateDir = "live", t.TempDir()
+	s := feeAssetState()
+	s.Holdings["TRX_USDT"] = Position{Quantity: decimal.NewFromFloat(0.05), Peak: decimal.NewFromFloat(0.34)}
+	if err := e.resolve(context.Background(), &s); err != nil || s.Pending != nil {
+		t.Fatal(err)
+	}
+	if _, ok := s.Holdings["TRX_USDT"]; ok {
+		t.Fatalf("drained fee holding must be removed: %+v", s.Holdings)
+	}
+	b, _ := os.ReadFile(filepath.Join(e.Config.StateDir, "reconcile.jsonl"))
+	if !strings.Contains(string(b), `"delta":"0.15"`) {
+		t.Fatalf("remainder not recorded: %s", b)
 	}
 }

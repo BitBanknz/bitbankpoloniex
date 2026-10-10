@@ -420,34 +420,78 @@ func (e *Engine) resolve(ctx context.Context, s *State) error {
 			return errors.New("order/trade totals not yet reconciled")
 		}
 		netQty := qty
+		held := s.Holdings[p.Order.Symbol].Quantity
 		if p.Order.Side == "BUY" {
 			netQty = qty.Sub(baseFee)
-			if !netQty.IsPositive() || amount.Add(quoteFee).GreaterThan(s.Cash) {
-				return errors.New("fill exceeds tracked cash")
+			if !netQty.IsPositive() {
+				e.reconcile(s, "buy_fee_exceeds_fill", p.Order.Symbol, qty, baseFee, true)
+				netQty = decimal.Zero
 			}
 		} else {
-			netQty = qty.Add(baseFee)
-			if netQty.GreaterThan(s.Holdings[p.Order.Symbol].Quantity) {
-				return errors.New("fill exceeds tracked holdings")
+			if qty.GreaterThan(held) {
+				e.reconcile(s, "sell_exceeds_tracked", p.Order.Symbol, held, qty, true)
 			}
-		}
-		for cur, f := range otherFees {
-			pos, held := s.Holdings[cur+"_USDT"]
-			if !held || pos.Quantity.LessThan(f) {
-				return errors.New("third-currency fee requires operator accounting")
+			if need := qty.Add(baseFee); need.GreaterThan(held) {
+				over := need.Sub(decimal.Max(held, qty))
+				if over.IsPositive() {
+					e.reconcile(s, "untracked_fee", strings.TrimSuffix(p.Order.Symbol, "_USDT"), decimal.Zero, over, false)
+				}
+				netQty = held
+			} else {
+				netQty = need
 			}
 		}
 		e.apply(s, p.Order, netQty, amount, quoteFee)
-		for cur, f := range otherFees {
-			pos := s.Holdings[cur+"_USDT"]
-			pos.Quantity = pos.Quantity.Sub(f)
-			s.Holdings[cur+"_USDT"] = pos
+		if s.Cash.IsNegative() {
+			e.reconcile(s, "cash_shortfall", "USDT", decimal.Zero, s.Cash.Neg(), s.Cash.Neg().GreaterThan(decimal.NewFromInt(1)))
+			s.Cash = decimal.Zero
+		}
+		curs := make([]string, 0, len(otherFees))
+		for cur := range otherFees {
+			curs = append(curs, cur)
+		}
+		sort.Strings(curs)
+		for _, cur := range curs {
+			f := otherFees[cur]
+			pos, ok := s.Holdings[cur+"_USDT"]
+			take := decimal.Zero
+			if ok {
+				take = decimal.Min(f, pos.Quantity)
+				pos.Quantity = pos.Quantity.Sub(take)
+				if pos.Quantity.IsPositive() {
+					s.Holdings[cur+"_USDT"] = pos
+				} else {
+					delete(s.Holdings, cur+"_USDT")
+				}
+			}
+			if f.GreaterThan(take) {
+				e.reconcile(s, "untracked_fee", cur, decimal.Zero, f.Sub(take), false)
+			}
 		}
 		s.Fills[len(s.Fills)-1].ExchangeTrades = trades
 	}
 	s.Pending = nil
 	return Save(e.path(), s)
 }
+
+const accountingHaltReason = "accounting delta beyond fee tolerance; protective exits only; operator review required"
+
+func (e *Engine) reconcile(s *State, kind, asset string, tracked, delta decimal.Decimal, material bool) {
+	line := fmt.Sprintf(`{"at":%q,"kind":%q,"asset":%q,"tracked":%q,"delta":%q,"material":%t}`+"\n", time.Now().UTC().Format(time.RFC3339Nano), kind, asset, tracked.String(), delta.String(), material)
+	log.Printf("reconcile %s %s tracked=%s delta=%s material=%t", kind, asset, tracked, delta, material)
+	if f, err := os.OpenFile(filepath.Join(e.Config.StateDir, "reconcile.jsonl"), os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0600); err == nil {
+		f.WriteString(line)
+		f.Close()
+	}
+	if material && s.Halted == "" {
+		s.Halted = accountingHaltReason
+	}
+}
+
+func protectiveHalt(reason string) bool {
+	return reason == riskHaltReason || reason == accountingHaltReason
+}
+
 func (e *Engine) submit(ctx context.Context, s *State, o Order, decision, source string) error {
 	s.Processed[decision] = true
 	s.OrdersToday++
@@ -544,7 +588,7 @@ func (e *Engine) Cycle(ctx context.Context) error {
 			}
 		}
 	}
-	riskHalted := s.Halted == riskHaltReason
+	riskHalted := protectiveHalt(s.Halted)
 	if s.Halted != "" && !riskHalted {
 		return fmt.Errorf("ledger halted: %s", s.Halted)
 	}
@@ -615,7 +659,9 @@ func (e *Engine) Cycle(ctx context.Context) error {
 		peakBand := s.HighWater.Mul(decimal.NewFromFloat(1 - peakLimit))
 		dayBand := s.DayStart.Mul(decimal.NewFromFloat(1 - dayLimit))
 		if equity.LessThan(peakBand) || equity.LessThan(dayBand) {
-			s.Halted = riskHaltReason
+			if s.Halted == "" {
+				s.Halted = riskHaltReason
+			}
 			riskHalted = true
 			if err := Save(e.path(), s); err != nil {
 				return err
@@ -744,6 +790,7 @@ func (e *Engine) Cycle(ctx context.Context) error {
 		}
 	}
 	fundingFloor := e.Config.reserve(s.Budget).Add(e.Config.MaxOrder.Mul(decimal.NewFromFloat(1.003)))
+	var exitErrs []error
 	// Exit only tracked bot holdings. Untracked account ETH is never sold implicitly.
 	for _, symbol := range symbols {
 		p := s.Holdings[symbol]
@@ -771,10 +818,14 @@ func (e *Engine) Cycle(ctx context.Context) error {
 			suffix = fmt.Sprintf("|protect-%d", now.UTC().Truncate(time.Minute).Unix())
 		}
 		if err = e.tradeSized(ctx, &s, bySymbol[symbol], b, "SELL", decisionHour, source, decimal.Zero, suffix, opts, follow); err != nil {
-			return err
+			if s.Pending != nil {
+				return err
+			}
+			log.Printf("exit %s: %v", symbol, err)
+			exitErrs = append(exitErrs, fmt.Errorf("%s: %w", symbol, err))
 		}
 	}
-	if ready {
+	if ready && len(exitErrs) == 0 {
 		for _, symbol := range ranked {
 			// Do not undo a capped or blocked protective reduction by buying
 			// this holding while its observed price is below the stop.
@@ -837,6 +888,9 @@ func (e *Engine) Cycle(ctx context.Context) error {
 	}
 	if err = Save(e.path(), s); err != nil {
 		return err
+	}
+	if len(exitErrs) > 0 {
+		return fmt.Errorf("exits failed (others submitted): %w", errors.Join(exitErrs...))
 	}
 	if !fullyPriced {
 		sort.Strings(unavailableBooks)
@@ -936,7 +990,23 @@ func (e *Engine) tradeSized(ctx context.Context, s *State, m Market, b Book, sid
 			return errors.New("insufficient free USDT; existing ETH is not cash")
 		}
 		if side == "SELL" && balances[m.Base].LessThan(qty) {
-			return errors.New("tracked holdings exceed free exchange balance")
+			free, pos := balances[m.Base], s.Holdings[m.Symbol]
+			short := pos.Quantity.Sub(free)
+			material := short.Mul(price).GreaterThan(dustNotional(m)) && short.GreaterThan(pos.Quantity.Mul(decimal.NewFromFloat(.01)))
+			e.reconcile(s, "free_balance_shortfall", m.Base, pos.Quantity, short, material)
+			if free.Mul(price).LessThan(dustNotional(m)) {
+				delete(s.Holdings, m.Symbol)
+				return Save(e.path(), s)
+			}
+			pos.Quantity = free
+			s.Holdings[m.Symbol] = pos
+			if err = Save(e.path(), s); err != nil {
+				return err
+			}
+			o, err = BuildOrderOpts(m, b, side, id, spend, decimal.Min(free, qty), opts)
+			if err != nil {
+				return nil
+			}
 		}
 	}
 	if !freshMS(b.TS, time.Now(), 30*time.Second) {

@@ -1,0 +1,12 @@
+best t574 ret.mean=2.543 mdd.max=14.7 params={"slots": 3, "min_hold": 72, "cool": 168, "reserve": 0.25, "alpha": 0.30000000000000004, "stop": 0.08, "hs_cap": 5, "vol_floor": 100000} U=['BNB', 'ETC', 'PEPE', 'XRP', 'ZEC', 'BTC', 'ADA', 'DOGE', 'SHIB', 'POL', 'LTC', 'OP', 'BCH', 'SOL', 'UNI', 'DOT', 'AAVE']
+best t584 ret.mean=2.357 mdd.max=13.8 params={"slots": 3, "min_hold": 72, "cool": 168, "reserve": 0.30000000000000004, "alpha": 0.30000000000000004, "stop": 0.08, "hs_cap": 5, "vol_floor": 100000} U=['BNB', 'XRP', 'ZEC', 'BTC', 'DOGE', 'SHIB', 'POL', 'LTC', 'OP', 'BCH', 'LINK', 'SOL', 'NEAR', 'UNI', 'DOT']
+top t451 ret.lcb=0.9835 |U|=16
+top t199 ret.lcb=0.9794 |U|=15
+top t613 ret.lcb=0.912 |U|=17
+top t605 ret.lcb=0.862 |U|=17
+top t661 ret.lcb=0.8178 |U|=18
+PBO 0.409 (CSCV S=16 combos=12870 N=802) oos_best=0.2658 is_best=4.424 slope=-0.645
+DSR 0.51 PSR 0.97 SR=0.269 SR0=0.265 T=42 N_eff=280/802 (per-fold ret of best-by-ret.lcb)
+nested(post-hoc) outer=18 outer_mean=-1.115 inner_mean=2.867 optimism=3.982 pctile=0.429 vs_baseline=-2.318±1.5 win=0.389
+symbols best=0.9835 distinct=731 null(n=30) mean=-0.6373 sd=1.009 E[max null]=2.528 luck_adj=-1.545 nested_gain in=3.377 out=-2.318 penalty=5.696 pick_jaccard=0.751
+symbol lift(top10%) DOGE:+0.46 LINK:+0.33 SHIB:+0.28 OP:+0.25 AAVE:+0.19 UNI:+0.19 POL:+0.18 LTC:+0.12 ... ETH:-0.19 ATOM:-0.19 SUI:-0.28 ADA:-0.28

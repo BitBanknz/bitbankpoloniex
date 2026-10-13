@@ -1,0 +1,201 @@
+{
+ "name": "bbpx_uni_rotation",
+ "storage": "uni.journal",
+ "seed": 20261014,
+ "command": "UNI_DIR=/media/lee/pcd/w2uni/data UNI_HS=/media/lee/pcd/w2uni/data/hs_uplus.json python3 /media/lee/pcd/w2uni/code/uni20261014/uni_obj.py --universe {universe} --slots {slots} --min-hold {min_hold} --cool {cool} --reserve {reserve} --alpha {alpha} --stop {stop} --hs-cap {hs_cap} --vol-floor {vol_floor}",
+ "mode": "stream",
+ "parse": "json",
+ "cwd": ".",
+ "timeout": 900,
+ "threads_per_job": 1,
+ "folds": 42,
+ "fold_order": "given",
+ "params": {
+  "slots": {
+   "type": "int",
+   "low": 2,
+   "high": 4,
+   "default": 3
+  },
+  "min_hold": {
+   "type": "cat",
+   "choices": [
+    24,
+    48,
+    72,
+    96,
+    120
+   ],
+   "default": 72
+  },
+  "cool": {
+   "type": "cat",
+   "choices": [
+    72,
+    120,
+    168
+   ],
+   "default": 120
+  },
+  "reserve": {
+   "type": "float",
+   "low": 0.2,
+   "high": 0.6,
+   "step": 0.05,
+   "default": 0.4
+  },
+  "alpha": {
+   "type": "float",
+   "low": 0.15,
+   "high": 0.6,
+   "step": 0.05,
+   "default": 0.35
+  },
+  "stop": {
+   "type": "float",
+   "low": 0.06,
+   "high": 0.2,
+   "step": 0.02,
+   "default": 0.1
+  },
+  "hs_cap": {
+   "type": "cat",
+   "choices": [
+    5,
+    10,
+    20,
+    35,
+    60
+   ],
+   "default": 60
+  },
+  "vol_floor": {
+   "type": "cat",
+   "choices": [
+    100000,
+    1000000,
+    3000000,
+    8000000
+   ],
+   "default": 100000
+  }
+ },
+ "universe": {
+  "symbols": [
+   "BNB",
+   "ETC",
+   "ETH",
+   "PEPE",
+   "SUI",
+   "TRX",
+   "XRP",
+   "ZEC",
+   "BTC",
+   "ADA",
+   "DOGE",
+   "SHIB",
+   "POL",
+   "LTC",
+   "OP",
+   "BCH",
+   "LINK",
+   "SOL",
+   "NEAR",
+   "UNI",
+   "DOT",
+   "ATOM",
+   "AVAX",
+   "AAVE"
+  ],
+  "min": 4,
+  "max": 24,
+  "join": ","
+ },
+ "objectives": [
+  {
+   "metric": "ret",
+   "agg": "mean",
+   "direction": "maximize"
+  },
+  {
+   "metric": "mdd",
+   "agg": "max",
+   "direction": "minimize"
+  }
+ ],
+ "constraints": [
+  {
+   "metric": "mdd",
+   "agg": "max",
+   "le": 30
+  },
+  {
+   "metric": "idle",
+   "agg": "mean",
+   "le": 0.25
+  }
+ ],
+ "select": {
+  "metric": "ret",
+  "agg": "lcb",
+  "direction": "maximize"
+ },
+ "sampler": {
+  "type": "ga"
+ },
+ "pruner": {
+  "type": "none",
+  "kill": [
+   {
+    "metric": "mdd",
+    "agg": "max",
+    "gt": 45
+   }
+  ]
+ },
+ "nested": {
+  "outer": [
+   24,
+   25,
+   26,
+   27,
+   28,
+   29,
+   30,
+   31,
+   32,
+   33,
+   34,
+   35,
+   36,
+   37,
+   38,
+   39,
+   40,
+   41
+  ],
+  "mode": "before",
+  "purge": 1,
+  "min_inner": 18
+ },
+ "baseline": {
+  "slots": 3,
+  "min_hold": 72,
+  "cool": 120,
+  "reserve": 0.4,
+  "alpha": 0.35,
+  "stop": 0.1,
+  "hs_cap": 60,
+  "vol_floor": 100000,
+  "universe": [
+   "BNB",
+   "ETC",
+   "ETH",
+   "PEPE",
+   "SUI",
+   "TRX",
+   "XRP",
+   "ZEC"
+  ]
+ }
+}

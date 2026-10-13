@@ -1,0 +1,4 @@
+0.0014 8p mean +1.45 worst -13.25 since2024 +1.75 n 42 pre -0.359 -4.96 post +1.753 -13.25
+0.0014 xZEC mean +0.16 worst -13.63 since2024 +0.12 n 42 pre +0.384 -5.79 post +0.124 -13.63
+0.0033 8p mean +0.70 worst -13.94 since2024 +1.01 n 42 pre -1.183 -5.67 post +1.012 -13.94
+0.0033 xZEC mean -0.56 worst -14.32 since2024 -0.59 n 42 pre -0.386 -6.48 post -0.591 -14.32

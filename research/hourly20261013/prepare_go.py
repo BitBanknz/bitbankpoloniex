@@ -13,7 +13,7 @@ def sub(text, old, new):
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument('--out', type=Path, required=True); a = ap.parse_args(); out = a.out.resolve()
+    ap = argparse.ArgumentParser(); ap.add_argument('--out', type=Path, required=True); ap.add_argument('--no-hooks', action='store_true', help='engine as committed (threshold policy via Config flags), no research hooks'); a = ap.parse_args(); out = a.out.resolve()
     if out.exists(): shutil.rmtree(out)
     (out/'internal').mkdir(parents=True)
     shutil.copytree(ROOT/'internal/bot', out/'internal/bot', ignore=shutil.ignore_patterns('*_test.go'))
@@ -26,7 +26,7 @@ def main():
         if name == 'client.go':
             text = sub(text, 'c.mu.Lock()', 'if !strings.HasPrefix(c.BaseURL, "http://127.0.0.1:") { return errors.New("research client requires loopback") }; c.mu.Lock()')
             text = text.replace('delay := time.Until(c.next)', 'delay := time.Duration(0)')
-        if name == 'engine.go':
+        if name == 'engine.go' and not a.no_hooks:
             # research-only hooks, inert at defaults: keep-set = top researchExitRank; exit only after the holding has been
             # outside the keep-set on every ready decision for researchExitConfirm (debounce of hourly rank flips)
             # hourly-native thresholds (inert unless researchThresh): entries = every name with score >= researchEntryMin, best first,
@@ -89,7 +89,13 @@ func researchOutsideSince(symbol string, now time.Time) time.Time {
 }
 '''
         p.write_text(text)
-    t = HERE/'replay_test.go.txt'; shutil.copy(t, bot/'hourly_replay_test.go'); hashes['replay_test.go.txt'] = hashlib.sha256(t.read_bytes()).hexdigest()
+    t = HERE/'replay_test.go.txt'; shutil.copy(t, bot/'hourly_replay_test.go')
+    if a.no_hooks:
+        rt = (bot/'hourly_replay_test.go').read_text()
+        old_h = 'researchExitRank=c.ExitRank;researchExitConfirm=time.Duration(c.ExitConfirmH)*time.Hour;researchOutside=map[string]time.Time{};researchThresh=c.Thresh;researchEntryMin=c.EntryMin;researchExitBelow=c.ExitBelow'
+        assert rt.count(old_h) == 1
+        (bot/'hourly_replay_test.go').write_text(rt.replace(old_h, 'if c.ExitRank != 0 || c.ExitConfirmH != 0 {t.Fatal("research hooks need a hooks build")};cfg.ThresholdPolicy=c.Thresh;cfg.EntryMin=c.EntryMin;cfg.ExitBelow=c.ExitBelow'))
+    if True: hashes['replay_test.go.txt'] = hashlib.sha256(t.read_bytes()).hexdigest()
     rev = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=ROOT, capture_output=True, text=True).stdout.strip()
     (out/'inputs.json').write_text(json.dumps(dict(head=rev, files=hashes), indent=1))
     subprocess.run(['go', 'test', '-c', '-o', str(out/'replay.test'), './internal/bot/'], cwd=out, check=True, env={**os.environ, 'CGO_ENABLED': '0'})

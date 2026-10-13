@@ -2,7 +2,7 @@
 import argparse, itertools, json, os, sys
 import numpy as np
 sys.path.insert(0, os.path.dirname(__file__)); from hn_sim import run, folds
-ap = argparse.ArgumentParser(); ap.add_argument('panel'); ap.add_argument('preds'); ap.add_argument('hs'); ap.add_argument('--drop', default='')
+ap = argparse.ArgumentParser(); ap.add_argument('panel'); ap.add_argument('preds'); ap.add_argument('hs'); ap.add_argument('--drop', default=''); ap.add_argument('--split', action='store_true', help='print pre-2024 mean/worst and 2024+ mean/worst')
 a = ap.parse_args()
 z = np.load(a.panel); allp = list(z['pairs']); H = z['hours']; H0 = int(H[0])
 s = np.load(a.preds); pairs = list(s['pairs']); I, Pr, M = s['issued'], s['pred'], s['model']
@@ -18,5 +18,5 @@ for th_in, th_out, mh, k in itertools.product((0., .005, .01), (0., -.005), (24,
     row = []
     for fee in (.0014, .0033):
         r = 100*np.array([run(op, sig, hs, fee, a0, b0, slots=k, th_in=th_in, th_out=th_out, min_hold=mh)[-1]-1 for a0, b0, _ in F])
-        row.append(f'{r.mean():+.2f}/{r.min():+.1f}/{r[y24].mean():+.2f}')
+        row.append(f'{r.mean():+.2f}/{r.min():+.1f}/{r[y24].mean():+.2f}' if not a.split else f'{r[~y24].mean():+.3f}/{r[~y24].min():+.2f}/{r[y24].mean():+.3f}/{r[y24].min():+.2f}')
     print(f'{os.path.basename(a.preds)[:-4]} {a.drop or "8p"} in{th_in*1e4:.0f} out{th_out*1e4:.0f} mh{mh} k{k} | 14: {row[0]} | 33: {row[1]}', flush=True)

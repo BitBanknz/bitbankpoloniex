@@ -44,6 +44,11 @@ type Config struct {
 	MinExitUSDT          decimal.Decimal // sells below this notional are raised to it (or the whole holding); IOC still caps fills at the in-band book (0 off)
 	ExitRampMinutes      int             // latch triggered stops and keep working them every cycle, widening band/participation over this many minutes (0 off)
 	SignalCadence        string          // "daily" (legacy, also "") or "hourly" BitBank rank issues
+	// ThresholdPolicy (default off) reads scores as predicted edges: buy the best names scoring >= EntryMin until the
+	// slots are full, and rotate a holding out (after the minimum hold) only once its score falls below ExitBelow.
+	ThresholdPolicy bool
+	EntryMin        float64
+	ExitBelow       float64
 }
 
 func DefaultConfig() Config {
@@ -65,6 +70,9 @@ func (c Config) cadence() string {
 func (c Config) Validate() error {
 	if c := c.cadence(); c != CadenceDaily && c != CadenceHourly {
 		return errors.New("signal cadence must be daily or hourly")
+	}
+	if c.ThresholdPolicy && (!finite(c.EntryMin) || !finite(c.ExitBelow) || c.EntryMin <= c.ExitBelow || c.EntryMin > .5 || c.ExitBelow < -.5) {
+		return errors.New("threshold policy needs finite -0.5 <= exit-below < entry-min <= 0.5")
 	}
 	if c.CooldownHours < 0 || c.CooldownHours > 14*24 {
 		return errors.New("post-sale cooldown must be between 0 (legacy default) and 336 hours")
@@ -762,9 +770,27 @@ func (e *Engine) Cycle(ctx context.Context) error {
 	}
 
 	ranked := Targets(scores, markets, e.Config.Slots)
+	if e.Config.ThresholdPolicy {
+		eligible := map[string]float64{}
+		for symbol, v := range scores {
+			if v >= e.Config.EntryMin {
+				eligible[symbol] = v
+			}
+		}
+		ranked = Targets(eligible, markets, len(markets))
+	}
 	desired := make(map[string]bool, len(ranked))
 	for _, symbol := range ranked {
 		desired[symbol] = true
+	}
+	keep := desired
+	if e.Config.ThresholdPolicy {
+		keep = make(map[string]bool, len(scores))
+		for symbol, v := range scores {
+			if v >= e.Config.ExitBelow {
+				keep[symbol] = true
+			}
+		}
 	}
 	symbols := make([]string, 0, len(s.Holdings))
 	stops := make(map[string]bool, len(s.Holdings))
@@ -809,7 +835,7 @@ func (e *Engine) Cycle(ctx context.Context) error {
 		stop := stops[symbol]
 		riskOff := e.Config.ExperimentalFallback && len(desired) == 0
 		fundingExit := (needsCash || riskOff) && s.AccountBacked && p.Imported && ready && !desired[symbol] && (riskOff || s.Cash.LessThan(fundingFloor))
-		exit := ready && observed[symbol] && !desired[symbol] && now.Sub(p.Entered) >= e.Config.minHold()
+		exit := ready && observed[symbol] && !keep[symbol] && now.Sub(p.Entered) >= e.Config.minHold()
 		if e.Config.mirror() {
 			// The mirrored ledger already enforces its own minimum hold.
 			exit = ready && !desired[symbol] && !p.Imported

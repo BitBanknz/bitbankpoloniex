@@ -52,6 +52,9 @@ func run() error {
 	minExit := flag.String("min-exit-usdt", "0", "raise every sell below this notional to it (or the whole holding); IOC limit still fills only what the book has (0 off)")
 	exitRamp := flag.Int("exit-ramp-minutes", 0, "latch triggered stops and re-send them every cycle, widening the limit band to 1% and participation to 100% over this many minutes (0 off)")
 	cadence := flag.String("signal-cadence", bot.CadenceDaily, "BitBank rank cadence: daily (00:00 issue, 01:00 execution) or hourly")
+	threshold := flag.Bool("threshold-policy", false, "read ranks as predicted edges: enter at >= --entry-min, exit (after the minimum hold) below --exit-below")
+	entryMin := flag.Float64("entry-min", 0, "threshold policy: minimum score to enter (e.g. 0.005)")
+	exitBelow := flag.Float64("exit-below", 0, "threshold policy: rotate out once the score falls below this (e.g. -0.005)")
 	maxOrdersDay := flag.Int("max-orders-day", cfg.MaxOrdersDay, "daily order cap (1-50)")
 	symbol := flag.String("symbol", "ETH_USDT", "market for funding plan")
 	funding := flag.String("funding", "convert", "convert or margin for read-only plan")
@@ -84,6 +87,7 @@ func run() error {
 	cfg.MirrorStop = *mirrorStop
 	cfg.MaxOrdersDay = *maxOrdersDay
 	cfg.SignalCadence = *cadence
+	cfg.ThresholdPolicy, cfg.EntryMin, cfg.ExitBelow = *threshold, *entryMin, *exitBelow
 	cfg.FeeRate = decimal.NewFromFloat(*feeRate)
 	cfg.ExitRampMinutes = *exitRamp
 	cfg.MinExitUSDT, err = decimal.NewFromString(*minExit)

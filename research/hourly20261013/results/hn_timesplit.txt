@@ -1,0 +1,10 @@
+0 of 192 configs pass the rule on pre-2024 folds only
+baseline 2024+ (mean/worst): {'8p@14': (1.753, -13.25), 'ZEC@14': (0.124, -13.63), '8p@33': (1.012, -13.94), 'ZEC@33': (-0.591, -14.32)}
+rank of hn_xs_m24 (u8_xs24_ridge in50 out-50 mh24 k3) by pre-2024 xZEC@14 mean: 40 of 192
+relaxed rule (mean only: beat baseline pre-2024 mean in all 4 cells, positive at 33):
+17 pass
+1 ('up_xs24_ridge', 'in0 out-50 mh24 k3') pre xZEC@14 (5.631, -6.5) | 2024+ {'8p@14': (-0.599, -24.18), '8p@33': (-1.715, -25.16), 'ZEC@14': (-1.02, -21.02), 'ZEC@33': (-2.09, -21.99)} | beats baseline 2024+ mean in 0/4 cells
+2 ('up_xs24_ridge', 'in0 out-50 mh72 k3') pre xZEC@14 (5.045, -7.16) | 2024+ {'8p@14': (-0.561, -24.18), '8p@33': (-1.668, -25.16), 'ZEC@14': (-1.169, -21.02), 'ZEC@33': (-2.233, -21.99)} | beats baseline 2024+ mean in 0/4 cells
+3 ('up_xs24_ridge', 'in0 out0 mh72 k3') pre xZEC@14 (3.275, -5.65) | 2024+ {'8p@14': (0.379, -24.22), '8p@33': (-1.717, -25.99), 'ZEC@14': (-1.725, -25.19), 'ZEC@33': (-3.806, -26.95)} | beats baseline 2024+ mean in 0/4 cells
+2024+ xZEC@14 mean over all 96 configs: median 0.20, baseline 0.12, share beating baseline 0.53
+hn_xs_m24 pre {'8p@14': (-0.092, -8.92), '8p@33': (-0.929, -9.52), 'ZEC@14': (0.386, -8.73), 'ZEC@33': (-0.419, -9.26)} 2024+ {'8p@14': (4.007, -9.39), '8p@33': (3.508, -9.78), 'ZEC@14': (2.639, -9.39), 'ZEC@33': (2.244, -9.78)}

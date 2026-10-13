@@ -13,4 +13,4 @@ for fee in (.0014, .0033):
     for drop in (None, 7):
         keep = [j for j in range(8) if j != drop]
         r = [run(op[:, keep], sig[:, keep], hs[keep], fee, a0, b0, daily=True, topk_exit=True)[-1]-1 for a0, b0, V in folds(H, sorted(set(M.tolist())))]
-        r = 100*np.array(r); y = np.array([V for _, _, V in folds(H, sorted(set(M.tolist())))]) >= 473352; print(fee, "xZEC" if drop else "8p", f"mean {r.mean():+.2f} worst {r.min():+.2f} since2024 {r[y].mean():+.2f} n {len(r)}")
+        r = 100*np.array(r); y = np.array([V for _, _, V in folds(H, sorted(set(M.tolist())))]) >= 473352; print(fee, "xZEC" if drop else "8p", f"mean {r.mean():+.2f} worst {r.min():+.2f} since2024 {r[y].mean():+.2f} n {len(r)} pre {r[~y].mean():+.3f} {r[~y].min():+.2f} post {r[y].mean():+.3f} {r[y].min():+.2f}")

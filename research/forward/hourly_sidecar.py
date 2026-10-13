@@ -2,7 +2,9 @@
 (scripts/rotation_hourly_inference.py); writes nothing.
   /api/trading-bot/rotation-signals         daily schema for the unchanged daily consumer: proxies availability/shape
                                             of the real endpoint and replaces rank_scores with the hourly EMA's 00:00 snapshot
-  /api/trading-bot/rotation-signals-hourly  current hourly ranks (cadence "hourly", issued every hour), 503 when stale"""
+  /api/trading-bot/rotation-signals-hourly  current hourly ranks (cadence "hourly", issued every hour), 503 when stale
+  /api/trading-bot/rotation-signals-ridge   hourly ridge edges (bitbankgo scripts/rotation_ridge_hourly.py) issued at h-1,
+                                            executable during hour h (the replayed 1h delay); for --threshold-policy consumers"""
 import argparse, json, time, urllib.request, urllib.error
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -40,6 +42,17 @@ def hourly_body(state, now):
                 warning='Rank scores are not expected returns or buy/sell orders. Paper A/B research signal.')
 
 
+def ridge_body(state, now):
+    hour = int(now//3600)
+    if state.get('schema') != 'rotation-ridge-forecast-state-v1' or state.get('live_enabled') is not False: raise ValueError('invalid ridge state')
+    hit = [i for i in state['issues'] if i['issued_hour'] == hour-1]
+    if not hit: raise ValueError('no ridge issue for the previous hour')
+    i = hit[0]
+    return dict(available=True, mode='research_rank_forecast', venue='POLONIEX', cadence='hourly', live_orders_enabled=False,
+                issued_at=iso(i['issued_hour']), execution_hour=iso(i['issued_hour']+1), rank_scores={p: float(v) for p, v in zip(state['pairs'], i['edges'])},
+                signal_variant='ridge_xs24_edge', warning='Predicted 24h cross-sectional excess returns, not orders. Paper A/B research signal.')
+
+
 def make_handler(a):
     class H(BaseHTTPRequestHandler):
         def log_message(self, *x): pass
@@ -51,6 +64,8 @@ def make_handler(a):
         def do_GET(self):
             path = self.path.split('?')[0]
             try:
+                if path == '/api/trading-bot/rotation-signals-ridge':
+                    return self.reply(200, ridge_body(load(a.ridge_state), time.time()))
                 if path == '/api/trading-bot/rotation-signals-hourly':
                     return self.reply(200, hourly_body(load(a.state), time.time()))
                 if path != '/api/trading-bot/rotation-signals': return self.send_error(404)
@@ -68,4 +83,5 @@ if __name__ == '__main__':
     p = argparse.ArgumentParser(); p.add_argument('--port', type=int, default=18748)
     p.add_argument('--upstream', default='http://127.0.0.1:8745/api/trading-bot/rotation-signals')
     p.add_argument('--state', default='/nvme0n1-disk/code/bitbankgo/data/rotation/hourly-state/forecast-hourly.json')
+    p.add_argument('--ridge-state', default='/nvme0n1-disk/code/bitbankgo/data/rotation/ridge/forecast-ridge.json')
     a = p.parse_args(); ThreadingHTTPServer(('127.0.0.1', a.port), make_handler(a)).serve_forever()

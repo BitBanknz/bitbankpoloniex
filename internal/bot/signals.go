@@ -19,11 +19,23 @@ type Prediction struct {
 	Issued    time.Time          `json:"issued_at"`
 	Execution time.Time          `json:"execution_hour"`
 	Ranks     map[string]float64 `json:"rank_scores"`
+	Cadence   string             `json:"cadence,omitempty"`
 }
+
+// Signal cadences. Daily is the legacy 00:00 UTC issue executed 01:00-02:00; hourly ranks are
+// issued every hour from completed bars and may execute in the issue hour or the next one.
+const (
+	CadenceDaily  = "daily"
+	CadenceHourly = "hourly"
+)
 
 var predClient = &http.Client{Timeout: 15 * time.Second, CheckRedirect: func(*http.Request, []*http.Request) error { return errors.New("prediction redirect refused") }}
 
 func FetchPrediction(ctx context.Context, endpoint string) (Prediction, error) {
+	return FetchPredictionCadence(ctx, endpoint, CadenceDaily)
+}
+
+func FetchPredictionCadence(ctx context.Context, endpoint, cadence string) (Prediction, error) {
 	var p Prediction
 	u, e := url.Parse(endpoint)
 	if e != nil || u.User != nil || (u.Scheme != "https" && !(u.Scheme == "http" && (u.Hostname() == "127.0.0.1" || u.Hostname() == "localhost"))) {
@@ -48,11 +60,27 @@ func FetchPrediction(ctx context.Context, endpoint string) (Prediction, error) {
 	if e = json.Unmarshal(raw, &p); e != nil {
 		return p, errors.New("invalid prediction JSON")
 	}
-	return p, p.Validate(time.Now())
+	return p, p.ValidateCadence(time.Now(), cadence)
 }
-func (p Prediction) Validate(now time.Time) error {
-	if !p.Available || p.Venue != "POLONIEX" || p.Mode != "research_rank_forecast" || len(p.Ranks) == 0 || p.Issued.Unix()%86400 != 0 || !p.Execution.Equal(p.Issued.Add(time.Hour)) || now.Before(p.Issued) || !now.Before(p.Execution.Add(time.Hour)) {
+func (p Prediction) Validate(now time.Time) error { return p.ValidateCadence(now, CadenceDaily) }
+
+// ValidateCadence accepts only ranks of the configured cadence: a daily consumer rejects hourly
+// issues (and vice versa), so a misrouted endpoint pauses entries instead of trading off-cadence.
+func (p Prediction) ValidateCadence(now time.Time, cadence string) error {
+	if !p.Available || p.Venue != "POLONIEX" || p.Mode != "research_rank_forecast" || len(p.Ranks) == 0 || now.Before(p.Issued) || !now.Before(p.Execution.Add(time.Hour)) {
 		return errors.New("stale or invalid BitBank ranks")
+	}
+	switch cadence {
+	case CadenceDaily:
+		if (p.Cadence != "" && p.Cadence != CadenceDaily) || p.Issued.Unix()%86400 != 0 || !p.Execution.Equal(p.Issued.Add(time.Hour)) {
+			return errors.New("stale or invalid BitBank ranks")
+		}
+	case CadenceHourly:
+		if p.Cadence != CadenceHourly || p.Issued.Unix()%3600 != 0 || !(p.Execution.Equal(p.Issued) || p.Execution.Equal(p.Issued.Add(time.Hour))) {
+			return errors.New("stale or invalid BitBank hourly ranks")
+		}
+	default:
+		return errors.New("unknown signal cadence")
 	}
 	for symbol, score := range p.Ranks {
 		if !strings.HasSuffix(symbol, "USDT") || strings.ContainsAny(symbol, "/ ._-?") || !finite(score) {

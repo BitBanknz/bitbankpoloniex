@@ -74,6 +74,9 @@ func (c Config) Validate() error {
 	if c.ThresholdPolicy && (!finite(c.EntryMin) || !finite(c.ExitBelow) || c.EntryMin <= c.ExitBelow || c.EntryMin > .5 || c.ExitBelow < -.5) {
 		return errors.New("threshold policy needs finite -0.5 <= exit-below < entry-min <= 0.5")
 	}
+	if c.ThresholdPolicy && (c.mirror() || c.ExperimentalFallback) {
+		return errors.New("threshold policy cannot be combined with mirror mode or the experimental fallback")
+	}
 	if c.CooldownHours < 0 || c.CooldownHours > 14*24 {
 		return errors.New("post-sale cooldown must be between 0 (legacy default) and 336 hours")
 	}
@@ -745,7 +748,9 @@ func (e *Engine) Cycle(ctx context.Context) error {
 			}
 			ready = !now.Before(prediction.Execution)
 			decisionHour = prediction.Execution
-		} else {
+		} else if !e.Config.ThresholdPolicy {
+			// Fallback forecasts are filtered at RoundTripCost and are not edges on the
+			// threshold scale; a threshold consumer pauses entries instead.
 			source = "go_boosted_fallback"
 			models := map[string]Model{}
 			if Load(filepath.Join(e.Config.StateDir, "models.json"), &models) == nil {

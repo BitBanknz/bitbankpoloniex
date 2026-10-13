@@ -78,6 +78,18 @@ func TestThresholdPolicyEntersAboveAndExitsBelow(t *testing.T) {
 	}
 }
 
+func TestThresholdPolicyExclusiveWithMirrorAndExperimental(t *testing.T) {
+	cfg := DefaultConfig()
+	cfg.ThresholdPolicy, cfg.EntryMin, cfg.ExitBelow, cfg.MirrorState = true, .005, -.005, "m.json"
+	if cfg.Validate() == nil {
+		t.Fatal("accepted threshold policy with mirror mode")
+	}
+	cfg.MirrorState, cfg.ExperimentalFallback = "", true
+	if cfg.Validate() == nil {
+		t.Fatal("accepted threshold policy with the experimental fallback")
+	}
+}
+
 func TestThresholdPolicyValidation(t *testing.T) {
 	for _, c := range [][2]float64{{.005, .005}, {-.01, 0}, {.6, 0}, {.01, -.6}} {
 		cfg := DefaultConfig()

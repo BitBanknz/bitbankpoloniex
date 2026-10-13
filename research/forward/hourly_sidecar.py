@@ -14,6 +14,14 @@ def load(path):
     with open(path) as f: return json.load(f)
 
 
+def vec(pairs, values):
+    """Pair -> finite float, refusing duplicate pairs or a length mismatch (zip would silently truncate)."""
+    if len(set(pairs)) != len(pairs) or len(values) != len(pairs) or not pairs: raise ValueError('malformed score vector')
+    out = {p: float(v) for p, v in zip(pairs, values)}
+    if not all(v == v and abs(v) != float('inf') for v in out.values()): raise ValueError('nonfinite score')
+    return out
+
+
 def iso(hour): return datetime.fromtimestamp(hour*3600, timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
 
 
@@ -25,7 +33,7 @@ def daily_body(upstream_json, state):
     if data.get('available') is not True: return data
     issued = hour_of(data['issued_at']); snap = [d for d in state['daily'] if d['issued_hour'] == issued]
     if not snap: raise ValueError('no hourly-EMA snapshot for this daily issue')
-    sm = dict(zip(state['pairs'], snap[0]['scores']))
+    sm = vec(state['pairs'], snap[0]['scores'])
     if set(sm) != set(data['rank_scores']): raise ValueError('pair mismatch')
     data['rank_scores'] = {k: float(sm[k]) for k in data['rank_scores']}
     data['signal_variant'] = 'hourly_ema_0.0178_daily_snapshot'
@@ -37,8 +45,8 @@ def hourly_body(state, now):
     if state.get('schema') != 'rotation-hourly-forecast-state-v1' or state.get('live_enabled') is not False or not hour-1 <= h <= hour:
         raise ValueError('stale hourly state')
     return dict(available=True, mode='research_rank_forecast', venue='POLONIEX', cadence='hourly', live_orders_enabled=False,
-                issued_at=iso(h), execution_hour=iso(h), rank_scores={p: float(v) for p, v in zip(state['pairs'], state['smoothed_scores'])},
-                raw_scores={p: float(v) for p, v in zip(state['pairs'], state['raw_scores'])}, observations=state['observations'],
+                issued_at=iso(h), execution_hour=iso(h), rank_scores=vec(state['pairs'], state['smoothed_scores']),
+                raw_scores=vec(state['pairs'], state['raw_scores']), observations=state['observations'],
                 warning='Rank scores are not expected returns or buy/sell orders. Paper A/B research signal.')
 
 
@@ -49,7 +57,7 @@ def ridge_body(state, now):
     if not hit: raise ValueError('no ridge issue for the previous hour')
     i = hit[0]
     return dict(available=True, mode='research_rank_forecast', venue='POLONIEX', cadence='hourly', live_orders_enabled=False,
-                issued_at=iso(i['issued_hour']), execution_hour=iso(i['issued_hour']+1), rank_scores={p: float(v) for p, v in zip(state['pairs'], i['edges'])},
+                issued_at=iso(i['issued_hour']), execution_hour=iso(i['issued_hour']+1), rank_scores=vec(state['pairs'], i['edges']),
                 signal_variant='ridge_xs24_edge', warning='Predicted 24h cross-sectional excess returns, not orders. Paper A/B research signal.')
 
 

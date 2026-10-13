@@ -25,6 +25,9 @@ class R(unittest.TestCase):
         r = ridge_body(st, 497760*3600+300); self.assertEqual(r['rank_scores'], {'AUSDT': .01, 'BUSDT': -.01})
         self.assertEqual((r['issued_at'], r['execution_hour']), ('2026-10-13T23:00:00Z', '2026-10-14T00:00:00Z'))
         with self.assertRaises(ValueError): ridge_body(st, 497762*3600)
+        bad = dict(st, issues=[dict(issued_hour=497759, edges=[.01])])
+        with self.assertRaises(ValueError): ridge_body(bad, 497760*3600+300)
+        with self.assertRaises(ValueError): hourly_body(dict(ST, smoothed_scores=[.1]), 497760*3600+600)
 
 
 if __name__ == '__main__': unittest.main()

@@ -15,7 +15,7 @@ The full-sample selection is therefore partly hindsight. Prior expectation for t
 
 ## Frozen configuration
 
-- **Signal:** bitbankgo `scripts/rotation_ridge_hourly.py` (commit 2010d54), run as
+- **Signal:** bitbankgo `scripts/rotation_ridge_hourly.py` (commit c74b83a), run as
   `data/rotation/runtime/rotation_ridge_hourly.py` by `bitbankgo-rotation-ridge.timer` at :02:45 UTC.
   - Recipe: ridge on the 38 causal hourly features; target = the 24h cross-sectional excess return; hourly origins
     expanding from 2023-06-01; refit automatically on the production 28-day grid (next 2026-10-21 00:00 UTC);
@@ -25,11 +25,11 @@ The full-sample selection is therefore partly hindsight. Prior expectation for t
     max diff 0.0 on 2 refit blocks).
 - **Endpoint:** `bitbankpoloniex-hema-signal` sidecar, `/api/trading-bot/rotation-signals-ridge`. During hour h it serves
   the issue from h−1, with execution at h: the 1h delay that was replayed.
-- **Consumer:** Go `bitbankpoloniex` feat/hourly-threshold-20261014 (0be3c1c), installed as `bin/bitbankpoloniex-hab-ridge`.
+- **Consumer:** Go `bitbankpoloniex` feat/hourly-threshold-20261014 (268bd93, binary sha256 2a2cfd2f0715d5a5… = Mojo oracle bbp_prod), installed as `bin/bitbankpoloniex-hab-ridge`.
   - Arguments: `--mode paper --state data/paper-hab-ridge --budget 495 --max-order 49 --slots 3 --cooldown-hours 120 --slot-top-up
     --cash-reserve 0.4 --halt-peak-dd 0.25 --halt-daily-loss 0.08 --fee-rate 0.0014 --min-exit-usdt 24.5 --exit-ramp-minutes 20
     --signal-cadence hourly --threshold-policy --entry-min 0.005 --exit-below -0.005 --min-hold-hours 24`.
-  - The Mojo port (bitbankpoloniexmojo 6927947) has the same flags. Parity is 300/300 on hourly/threshold scenarios
+  - The Mojo port (bitbankpoloniexmojo 336de81) has the same flags. Parity is 300/300 on hourly/threshold scenarios
     and every other scenario kind passes.
 - **Control:** `bitbankpoloniex-paper-hab-control` (production daily ranks, live profile), running since 2026-10-13 12:49Z.
   The ridge arm starts later with a fresh 495 USDT ledger. Comparisons use the hours both arms have marked.
@@ -49,7 +49,7 @@ close plus cumulative ZEC cash flows.
 ## Live route if a rule is met (authorized by the coordinator; operator steps)
 
 The live unit runs the Mojo binary through a drop-in (`bbp-5f20710`). Steps:
-1. Build and pin the Mojo binary of 6927947 (or its successor with identical engine code). Verify the parity suite and
+1. Build and pin the Mojo binary of 336de81 (or its successor with identical engine code). Verify the parity suite and
    `scripts/remote_shadow.sh` against live state.
 2. Check that the live state has no pending intent and no open orders. Stop `bitbankpoloniex-live`. Back up `data/live` and
    the drop-in.
@@ -60,3 +60,5 @@ The live unit runs the Mojo binary through a drop-in (`bbp-5f20710`). Steps:
 
 Rollback: stop the unit; check there is no pending intent; restore the previous drop-in (bbp-5f20710, daily ranks on 8745);
 daemon-reload; start. Keep the current `data/live` and never restore an old ledger.
+
+Codex review (gpt-6.1-sol) of the Go/Mojo/bitbankgo/sidecar diffs found 4 P2 issues, all fixed before start: threshold consumers no longer use boosted fallback forecasts and reject mirror/experimental; Mojo decodes repeated case-folded `cadence` keys like encoding/json; the ridge job refuses incomplete candle extensions; the sidecar refuses malformed score vectors.

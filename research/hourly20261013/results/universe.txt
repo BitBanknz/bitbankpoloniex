@@ -1,0 +1,35 @@
+rule: 2023-06-01..2024-05-31 finite>=99%, nonzero-volume>=95%, median hourly quote vol>=$20k, top 24 by median
+BTC    finite_y1=0.9998 nonzero=0.996 med_hourly_qv=   3581673 finite_all=0.9999 SELECTED
+ETH    finite_y1=1.0000 nonzero=0.998 med_hourly_qv=   1726049 finite_all=1.0000 SELECTED
+ADA    finite_y1=0.9998 nonzero=0.998 med_hourly_qv=    533123 finite_all=0.9999 SELECTED
+DOGE   finite_y1=0.9998 nonzero=0.998 med_hourly_qv=    513843 finite_all=0.9999 SELECTED
+SHIB   finite_y1=0.9998 nonzero=0.993 med_hourly_qv=    512632 finite_all=0.9999 SELECTED
+POL    finite_y1=0.9998 nonzero=0.994 med_hourly_qv=    498634 finite_all=0.9999 SELECTED
+XRP    finite_y1=1.0000 nonzero=0.998 med_hourly_qv=    436013 finite_all=1.0000 SELECTED
+LTC    finite_y1=0.9998 nonzero=0.998 med_hourly_qv=    370721 finite_all=0.9999 SELECTED
+OP     finite_y1=0.9998 nonzero=0.987 med_hourly_qv=    339811 finite_all=0.9999 SELECTED
+TRX    finite_y1=1.0000 nonzero=0.997 med_hourly_qv=    327234 finite_all=1.0000 SELECTED
+BCH    finite_y1=0.9998 nonzero=0.998 med_hourly_qv=    306918 finite_all=0.9999 SELECTED
+ARB    finite_y1=0.9998 nonzero=0.843 med_hourly_qv=    278228 finite_all=0.9999 
+LINK   finite_y1=0.9998 nonzero=0.993 med_hourly_qv=    278186 finite_all=0.9999 SELECTED
+SOL    finite_y1=0.9998 nonzero=0.998 med_hourly_qv=    267640 finite_all=0.9999 SELECTED
+NEAR   finite_y1=0.9998 nonzero=0.991 med_hourly_qv=    264353 finite_all=0.9999 SELECTED
+UNI    finite_y1=0.9998 nonzero=0.991 med_hourly_qv=    254813 finite_all=0.9999 SELECTED
+BNB    finite_y1=1.0000 nonzero=0.998 med_hourly_qv=    245374 finite_all=1.0000 SELECTED
+ZEC    finite_y1=1.0000 nonzero=0.993 med_hourly_qv=    241102 finite_all=1.0000 SELECTED
+DOT    finite_y1=0.9998 nonzero=0.998 med_hourly_qv=    232029 finite_all=0.9999 SELECTED
+APT    finite_y1=0.9998 nonzero=0.848 med_hourly_qv=    227221 finite_all=0.9999 
+WLD    finite_y1=0.8537 nonzero=0.845 med_hourly_qv=    221353 finite_all=0.9563 
+ATOM   finite_y1=0.9998 nonzero=0.998 med_hourly_qv=    220811 finite_all=0.9999 SELECTED
+AVAX   finite_y1=0.9998 nonzero=0.998 med_hourly_qv=    220485 finite_all=0.9999 SELECTED
+AAVE   finite_y1=0.9998 nonzero=0.992 med_hourly_qv=    212171 finite_all=0.9999 SELECTED
+ETC    finite_y1=1.0000 nonzero=0.972 med_hourly_qv=    196150 finite_all=1.0000 SELECTED
+XMR    finite_y1=0.9998 nonzero=0.998 med_hourly_qv=    193948 finite_all=0.9999 SELECTED
+ICP    finite_y1=0.9998 nonzero=0.850 med_hourly_qv=    153155 finite_all=0.9999 
+FIL    finite_y1=0.9998 nonzero=0.925 med_hourly_qv=    148901 finite_all=0.9999 
+SUI    finite_y1=1.0000 nonzero=0.986 med_hourly_qv=     26431 finite_all=1.0000 SELECTED
+PEPE   finite_y1=1.0000 nonzero=0.788 med_hourly_qv=        83 finite_all=1.0000 
+XLM    finite_y1=0.9998 nonzero=0.638 med_hourly_qv=         5 finite_all=0.9999 
+DASH   finite_y1=0.9998 nonzero=0.576 med_hourly_qv=         4 finite_all=0.9999 
+TON    finite_y1=0.0000 nonzero=0.000 med_hourly_qv=         0 finite_all=0.0127 
+U+ = BTC ETH ADA DOGE SHIB POL XRP LTC OP TRX BCH LINK SOL NEAR UNI BNB ZEC DOT ATOM AVAX AAVE ETC XMR SUI 24

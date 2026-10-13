@@ -29,6 +29,18 @@ def main():
         if name == 'engine.go':
             # research-only hooks, inert at defaults: keep-set = top researchExitRank; exit only after the holding has been
             # outside the keep-set on every ready decision for researchExitConfirm (debounce of hourly rank flips)
+            # hourly-native thresholds (inert unless researchThresh): entries = every name with score >= researchEntryMin, best first,
+            # until slots are full; exits after min hold when the score falls below researchExitBelow
+            text = sub(text, 'ranked := Targets(scores, markets, e.Config.Slots)', '''ranked := Targets(scores, markets, e.Config.Slots)
+	if researchThresh {
+		eligible := map[string]float64{}
+		for symbol, v := range scores {
+			if v >= researchEntryMin {
+				eligible[symbol] = v
+			}
+		}
+		ranked = Targets(eligible, markets, len(markets))
+	}''')
             text = sub(text, '''	for _, symbol := range ranked {
 		desired[symbol] = true
 	}
@@ -36,6 +48,14 @@ def main():
 		desired[symbol] = true
 	}
 	keep := desired
+	if researchThresh {
+		keep = map[string]bool{}
+		for symbol, v := range scores {
+			if v >= researchExitBelow {
+				keep[symbol] = true
+			}
+		}
+	}
 	if researchExitRank > e.Config.Slots {
 		keep = map[string]bool{}
 		for _, symbol := range Targets(scores, markets, researchExitRank) {
@@ -58,6 +78,8 @@ def main():
 var researchExitRank = 0
 var researchExitConfirm time.Duration
 var researchOutside = map[string]time.Time{}
+var researchThresh = false
+var researchEntryMin, researchExitBelow float64
 
 func researchOutsideSince(symbol string, now time.Time) time.Time {
 	if t, ok := researchOutside[symbol]; ok {

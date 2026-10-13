@@ -13,6 +13,9 @@ STAGES = {
            'd_chr': ('d_m0c', {}), 'h_chr': ('m0c_ema00178', HOURLY),
            'h_ema_cf24': ('m0_ema00178', {**HOURLY, 'ExitConfirmH': 24}), 'h_anch_cf24': ('m0_anchored', {**HOURLY, 'ExitConfirmH': 24})},
     's3': {'h_stale': ('h_stale', HOURLY)},
+    'hn1': {'hn_xs_m24': ('u8_xs24_ridge', {**HOURLY, 'Thresh': True, 'EntryMin': .005, 'ExitBelow': -.005, 'MinHoldH': 24}),
+            'hn_xs_m72': ('u8_xs24_ridge', {**HOURLY, 'Thresh': True, 'EntryMin': .005, 'ExitBelow': 0., 'MinHoldH': 72}),
+            'hn_abs_m72': ('u8_abs24_ridge', {**HOURLY, 'Thresh': True, 'EntryMin': .005, 'ExitBelow': 0., 'MinHoldH': 72})},
 }
 
 

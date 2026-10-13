@@ -29,7 +29,7 @@ import (
 
 type fdHour struct { TS int64; Open, PriorTurnover, Volume24 []float64 }
 type fdFixture struct { Pairs []string; Hours []fdHour; Ranks map[string][]float64; Folds [][2]int; Cadence string }
-type fdConfig struct { Slots, Cooldown, WindowCycles, MinHoldH, ExitRamp, FollowCycles, HourCycles, Delay, MaxOrdersDay, ExitRank, ExitConfirmH int; Cadence string; Reserve, HaltPeak, HaltDaily float64; TopUp bool; Budget, MaxOrder, MinExit, Book string; BookSeed uint64; Fees []float64 }
+type fdConfig struct { Slots, Cooldown, WindowCycles, MinHoldH, ExitRamp, FollowCycles, HourCycles, Delay, MaxOrdersDay, ExitRank, ExitConfirmH int; Thresh bool; EntryMin, ExitBelow float64; Cadence string; Reserve, HaltPeak, HaltDaily float64; TopUp bool; Budget, MaxOrder, MinExit, Book string; BookSeed uint64; Fees []float64 }
 type fdSnap struct { TS int64 `json:"ts"`; B, A [][2]float64 }
 var replayClock atomic.Int64
 func replayNow() time.Time { return time.Unix(replayClock.Load(),0).UTC() }
@@ -106,7 +106,7 @@ func TestHourlyKFoldReplay(t *testing.T) {
    a,b:=fold[0],fold[1]
    cfg:=DefaultConfig();cfg.SlotTopUp=c.TopUp;cfg.CashReserve=c.Reserve;cfg.HaltPeakDD=c.HaltPeak;cfg.HaltDailyLoss=c.HaltDaily;cfg.Slots=c.Slots;cfg.CooldownHours=c.Cooldown;cfg.MinHoldHours=c.MinHoldH
    cfg.Budget=decimal.RequireFromString(c.Budget);cfg.MaxOrder=decimal.RequireFromString(c.MaxOrder);cfg.StateDir=t.TempDir();cfg.PredictionURL=srvURL+"/prediction";cfg.FeeRate=decimal.NewFromFloat(fee)
-   cfg.MinExitUSDT=decimal.RequireFromString(c.MinExit);cfg.ExitRampMinutes=c.ExitRamp;cfg.SignalCadence=c.Cadence;if c.MaxOrdersDay>0 {cfg.MaxOrdersDay=c.MaxOrdersDay};researchExitRank=c.ExitRank;researchExitConfirm=time.Duration(c.ExitConfirmH)*time.Hour;researchOutside=map[string]time.Time{}
+   cfg.MinExitUSDT=decimal.RequireFromString(c.MinExit);cfg.ExitRampMinutes=c.ExitRamp;cfg.SignalCadence=c.Cadence;if c.MaxOrdersDay>0 {cfg.MaxOrdersDay=c.MaxOrdersDay};researchExitRank=c.ExitRank;researchExitConfirm=time.Duration(c.ExitConfirmH)*time.Hour;researchOutside=map[string]time.Time{};researchThresh=c.Thresh;researchEntryMin=c.EntryMin;researchExitBelow=c.ExitBelow
    client:=NewClient("","");client.BaseURL=srvURL;client.HTTP.Transport=fdTransport{handler};e:=&Engine{Client:client,Config:cfg}
    replayClock.Store(f.Hours[a].TS+45);if err:=e.Initialize();err!=nil {t.Fatal(err)}
    paused,halts,follows:=0,0,0

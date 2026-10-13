@@ -29,7 +29,7 @@ The full-sample selection is therefore partly hindsight. Prior expectation for t
   - Arguments: `--mode paper --state data/paper-hab-ridge --budget 495 --max-order 49 --slots 3 --cooldown-hours 120 --slot-top-up
     --cash-reserve 0.4 --halt-peak-dd 0.25 --halt-daily-loss 0.08 --fee-rate 0.0014 --min-exit-usdt 24.5 --exit-ramp-minutes 20
     --signal-cadence hourly --threshold-policy --entry-min 0.005 --exit-below -0.005 --min-hold-hours 24`.
-  - The Mojo port (bitbankpoloniexmojo 336de81) has the same flags. Parity is 300/300 on hourly/threshold scenarios
+  - The Mojo port (bitbankpoloniexmojo 336de81) has the same flags. Parity is 400/400 on hourly/threshold scenarios
     and every other scenario kind passes.
 - **Control:** `bitbankpoloniex-paper-hab-control` (production daily ranks, live profile), running since 2026-10-13 12:49Z.
   The ridge arm starts later with a fresh 495 USDT ledger. Comparisons use the hours both arms have marked.

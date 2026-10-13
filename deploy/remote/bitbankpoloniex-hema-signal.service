@@ -1,0 +1,19 @@
+[Unit]
+Description=Paper-only rank-signal sidecar (hourly-EMA ranks: daily snapshot + always-current hourly endpoint; read-only on bitbankgo hourly state)
+After=network-online.target bitbankgo.service
+
+[Service]
+Type=simple
+User=administrator
+Group=administrator
+WorkingDirectory=/nvme0n1-disk/code/bitbank-poloniex
+ExecStart=/usr/bin/python3 /nvme0n1-disk/code/bitbank-poloniex/bin/hourly_sidecar.py --port 18748
+Restart=on-failure
+RestartSec=30
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+
+[Install]
+WantedBy=multi-user.target

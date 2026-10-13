@@ -1,0 +1,64 @@
+## m0
+horizon 72h, n=27813 hours, pairs=8
+  daily_ema35    IC +0.0549 (t +2.51)  top3x  +21.2bp  top3 changes/day 0.27
+  anchored       IC +0.0564 (t +2.60)  top3x  +27.2bp  top3 changes/day 3.36
+  raw_hourly     IC +0.0586 (t +2.71)  top3x  +29.5bp  top3 changes/day 7.43
+  ema_h0.0178    IC +0.0620 (t +2.84)  top3x  +29.5bp  top3 changes/day 0.31
+  ema_h0.05      IC +0.0620 (t +2.85)  top3x  +27.3bp  top3 changes/day 0.67
+  ema_h0.1       IC +0.0615 (t +2.82)  top3x  +29.0bp  top3 changes/day 1.10
+  ema_h0.25      IC +0.0609 (t +2.80)  top3x  +30.8bp  top3 changes/day 2.21
+  daily_ema35    IC +0.0545 (t +2.24)  top3x   +2.7bp  top3 changes/day 0.29
+  anchored       IC +0.0534 (t +2.20)  top3x   +6.1bp  top3 changes/day 3.56
+  raw_hourly     IC +0.0503 (t +2.10)  top3x   +3.4bp  top3 changes/day 7.73
+  ema_h0.0178    IC +0.0582 (t +2.38)  top3x   +7.5bp  top3 changes/day 0.32
+  ema_h0.05      IC +0.0541 (t +2.24)  top3x   +1.4bp  top3 changes/day 0.71
+  ema_h0.1       IC +0.0534 (t +2.20)  top3x   +4.4bp  top3 changes/day 1.08
+  ema_h0.25      IC +0.0523 (t +2.17)  top3x   +5.1bp  top3 changes/day 2.26
+## m1
+horizon 72h, n=27813 hours, pairs=8
+  daily_ema35    IC +0.0447 (t +2.05)  top3x   +1.3bp  top3 changes/day 0.26
+  anchored       IC +0.0493 (t +2.26)  top3x   +4.8bp  top3 changes/day 1.84
+  raw_hourly     IC +0.0494 (t +2.26)  top3x   -0.9bp  top3 changes/day 3.64
+  ema_h0.0178    IC +0.0467 (t +2.13)  top3x   +3.5bp  top3 changes/day 0.27
+  ema_h0.05      IC +0.0493 (t +2.24)  top3x   +4.8bp  top3 changes/day 0.55
+  ema_h0.1       IC +0.0500 (t +2.28)  top3x   +3.1bp  top3 changes/day 0.83
+  ema_h0.25      IC +0.0507 (t +2.32)  top3x   -1.1bp  top3 changes/day 1.43
+  daily_ema35    IC +0.0488 (t +2.00)  top3x  -15.9bp  top3 changes/day 0.25
+  anchored       IC +0.0517 (t +2.12)  top3x  -12.0bp  top3 changes/day 1.82
+  raw_hourly     IC +0.0509 (t +2.10)  top3x  -13.4bp  top3 changes/day 3.69
+  ema_h0.0178    IC +0.0499 (t +2.04)  top3x  -11.4bp  top3 changes/day 0.28
+  ema_h0.05      IC +0.0510 (t +2.09)  top3x  -13.3bp  top3 changes/day 0.56
+  ema_h0.1       IC +0.0506 (t +2.08)  top3x  -14.6bp  top3 changes/day 0.86
+  ema_h0.25      IC +0.0516 (t +2.13)  top3x  -14.6bp  top3 changes/day 1.47
+## m1b
+horizon 72h, n=27813 hours, pairs=8
+  daily_ema35    IC +0.0523 (t +2.38)  top3x   +6.8bp  top3 changes/day 0.25
+  anchored       IC +0.0569 (t +2.61)  top3x   +8.2bp  top3 changes/day 1.73
+  raw_hourly     IC +0.0575 (t +2.63)  top3x   +3.0bp  top3 changes/day 3.76
+  ema_h0.0178    IC +0.0564 (t +2.57)  top3x   +3.9bp  top3 changes/day 0.26
+  ema_h0.05      IC +0.0568 (t +2.60)  top3x   +7.0bp  top3 changes/day 0.53
+  ema_h0.1       IC +0.0571 (t +2.60)  top3x   +5.5bp  top3 changes/day 0.83
+  ema_h0.25      IC +0.0573 (t +2.62)  top3x   +3.1bp  top3 changes/day 1.48
+  daily_ema35    IC +0.0567 (t +2.30)  top3x  -10.3bp  top3 changes/day 0.25
+  anchored       IC +0.0595 (t +2.43)  top3x   -8.7bp  top3 changes/day 1.71
+  raw_hourly     IC +0.0578 (t +2.37)  top3x  -11.3bp  top3 changes/day 3.83
+  ema_h0.0178    IC +0.0593 (t +2.41)  top3x  -10.9bp  top3 changes/day 0.27
+  ema_h0.05      IC +0.0572 (t +2.33)  top3x  -11.3bp  top3 changes/day 0.55
+  ema_h0.1       IC +0.0574 (t +2.34)  top3x  -12.9bp  top3 changes/day 0.87
+  ema_h0.25      IC +0.0576 (t +2.36)  top3x  -12.0bp  top3 changes/day 1.52
+## m0c
+horizon 72h, n=27141 hours, pairs=8
+  daily_ema35    IC +0.0648 (t +2.86)  top3x   +9.9bp  top3 changes/day 0.26
+  anchored       IC +0.0667 (t +2.95)  top3x  +11.8bp  top3 changes/day 3.17
+  raw_hourly     IC +0.0694 (t +3.13)  top3x  +25.1bp  top3 changes/day 7.02
+  ema_h0.0178    IC +0.0676 (t +2.97)  top3x  +13.7bp  top3 changes/day 0.27
+  ema_h0.05      IC +0.0758 (t +3.35)  top3x  +21.6bp  top3 changes/day 0.64
+  ema_h0.1       IC +0.0761 (t +3.39)  top3x  +25.5bp  top3 changes/day 1.09
+  ema_h0.25      IC +0.0726 (t +3.25)  top3x  +26.8bp  top3 changes/day 2.12
+  daily_ema35    IC +0.0693 (t +2.77)  top3x  -13.3bp  top3 changes/day 0.25
+  anchored       IC +0.0713 (t +2.84)  top3x   -9.8bp  top3 changes/day 3.19
+  raw_hourly     IC +0.0665 (t +2.72)  top3x   -3.0bp  top3 changes/day 7.02
+  ema_h0.0178    IC +0.0712 (t +2.81)  top3x  -11.1bp  top3 changes/day 0.25
+  ema_h0.05      IC +0.0742 (t +2.95)  top3x   -6.6bp  top3 changes/day 0.60
+  ema_h0.1       IC +0.0732 (t +2.93)  top3x   -3.0bp  top3 changes/day 1.05
+  ema_h0.25      IC +0.0691 (t +2.79)  top3x   -3.1bp  top3 changes/day 2.07

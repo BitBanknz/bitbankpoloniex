@@ -43,6 +43,7 @@ type Config struct {
 	TrailArmStop         float64
 	MinExitUSDT          decimal.Decimal // sells below this notional are raised to it (or the whole holding); IOC still caps fills at the in-band book (0 off)
 	ExitRampMinutes      int             // latch triggered stops and keep working them every cycle, widening band/participation over this many minutes (0 off)
+	SignalCadence        string          // "daily" (legacy, also "") or "hourly" BitBank rank issues
 }
 
 func DefaultConfig() Config {
@@ -54,7 +55,17 @@ func DefaultConfig() Config {
 // Paper fills already pay the visible spread because they price at the touch.
 const MeasuredFeeRate = .0014
 
+func (c Config) cadence() string {
+	if c.SignalCadence == "" {
+		return CadenceDaily
+	}
+	return c.SignalCadence
+}
+
 func (c Config) Validate() error {
+	if c := c.cadence(); c != CadenceDaily && c != CadenceHourly {
+		return errors.New("signal cadence must be daily or hourly")
+	}
 	if c.CooldownHours < 0 || c.CooldownHours > 14*24 {
 		return errors.New("post-sale cooldown must be between 0 (legacy default) and 336 hours")
 	}
@@ -675,7 +686,7 @@ func (e *Engine) Cycle(ctx context.Context) error {
 		if e.Config.mirror() {
 			mirrorWeights, predErr = LoadMirror(e.Config.MirrorState, now, e.Config.mirrorMaxAge(), .02)
 		} else {
-			prediction, predErr = FetchPrediction(ctx, e.Config.PredictionURL)
+			prediction, predErr = FetchPredictionCadence(ctx, e.Config.PredictionURL, e.Config.cadence())
 		}
 	}
 	scores := map[string]float64{}

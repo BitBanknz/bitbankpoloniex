@@ -51,6 +51,7 @@ func run() error {
 	feeRate := flag.Float64("fee-rate", bot.MeasuredFeeRate, "simulated fee per side for paper fills and order sizing (live pays the exchange fee; 0.0014 = measured TRX-discounted taker)")
 	minExit := flag.String("min-exit-usdt", "0", "raise every sell below this notional to it (or the whole holding); IOC limit still fills only what the book has (0 off)")
 	exitRamp := flag.Int("exit-ramp-minutes", 0, "latch triggered stops and re-send them every cycle, widening the limit band to 1% and participation to 100% over this many minutes (0 off)")
+	cadence := flag.String("signal-cadence", bot.CadenceDaily, "BitBank rank cadence: daily (00:00 issue, 01:00 execution) or hourly")
 	maxOrdersDay := flag.Int("max-orders-day", cfg.MaxOrdersDay, "daily order cap (1-50)")
 	symbol := flag.String("symbol", "ETH_USDT", "market for funding plan")
 	funding := flag.String("funding", "convert", "convert or margin for read-only plan")
@@ -82,6 +83,7 @@ func run() error {
 	cfg.MirrorMaxAge = *mirrorMaxAge
 	cfg.MirrorStop = *mirrorStop
 	cfg.MaxOrdersDay = *maxOrdersDay
+	cfg.SignalCadence = *cadence
 	cfg.FeeRate = decimal.NewFromFloat(*feeRate)
 	cfg.ExitRampMinutes = *exitRamp
 	cfg.MinExitUSDT, err = decimal.NewFromString(*minExit)
@@ -178,7 +180,7 @@ func run() error {
 		if err != nil {
 			return err
 		}
-		p, pe := bot.FetchPrediction(ctx, cfg.PredictionURL)
+		p, pe := bot.FetchPredictionCadence(ctx, cfg.PredictionURL, cfg.SignalCadence)
 		covered := []string{}
 		if pe == nil {
 			covered = bot.Targets(p.Scores(), markets, len(markets))

@@ -113,7 +113,7 @@ func TestSpikeKFoldReplay(t *testing.T) {
    replayClock.Store(f.Hours[a].TS+45);if err:=e.Initialize();err!=nil {t.Fatal(err)}
    paused,halts,follows:=0,0,0
    run:=func(k,cy int) {replayClock.Store(f.Hours[k].TS+45+int64(cy)*60)
-    if err:=e.Cycle(context.Background());err!=nil {if errors.Is(err,ErrEntriesPaused) || strings.Contains(err.Error(),"held books unavailable"){paused++} else if strings.Contains(err.Error(),"ledger halted:"){halts++} else {t.Fatalf("hour=%d: %v",k,err)}}}
+    if err:=e.Cycle(context.Background());err!=nil {if errors.Is(err,ErrEntriesPaused) || strings.Contains(err.Error(),"held books unavailable") || strings.Contains(err.Error(),"no liquid markets"){paused++} else if strings.Contains(err.Error(),"ledger halted:"){halts++} else {t.Fatalf("hour=%d: %v",k,err)}}}
    latched:=func(k int) bool {s,err:=e.read();if err!=nil {t.Fatal(err)}
     for sym,p:=range s.Holdings {if p.Exiting!="" {return true};pk,_:=p.Peak.Float64();if pk*.9>=f.Hours[k].Open[lookup[sym]] {return true}};return false}
    spikes:=0

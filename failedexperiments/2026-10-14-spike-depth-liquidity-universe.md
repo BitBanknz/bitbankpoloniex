@@ -57,7 +57,7 @@ About half of the incumbent's 8-pair edge over ex-ZEC depends on ZEC fills that 
 |---|---|---|---|
 | drop SUI+PEPE (widest spreads) | +0.04 (70/126) | −0.02 | under ×0.1 depth −0.14 ex-ZEC |
 | 24h volume floor 3M | −1.27 | −0.60 | |
-| 24h volume floor 8M | worse | | |
+| 24h volume floor 8M | −0.86 (t −1.4) | −0.59 | idle in thin 2023 (treated as pause) |
 
 ## 4. Universe as a searched parameter: mopt (lee101/mojo-optuna 7f5c939), daisy
 

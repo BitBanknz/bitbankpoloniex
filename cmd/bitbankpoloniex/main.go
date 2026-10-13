@@ -234,24 +234,33 @@ func run() error {
 }
 
 // runLoop repeats cycle on every tick. Paused entries (no usable signal) are a
-// normal state most of the day and never open the circuit; only five
-// consecutive real failures do.
+// normal state most of the day and never open the circuit; neither do held
+// books that the exchange serves stale or not at all (the cycle completed with
+// protective exits checked and entries paused; exiting would stop protection of
+// every other holding). Only five consecutive real failures open it.
 func runLoop(ctx context.Context, cycle func(context.Context) error, tick <-chan time.Time) error {
-	failures, paused := 0, 0
+	failures, paused, degraded := 0, 0, 0
 	for {
+		var books bot.BooksUnavailableError
 		switch err := cycle(ctx); {
 		case err == nil:
-			failures, paused = 0, 0
+			failures, paused, degraded = 0, 0, 0
 			log.Print("cycle complete")
 		case errors.Is(err, bot.ErrEntriesPaused):
-			failures = 0
+			failures, degraded = 0, 0
 			if paused%60 == 0 {
 				log.Printf("cycle paused: %v", err)
 			}
 			paused++
+		case errors.As(err, &books):
+			failures, paused = 0, 0
+			if degraded%15 == 0 {
+				log.Printf("cycle degraded (%d): %v", degraded+1, err)
+			}
+			degraded++
 		default:
 			failures++
-			paused = 0
+			paused, degraded = 0, 0
 			log.Printf("cycle blocked (%d): %v", failures, err)
 		}
 		if failures >= 5 {

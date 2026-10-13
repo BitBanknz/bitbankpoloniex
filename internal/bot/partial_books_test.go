@@ -3,6 +3,7 @@ package bot
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"net/http"
 	"net/http/httptest"
 	"reflect"
@@ -57,6 +58,10 @@ func TestUnavailableHoldingBookDoesNotDisableOtherProtectiveStop(t *testing.T) {
 	err = e.Cycle(context.Background())
 	if err == nil || !strings.Contains(err.Error(), "AAA_USDT") {
 		t.Fatalf("missing explicit degraded-market result: %v", err)
+	}
+	var unavailable BooksUnavailableError
+	if !errors.As(err, &unavailable) || len(unavailable.Symbols) != 1 || unavailable.Symbols[0] != "AAA_USDT" {
+		t.Fatalf("degraded-market result is not typed for the run loop: %v", err)
 	}
 	after, err := e.read()
 	if err != nil {

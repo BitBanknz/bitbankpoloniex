@@ -48,3 +48,21 @@ func TestRunLoopRealFailuresOpenCircuit(t *testing.T) {
 		t.Fatalf("success should reset failures: %v", err)
 	}
 }
+
+func TestRunLoopUnavailableHeldBooksNeverOpenCircuit(t *testing.T) {
+	books := bot.BooksUnavailableError{Symbols: []string{"SAND_USDT"}}
+	errs := make([]error, 100)
+	for i := range errs {
+		errs[i] = books
+	}
+	if err := drive(errs); err != nil {
+		t.Fatalf("stale held books opened the circuit: %v", err)
+	}
+	boom := errors.New("boom")
+	if err := drive([]error{boom, boom, boom, boom, books, boom, boom, boom, boom}); err != nil {
+		t.Fatalf("degraded completed cycle should reset failures: %v", err)
+	}
+	if err := drive([]error{books, boom, boom, boom, boom, boom}); err == nil {
+		t.Fatal("real failures after a degraded cycle must still open the circuit")
+	}
+}

@@ -553,6 +553,17 @@ func (e *Engine) apply(s *State, o Order, qty, amount, fee decimal.Decimal) {
 // signal source was usable; stop checks still ran and state was saved.
 var ErrEntriesPaused = errors.New("BitBank unavailable and no accepted fallback; entries paused")
 
+// BooksUnavailableError reports a completed cycle in which some held markets had
+// no fresh book: those holdings could not be valued or protected this cycle, every
+// priced holding still had its protective exits checked, and entries were paused.
+// It is an exchange-side data condition, not a bot failure, so it must not open
+// the run-loop circuit (that would stop protection for every other holding).
+type BooksUnavailableError struct{ Symbols []string }
+
+func (e BooksUnavailableError) Error() string {
+	return fmt.Sprintf("held books unavailable (%s); entries paused; protective stops checked", strings.Join(e.Symbols, ","))
+}
+
 const riskHaltReason = "drawdown or daily loss limit; operator review required"
 
 func (e *Engine) Cycle(ctx context.Context) error {
@@ -894,7 +905,7 @@ func (e *Engine) Cycle(ctx context.Context) error {
 	}
 	if !fullyPriced {
 		sort.Strings(unavailableBooks)
-		return fmt.Errorf("held books unavailable (%s); entries paused; protective stops checked", strings.Join(unavailableBooks, ","))
+		return BooksUnavailableError{Symbols: unavailableBooks}
 	}
 	if riskHalted {
 		return fmt.Errorf("ledger halted: %s; protective stops checked", s.Halted)

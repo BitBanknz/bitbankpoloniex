@@ -194,7 +194,8 @@ type State struct {
 	LastCycle                         time.Time
 	LastSource                        string
 	Cooldown                          map[string]time.Time
-	Equity                            []EquityPoint `json:",omitempty"`
+	Equity                            []EquityPoint              `json:",omitempty"`
+	Dust                              map[string]decimal.Decimal `json:",omitempty"`
 }
 type EquityPoint struct {
 	At    time.Time
@@ -528,6 +529,11 @@ func (e *Engine) apply(s *State, o Order, qty, amount, fee decimal.Decimal) {
 		s.Cash = s.Cash.Sub(amount).Sub(fee)
 		p = e.Config.noteBuy(p, qty, amount)
 		p.Quantity = p.Quantity.Add(qty)
+		if d, ok := s.Dust[o.Symbol]; ok && qty.IsPositive() {
+			log.Printf("folding dust %s qty=%s into buy", o.Symbol, d)
+			p.Quantity = p.Quantity.Add(d)
+			delete(s.Dust, o.Symbol)
+		}
 		if p.Entered.IsZero() {
 			p.Entered = time.Now().UTC()
 			p.Peak = price
@@ -641,6 +647,10 @@ func (e *Engine) Cycle(ctx context.Context) error {
 			// A rounding residual below the market minimum can never be sold and
 			// must not occupy a rotation slot; it stays on the account untracked.
 			log.Printf("dropping dust holding %s qty=%s", symbol, p.Quantity)
+			if s.Dust == nil {
+				s.Dust = map[string]decimal.Decimal{}
+			}
+			s.Dust[symbol] = s.Dust[symbol].Add(p.Quantity)
 			delete(s.Holdings, symbol)
 			delete(books, symbol)
 			continue

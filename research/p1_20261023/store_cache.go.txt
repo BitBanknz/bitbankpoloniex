@@ -43,6 +43,8 @@ func canonDec(d decimal.Decimal) decimal.Decimal {
 			if v := r.value.Int64(); v%10 != 0 {
 				return d
 			}
+		} else if r.exp < 0 && mod10(r.value) != 0 {
+			return d
 		}
 	}
 	c, exp := d.Coefficient(), d.Exponent()
@@ -70,6 +72,19 @@ func canonDec(d decimal.Decimal) decimal.Decimal {
 		exp++
 	}
 	return decimal.NewFromBigInt(c, exp)
+}
+
+// mod10 of |x| without allocation: 2^64 = 6 (mod 10) and 6^k = 6 (mod 10) for k >= 1.
+func mod10(x *big.Int) uint64 {
+	w := x.Bits()
+	if len(w) == 0 {
+		return 0
+	}
+	s := uint64(0)
+	for _, v := range w[1:] {
+		s += uint64(v) % 10
+	}
+	return (uint64(w[0])%10 + 6*(s%10)) % 10
 }
 
 func canonDecP(d *decimal.Decimal) *decimal.Decimal {

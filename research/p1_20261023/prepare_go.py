@@ -139,7 +139,7 @@ func researchOutsideSince(symbol string, now time.Time) time.Time {
     st = bot/'store.go'; text = st.read_text()
     text = sub(text, 'func Save(path string, v any) error {\n', 'func Save(path string, v any) error {\n\tif cacheSave(path, v) {\n\t\treturn nil\n\t}\n')
     text = sub(text, 'func Load(path string, v any) error {\n', 'func Load(path string, v any) error {\n\tif ok, err := cacheLoad(path, v); ok {\n\t\treturn err\n\t}\n')
-    st.write_text(text); shutil.copy(HERE/'store_cache.go.txt', bot/'store_cache.go'); hashes['store_cache.go.txt'] = hashlib.sha256((HERE/'store_cache.go.txt').read_bytes()).hexdigest()
+    st.write_text(text); shutil.copy(HERE/'store_cache.go.txt', bot/'store_cache.go'); shutil.copy(HERE/'store_cache_test.go.txt', bot/'store_cache_test.go'); hashes['store_cache.go.txt'] = hashlib.sha256((HERE/'store_cache.go.txt').read_bytes()).hexdigest()
     t = HERE/'replay_test.go.txt'; shutil.copy(t, bot/'spike_replay_test.go')
     if a.no_hooks:
         rt = (bot/'spike_replay_test.go').read_text()

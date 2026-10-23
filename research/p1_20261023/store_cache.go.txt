@@ -1,0 +1,237 @@
+package bot
+
+// Research-only in-memory ledger store (P1 2026-10-23). Save of a State keeps a canonical deep copy equal to what
+// json.Unmarshal(json.MarshalIndent(s)) would produce: decimals as NewFromString(d.String()) (trailing fractional zeros
+// trimmed, positive exponents multiplied out), times as RFC3339Nano round trip (UTC for zero offset, monotonic dropped),
+// omitempty empty slices -> nil, unexported Order.fillable dropped. Load returns a fresh deep copy. Other files untouched.
+
+import (
+	"math/big"
+	"os"
+	"time"
+	"unsafe"
+
+	"github.com/shopspring/decimal"
+)
+
+var researchStateCache = os.Getenv("LK_STATECACHE") != "0"
+var stateStore = map[string]State{}
+
+var bigTen = big.NewInt(10)
+
+// decimalRep mirrors shopspring/decimal v1.4.0 Decimal{value *big.Int; exp int32} (layout asserted in init).
+type decimalRep struct {
+	value *big.Int
+	exp   int32
+}
+
+func init() {
+	d := decimal.New(-1234, -5)
+	r := (*decimalRep)(unsafe.Pointer(&d))
+	if unsafe.Sizeof(d) != unsafe.Sizeof(decimalRep{}) || r.exp != -5 || r.value.Int64() != -1234 {
+		panic("decimal layout changed")
+	}
+}
+
+func canonDec(d decimal.Decimal) decimal.Decimal {
+	if r := (*decimalRep)(unsafe.Pointer(&d)); r.value != nil {
+		// already canonical: integer with exp 0, or exp < 0 and coefficient not divisible by 10 (no allocation)
+		if r.exp == 0 {
+			return d
+		}
+		if r.exp < 0 && r.value.IsInt64() {
+			if v := r.value.Int64(); v%10 != 0 {
+				return d
+			}
+		}
+	}
+	c, exp := d.Coefficient(), d.Exponent()
+	if c.Sign() == 0 {
+		return decimal.New(0, 0)
+	}
+	if exp >= 0 {
+		return decimal.NewFromBigInt(new(big.Int).Mul(c, new(big.Int).Exp(bigTen, big.NewInt(int64(exp)), nil)), 0)
+	}
+	if c.IsInt64() {
+		v := c.Int64()
+		for exp < 0 && v%10 == 0 {
+			v /= 10
+			exp++
+		}
+		return decimal.New(v, exp)
+	}
+	q, r := new(big.Int), new(big.Int)
+	for exp < 0 {
+		q.QuoRem(c, bigTen, r)
+		if r.Sign() != 0 {
+			break
+		}
+		c, q = q, c
+		exp++
+	}
+	return decimal.NewFromBigInt(c, exp)
+}
+
+func canonDecP(d *decimal.Decimal) *decimal.Decimal {
+	if d == nil {
+		return nil
+	}
+	v := canonDec(*d)
+	return &v
+}
+
+func canonTime(t time.Time) time.Time {
+	_, off := t.Zone()
+	if off == 0 {
+		return t.UTC()
+	}
+	if lt := t.In(time.Local); func() bool { _, lo := lt.Zone(); return lo == off }() {
+		return lt
+	}
+	return t.In(time.FixedZone("", off))
+}
+
+func canonTimeP(t *time.Time) *time.Time {
+	if t == nil {
+		return nil
+	}
+	v := canonTime(*t)
+	return &v
+}
+
+func canonOrder(o Order) Order { o.fillable = decimal.Decimal{}; return o }
+
+func cloneState(s State) State {
+	o := s
+	o.Budget, o.Cash, o.HighWater, o.DayStart = canonDec(s.Budget), canonDec(s.Cash), canonDec(s.HighWater), canonDec(s.DayStart)
+	o.LastCycle = canonTime(s.LastCycle)
+	if s.Holdings != nil {
+		o.Holdings = make(map[string]Position, len(s.Holdings))
+		for k, p := range s.Holdings {
+			p.Quantity, p.Peak, p.Entered = canonDec(p.Quantity), canonDec(p.Peak), canonTime(p.Entered)
+			p.Entry, p.ExitSince = canonDecP(p.Entry), canonTimeP(p.ExitSince)
+			o.Holdings[k] = p
+		}
+	}
+	if s.Processed != nil {
+		o.Processed = make(map[string]bool, len(s.Processed))
+		for k, v := range s.Processed {
+			o.Processed[k] = v
+		}
+	}
+	if s.Cooldown != nil {
+		o.Cooldown = make(map[string]time.Time, len(s.Cooldown))
+		for k, v := range s.Cooldown {
+			o.Cooldown[k] = canonTime(v)
+		}
+	}
+	if s.Pending != nil {
+		p := *s.Pending
+		p.Order, p.Created, p.Fillable = canonOrder(p.Order), canonTime(p.Created), canonDecP(p.Fillable)
+		o.Pending = &p
+	}
+	if s.Fills != nil {
+		o.Fills = make([]Fill, len(s.Fills))
+		for i, f := range s.Fills {
+			if len(f.ExchangeTrades) == 0 {
+				f.ExchangeTrades = nil
+			} else {
+				f.ExchangeTrades = append([]Trade(nil), f.ExchangeTrades...)
+			}
+			f.Order, f.Quantity, f.Amount, f.Fee, f.At = canonOrder(f.Order), canonDec(f.Quantity), canonDec(f.Amount), canonDec(f.Fee), canonTime(f.At)
+			o.Fills[i] = f
+		}
+	}
+	if len(s.Equity) == 0 {
+		o.Equity = nil
+	} else {
+		o.Equity = make([]EquityPoint, len(s.Equity))
+		for i, p := range s.Equity {
+			o.Equity[i] = EquityPoint{At: canonTime(p.At), Value: canonDec(p.Value)}
+		}
+	}
+	return o
+}
+
+// copyState: deep copy of an already canonical State (Load path).
+func copyState(s State) State {
+	o := s
+	if s.Holdings != nil {
+		o.Holdings = make(map[string]Position, len(s.Holdings))
+		for k, p := range s.Holdings {
+			if p.Entry != nil {
+				v := *p.Entry
+				p.Entry = &v
+			}
+			if p.ExitSince != nil {
+				v := *p.ExitSince
+				p.ExitSince = &v
+			}
+			o.Holdings[k] = p
+		}
+	}
+	if s.Processed != nil {
+		o.Processed = make(map[string]bool, len(s.Processed))
+		for k, v := range s.Processed {
+			o.Processed[k] = v
+		}
+	}
+	if s.Cooldown != nil {
+		o.Cooldown = make(map[string]time.Time, len(s.Cooldown))
+		for k, v := range s.Cooldown {
+			o.Cooldown[k] = v
+		}
+	}
+	if s.Pending != nil {
+		p := *s.Pending
+		if p.Fillable != nil {
+			v := *p.Fillable
+			p.Fillable = &v
+		}
+		o.Pending = &p
+	}
+	if s.Fills != nil {
+		o.Fills = make([]Fill, len(s.Fills))
+		for i, f := range s.Fills {
+			if f.ExchangeTrades != nil {
+				f.ExchangeTrades = append([]Trade(nil), f.ExchangeTrades...)
+			}
+			o.Fills[i] = f
+		}
+	}
+	if s.Equity != nil {
+		o.Equity = append([]EquityPoint(nil), s.Equity...)
+	}
+	return o
+}
+
+func cacheSave(path string, v any) bool {
+	if !researchStateCache {
+		return false
+	}
+	switch st := v.(type) {
+	case State:
+		stateStore[path] = cloneState(st)
+	case *State:
+		stateStore[path] = cloneState(*st)
+	default:
+		return false
+	}
+	return true
+}
+
+func cacheLoad(path string, v any) (bool, error) {
+	if !researchStateCache {
+		return false, nil
+	}
+	p, ok := v.(*State)
+	if !ok {
+		return false, nil
+	}
+	st, ok := stateStore[path]
+	if !ok {
+		return false, nil
+	}
+	*p = copyState(st)
+	return true, nil
+}
